@@ -13,7 +13,7 @@ function ContactPage() {
       icon: <Phone className="w-8 h-8" />,
       title: "Call Anytime",
       detail: "+233 302 940 063",
-      subDetail: "Mon - Sat: 8am - 8pm",
+      subDetail: "Mon - Sat: 8am - 5pm",
       color: "bg-brand-green",
       href: "tel:+233302940063"
     },

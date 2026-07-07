@@ -13,8 +13,8 @@ const faqImages = [FiltrationImg, Packaging1Img, Packaging2Img, HeatingImg, Apia
 
 const faqs = [
   {
-    q: 'Is your honey 100% pure — no additives?',
-    a: 'Yes. We never add sugar, water, or preservatives. Every batch comes straight from our apiaries and goes through filtration only — nothing else is added before it reaches you.',
+    q: 'Is your honey 100% pure, no additives?',
+    a: 'Yes. We never add sugar, water, or preservatives. Every batch comes straight from our apiaries and goes through filtration only, nothing else is added before it reaches you.',
   },
   {
     q: 'Where does your honey come from?',

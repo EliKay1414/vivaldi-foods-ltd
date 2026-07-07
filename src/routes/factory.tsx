@@ -183,24 +183,24 @@ function FactoryPage() {
       </section>
 
       {/* Sanitary Certification Banner */}
-      <section className="py-16 md:py-20 bg-brand-brown text-white text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(#5B9F43_1px,transparent_1px)] bg-size-[16px_16px] opacity-10" />
+      <section className="py-16 md:py-20 bg-brand-cream text-brand-brown text-center relative overflow-hidden border-t border-brand-brown/10">
+        <div className="absolute inset-0 bg-[radial-gradient(#5B9F43_1px,transparent_1px)] bg-size-[16px_16px] opacity-5" />
         <div className="container-custom relative z-10 max-w-4xl">
           <span className="text-brand-green font-bold text-xs uppercase tracking-[0.3em] block mb-4">Laboratory Standards</span>
-          <h2 className="text-brand-cream text-3xl md:text-4xl font-display font-bold mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 tracking-tight">
             FDA Certified Facility & Full Traceability
           </h2>
-          <p className="text-white/70 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-8">
+          <p className="text-brand-brown/70 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-8">
             Every batch of Volta Premium Honey undergoes multi-parameter laboratory chemical tests to verify zero sucrose/syrup adulteration, zero pesticide traces, and strict moisture levels before leaving our facility.
           </p>
           <div className="flex flex-wrap justify-center gap-6">
-            <span className="border border-white/10 px-6 py-3 bg-white/5 text-xs font-bold uppercase tracking-widest">
+            <span className="border border-brand-brown/10 px-6 py-3 bg-white text-xs font-bold uppercase tracking-widest shadow-sm">
               FDA Ghana Approved
             </span>
-            <span className="border border-white/10 px-6 py-3 bg-white/5 text-xs font-bold uppercase tracking-widest">
+            <span className="border border-brand-brown/10 px-6 py-3 bg-white text-xs font-bold uppercase tracking-widest shadow-sm">
               GSA Quality Certified
             </span>
-            <span className="border border-white/10 px-6 py-3 bg-white/5 text-xs font-bold uppercase tracking-widest">
+            <span className="border border-brand-brown/10 px-6 py-3 bg-white text-xs font-bold uppercase tracking-widest shadow-sm">
               100% Volta Harvested
             </span>
           </div>
