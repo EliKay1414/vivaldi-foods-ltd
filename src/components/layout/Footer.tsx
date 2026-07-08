@@ -1,16 +1,12 @@
 import { Link } from '@tanstack/react-router';
-
 import { Phone, Mail, MapPin } from 'lucide-react';
-
 import { COMPANY_DETAILS } from '@/lib/constants';
-
 import vivaldiLogo from '@/assets/images/Vivaldi-logo.jpg';
-
-
 
 export default function Footer() {
   return (
-    <footer className="bg-[#3a2a22] text-white pt-20">
+    // CSS FIX: Lightened background color from #3a2a22 to a cleaner, warmer #4a372c
+    <footer className="bg-[#4a372c] text-white pt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16">
 
@@ -20,18 +16,19 @@ export default function Footer() {
               <img
                 src={vivaldiLogo}
                 alt="Vivaldi Foods Logo"
-                className="w-full h-auto object-contain transition-transform group-hover:scale-[1.01]"
+                className="w-full h-auto object-contain transition-transform group-hover:scale-[1.03] invert brightness-0 sepia saturate-200 hue-rotate-[15deg] contrast-125"
               />
             </Link>
-            <p className="text-white text-body-sm leading-relaxed pt-2">
+            {/* TEXT FIX: Pure text color configuration with zero flat text shadows or blurs */}
+            <p className="text-white/80 text-xs md:text-sm leading-relaxed pt-2 antialiased select-none">
               Committed to delivering high-quality, safe, and responsibly packaged food products.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white mb-8">What We Do</h4>
-            <ul className="space-y-4 text-body-sm text-white">
+            <h4 className="font-bold text-white mb-8 tracking-wide antialiased">What We Do</h4>
+            <ul className="space-y-4 text-xs md:text-sm text-white/80 antialiased">
               <li><Link to="/about" className="hover:text-amber-500 transition-colors">Our Story</Link></li>
               <li><Link to="/products" className="hover:text-amber-500 transition-colors">Our Products</Link></li>
               <li><Link to="/community-impact" className="hover:text-amber-500 transition-colors">Community Impact</Link></li>
@@ -42,8 +39,8 @@ export default function Footer() {
 
           {/* Core Services */}
           <div>
-            <h4 className="text-white mb-8">Products & Services</h4>
-            <ul className="space-y-4 text-body-sm text-white">
+            <h4 className="font-bold text-white mb-8 tracking-wide antialiased">Products & Services</h4>
+            <ul className="space-y-4 text-xs md:text-sm text-white/80 antialiased">
               <li className="hover:text-amber-500 transition-colors cursor-default">Premium Honey Products</li>
               <li className="hover:text-amber-500 transition-colors cursor-default">Food Processing & Packaging</li>
               <li className="hover:text-amber-500 transition-colors cursor-default">Wholesale Distribution</li>
@@ -53,24 +50,32 @@ export default function Footer() {
 
           {/* Contact Details */}
           <div>
-            <h4 className="text-white mb-8">Contact</h4>
-            <ul className="space-y-4 text-body-sm">
+            <h4 className="font-bold text-white mb-8 tracking-wide antialiased">Contact</h4>
+            <ul className="space-y-4 text-xs md:text-sm antialiased">
               <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-amber-500 shrink-0" />
-                <span className="text-white">
-                  {COMPANY_DETAILS.address||'Community 18 / Sakumono 361 (GQ-361-8042), Accra, Ghana'}
+                <MapPin size={18} className="text-amber-500 shrink-0 mt-0.5" />
+                <span className="text-white/80">
+                  {COMPANY_DETAILS.address || 'Office: Spintex, Accra'}
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-amber-500 shrink-0" />
-                <a href="https://wa.me/233256114661" target="_blank" rel="noopener noreferrer" className="text-white hover:text-amber-500 transition-colors">
-                  {COMPANY_DETAILS.phone}
+                <a
+                  href={`https://wa.me{COMPANY_DETAILS.phone?.replace(/[^0-9]/g, '') || '233256114661'}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 hover:text-amber-500 transition-colors"
+                >
+                  {COMPANY_DETAILS.phone || '+233 256 114 661'}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-amber-500 shrink-0" />
-                <a href={`mailto:${COMPANY_DETAILS.email||'vivaldifoods@gmail.com'}`} className="text-white hover:text-amber-500 transition-colors">
-                  {COMPANY_DETAILS.email || 'vivaldifoods@gmail.com'}
+                <a
+                  href={`mailto:${COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com'}`}
+                  className="text-white/80 hover:text-amber-500 transition-colors"
+                >
+                  {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com'}
                 </a>
               </li>
             </ul>
@@ -78,11 +83,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/5 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white text-label-sm">
+        <div className="border-t border-white/10 py-8 flex flex-col md:flex-row justify-between items-center gap-4 antialiased">
+          <p className="text-white/60 text-xs">
             © {new Date().getFullYear()} Vivaldi Foods Ltd. All Rights Reserved.
           </p>
-          <div className="flex gap-8 text-label-sm text-white">
+          <div className="flex gap-8 text-xs text-white/60">
             <Link to="/" className="hover:text-amber-500 transition-colors">Home</Link>
             <Link to="/faq" className="hover:text-amber-500 transition-colors">FAQ</Link>
           </div>

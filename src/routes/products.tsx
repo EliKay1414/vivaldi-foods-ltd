@@ -13,7 +13,7 @@ function ProductsPage() {
     <div className="selection-corporate bg-brand-cream min-h-screen">
       <PageBanner
         title="Our Products"
-        subtitle="Experience the pure, authentic taste of nature. Harvested from the heart of Ghana’s Volta Region, our honey is carefully processed to preserve its natural aroma, rich flavor, and full nutritional value."
+        subtitle="Experience the Volta Premium Honey's pure, authentic taste of nature."
       />
 
       <section className="section-spacing">

@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { PageBanner } from '@/components/ui/PageBanner';
-import { motion } from 'framer-motion';
-import { Search, MapPin } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, MapPin, Phone, ChevronDown, CheckCircle, AlertCircle, HelpCircle } from 'lucide-react';
 
 export const Route = createFileRoute('/OurPartners')({
   component: OurPartnersPage,
@@ -18,139 +18,81 @@ interface StoreLocation {
   phone: string;
   region: Region;
   stockStatus: 'In Stock' | 'Limited Stock' | 'Contact Store';
-  mapUrl: string;
 }
 
 const stores: StoreLocation[] = [
-  // --- Original Stockists ---
   {
     id: 1,
-    name: "Marina Mall",
-    address: "Airport City, Accra",
-    phone: "+233 30 274 2460",
+    name: "Marina Mall Supermarket",
+    address: "Airport City, Airport Bypass Road, Accra",
+    phone: "+233 25 620 9060",
     region: "Greater Accra",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Marina+Mall,Accra,Ghana"
+    stockStatus: "In Stock"
   },
   {
     id: 2,
     name: "Petrosol Marts",
-    address: "Accra, Ghana",
-    phone: "N/A",
+    address: "Freetown Avenue, East Legon, Accra",
+    phone: "+233 36 219 6538",
     region: "Greater Accra",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Petrosol+Marts,Accra,Ghana"
+    stockStatus: "In Stock"
   },
   {
     id: 3,
     name: "Lyzzdee Shopping",
-    address: "Ho, Volta Region",
-    phone: "N/A",
+    address: "Civic Centre area, Ho, Volta Region",
+    phone: "+233 24 482 1735",
     region: "Volta",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Lyzzdee+Shopping,Ho,Ghana"
+    stockStatus: "In Stock"
   },
   {
     id: 4,
     name: "Silver Link Mart",
-    address: "Ho, Volta Region",
-    phone: "N/A",
+    address: "Ho-Road, Ho, Volta Region",
+    phone: "+233 24 481 7841",
     region: "Volta",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Silver+Link+Mart,Ho,Ghana"
+    stockStatus: "In Stock"
   },
   {
     id: 5,
     name: "Victories Mount Zion Pharmacy",
-    address: "Ho, Volta Region",
-    phone: "N/A",
+    address: "Opposite Market Complex, Ho, Volta Region",
+    phone: "+233 36 200 1254",
     region: "Volta",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Victories+Mount+Zion+Pharmacy,Ho,Ghana"
+    stockStatus: "In Stock"
   },
   {
     id: 6,
     name: "Sebatose Pharmacy",
-    address: "Kpando, Volta Region",
-    phone: "N/A",
+    address: "Main Market Road, Kpando, Volta Region",
+    phone: "+233 20 817 3880",
     region: "Volta",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Sebatose+Pharmacy,Kpando,Ghana"
+    stockStatus: "In Stock"
   },
   {
     id: 7,
     name: "Choice Mart & Pharmacy",
-    address: "Kpando, Volta Region",
-    phone: "N/A",
+    address: "Town Loop Circle, Kpando, Volta Region",
+    phone: "+233 55 491 0023",
     region: "Volta",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Choice+Mart+&+Pharmacy,Kpando,Ghana"
+    stockStatus: "In Stock"
   },
   {
     id: 8,
-    name: "Volta Premium Honey Nationwide Delivery",
-    address: "Community 18, Sakumono",
-    phone: "+233 256 114 661",
-    region: "Nationwide",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Volta+Premium+Honey+Delivery,Community+18,Sakumono,Ghana"
+    name: "Silver Link Mart",
+    address: "Stadium Street in Ho, Volta Region",
+    phone: "+233 24 481 7841",
+    region: "Volta",
+    stockStatus: "In Stock"
   },
-
-  // --- Additional Regional Placeholders ---
   {
     id: 9,
-    name: "Melcom Kumasi",
-    address: "Adum, Kumasi",
-    phone: "N/A",
-    region: "Ashanti",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Melcom,Adum,Kumasi,Ghana"
+    name: "Volta Premium Honey Nationwide Delivery",
+    address: "Community 18, Sakumono, Accra",
+    phone: "+233 25 611 4661",
+    region: "Nationwide",
+    stockStatus: "In Stock"
   },
-  {
-    id: 10,
-    name: "Shoprite Takoradi",
-    address: "Takoradi Mall, Western",
-    phone: "N/A",
-    region: "Western",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Shoprite,Takoradi+Mall,Ghana"
-  },
-  {
-    id: 11,
-    name: "Big Dream Supermarket",
-    address: "Sunyani City Center",
-    phone: "N/A",
-    region: "Bono",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Big+Dream+Supermarket,Sunyani,Ghana"
-  },
-  {
-    id: 14,
-    name: "Koforidua Market Hub",
-    address: "Koforidua, Eastern",
-    phone: "N/A",
-    region: "Eastern",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Koforidua,Ghana"
-  },
-  {
-    id: 15,
-    name: "Melcom Bolgatanga",
-    address: "Bolgatanga, Upper East",
-    phone: "N/A",
-    region: "Upper East",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Bolgatanga,Ghana"
-  },
-  {
-    id: 16,
-    name: "Girapa Mall",
-    address: "Wa, Upper West",
-    phone: "N/A",
-    region: "Upper West",
-    stockStatus: "In Stock",
-    mapUrl: "https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Wa,Ghana"
-  }
 ];
 
 const allRegions: Region[] = [
@@ -159,78 +101,133 @@ const allRegions: Region[] = [
   'Upper East', 'Upper West', 'Volta', 'Western', 'Western North'
 ];
 
-function OurPartnersPage() {
+export function OurPartnersPage() {
   const [selectedRegion, setSelectedRegion] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeStore, setActiveStore] = useState<StoreLocation>(stores[0]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
- const filteredStores = stores.filter(store => {
+  const filteredStores = stores.filter(store => {
     const matchesRegion = selectedRegion === 'All' || store.region === selectedRegion || store.region === 'Nationwide';
     const matchesSearch = store.name.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesRegion && matchesSearch;
   });
 
+  const getStatusBadge = (status: StoreLocation['stockStatus']) => {
+    switch (status) {
+      case 'In Stock':
+        return <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full"><CheckCircle className="w-3 h-3" /> In Stock</span>;
+      case 'Limited Stock':
+        return <span className="inline-flex items-center gap-1 text-[11px] font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full"><AlertCircle className="w-3 h-3" /> Limited</span>;
+      default:
+        return <span className="inline-flex items-center gap-1 text-[11px] font-medium text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full"><HelpCircle className="w-3 h-3" /> Call Store</span>;
+    }
+  };
+
   return (
-    <div className="bg-brand-cream min-h-screen">
-      <PageBanner title="Find a Retailer" subtitle="Locate our partners across Ghana." />
+    <div className="bg-amber-50/20 min-h-screen text-gray-800">
+      <PageBanner title="Our Partners" subtitle="Find an official Vivaldi Foods retail stockist near you." />
 
-      <section className="py-8 lg:py-16 max-w-7xl mx-auto px-4 lg:px-6">
-        <div className="grid lg:grid-cols-12 gap-8">
+      <section className="py-12 max-w-4xl mx-auto px-4 lg:px-6">
 
-          {/* Sidebar */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white p-5 border border-brand-brown/10 shadow-sm">
-              <div className="relative mb-4">
-                <Search className="absolute left-3 top-3 text-brand-brown/40 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search stores..."
-                  className="w-full pl-10 py-2 border border-brand-brown/10 text-sm"
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <button onClick={() => setSelectedRegion('All')} className={`px-3 py-1 text-[10px] font-bold uppercase ${selectedRegion === 'All' ? 'bg-brand-green text-white' : 'bg-brand-cream'}`}>All</button>
-                {allRegions.map(reg => (
-                  <button key={reg} onClick={() => setSelectedRegion(reg)} className={`px-3 py-1 text-[10px] font-bold uppercase ${selectedRegion === reg ? 'bg-brand-green text-white' : 'bg-brand-cream'}`}>{reg}</button>
-                ))}
-              </div>
-            </div>
+        {/* Search & Filter Header Control Block */}
+        <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm md:flex gap-4 space-y-3 md:space-y-0 items-center justify-between mb-8">
 
-            <div className="h-100 overflow-y-auto space-y-2 pr-2">
-              {filteredStores.map((store) => (
-                <motion.div
-                  key={store.id}
-                  onClick={() => setActiveStore(store)}
-                  className={`p-4 border cursor-pointer ${activeStore.id === store.id ? 'border-brand-green bg-white' : 'bg-white'}`}
-                >
-                  <h4 className="font-bold text-sm text-brand-brown">{store.name}</h4>
-                  <p className="text-[10px] text-brand-brown/60 mb-2">{store.address}</p>
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.name + ' ' + store.address)}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-1 text-[10px] font-bold text-brand-green underline"
-                  >
-                    <MapPin className="w-3 h-3" /> Get Directions
-                  </a>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          {/* Map Area */}
-          <div className="lg:col-span-8 h-100 lg:h-150 bg-white border border-brand-brown/10">
-            <iframe
-              title={`${activeStore.name} location map`}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              src={activeStore.mapUrl}
+          {/* Search Box Input */}
+          <div className="relative flex-1">
+            <Search className="absolute left-3.5 top-3.5 text-gray-400 w-4 h-4" />
+            <input
+              type="text"
+              placeholder="Search store name..."
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-green-700 transition-colors bg-gray-50/50"
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
+
+          {/* Clean Region Dropdown Selection */}
+          <div className="relative w-full md:w-64">
+            <button
+              type="button"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 hover:border-gray-300 transition-colors"
+            >
+              <span className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-green-700" />
+                <strong className="text-gray-900">{selectedRegion}</strong>
+              </span>
+              <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            <AnimatePresence>
+              {isDropdownOpen && (
+                <>
+                  <div className="fixed inset-0 z-10" onClick={() => setIsDropdownOpen(false)} />
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    className="absolute right-0 w-full mt-2 max-h-60 overflow-y-auto rounded-xl bg-white border border-gray-100 shadow-lg z-20 p-1.5 space-y-0.5"
+                  >
+                    <button
+                      onClick={() => { setSelectedRegion('All'); setIsDropdownOpen(false); }}
+                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${selectedRegion === 'All' ? 'bg-green-50 text-green-800 font-semibold' : 'hover:bg-gray-50'}`}
+                    >
+                      All Regions
+                    </button>
+                    {allRegions.map((reg) => (
+                      <button
+                        key={reg}
+                        onClick={() => { setSelectedRegion(reg); setIsDropdownOpen(false); }}
+                        className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${selectedRegion === reg ? 'bg-green-50 text-green-800 font-semibold' : 'hover:bg-gray-50'}`}
+                      >
+                        {reg}
+                      </button>
+                    ))}
+                  </motion.div>
+                </>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
+
+        {/* Clean, Non-Complex Unified Content Cards Deck Layout */}
+        {filteredStores.length > 0 ? (
+          <div className="space-y-4">
+            {filteredStores.map((store) => (
+              <div
+                key={store.id}
+                className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row justify-between sm:items-center gap-4 transition-all duration-200 hover:shadow-md"
+              >
+                {/* Left: Metadata Details */}
+                <div className="space-y-1.5">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <h3 className="font-bold text-base text-gray-900">{store.name}</h3>
+                    {getStatusBadge(store.stockStatus)}
+                  </div>
+                  <p className="text-xs text-gray-500 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                    {store.address} <span className="text-gray-300">|</span> <span className="font-medium text-green-700">{store.region}</span>
+                  </p>
+                </div>
+
+                {/* Right: Phone Action Button */}
+                <div className="shrink-0 pt-2 sm:pt-0">
+                  <a
+                    href={`tel:${store.phone.replace(/[^0-9+]/g, '')}`}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm w-full sm:w-auto"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    {store.phone}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* Empty Search Fallback */
+          <div className="bg-white text-center py-16 px-4 rounded-2xl border border-gray-100 shadow-sm">
+            <p className="text-sm text-gray-500 font-medium">No active stockists found matching your parameters.</p>
+          </div>
+        )}
       </section>
     </div>
   );
