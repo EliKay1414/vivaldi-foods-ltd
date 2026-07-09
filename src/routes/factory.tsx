@@ -72,7 +72,7 @@ function FactoryPage() {
             Pure from Start to Finish
           </h2>
           <p className="text-gray-600 text-sm md:text-base leading-relaxed font-medium max-w-2xl mx-auto pt-1">
-            To combat food adulteration vulnerabilities in raw supply chains, Vivaldi Foods Ltd. establishes localized control starting directly at the source. Our processing facility handles natural bee inputs with minimal thermal loops, systematically preserving nutritional integrity at every single step.
+            We stop fake ingredients by working directly with local farmers right from the start. We gently handle raw bee products, keeping heating to an absolute minimum.
           </p>
         </div>
 

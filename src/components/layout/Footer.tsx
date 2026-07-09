@@ -5,7 +5,6 @@ import vivaldiLogo from '@/assets/images/Vivaldi-logo.jpg';
 
 export default function Footer() {
   return (
-    // CSS FIX: Lightened background color from #3a2a22 to a cleaner, warmer #4a372c
     <footer className="bg-[#4a372c] text-white pt-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-16">
@@ -19,7 +18,6 @@ export default function Footer() {
                 className="w-full h-auto object-contain transition-transform group-hover:scale-[1.03] invert brightness-0 sepia saturate-200 hue-rotate-[15deg] contrast-125"
               />
             </Link>
-            {/* TEXT FIX: Pure text color configuration with zero flat text shadows or blurs */}
             <p className="text-white/80 text-xs md:text-sm leading-relaxed pt-2 antialiased select-none">
               Committed to delivering high-quality, safe, and responsibly packaged food products.
             </p>
@@ -58,10 +56,13 @@ export default function Footer() {
                   {COMPANY_DETAILS.address || 'Office: Spintex, Accra'}
                 </span>
               </li>
+
+              {/* WhatsApp Link Route */}
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-amber-500 shrink-0" />
                 <a
-                  href={`https://wa.me{COMPANY_DETAILS.phone?.replace(/[^0-9]/g, '') || '233256114661'}`}
+                  // ULTIMATE WHATSAPP FIX: Strips out ALL non-digits including the "+" symbol cleanly
+                  href={`https://wa.me/${(COMPANY_DETAILS.phone || '233256114661').replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/80 hover:text-amber-500 transition-colors"
@@ -69,10 +70,13 @@ export default function Footer() {
                   {COMPANY_DETAILS.phone || '+233 256 114 661'}
                 </a>
               </li>
+
+              {/* Email Link Route */}
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-amber-500 shrink-0" />
                 <a
-                  href={`mailto:${COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com'}`}
+                  // CLEAN EMAIL FIX: Pulls data safely from the constants object or fallbacks
+                  href={`mailto:${(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com').trim().toLowerCase()}`}
                   className="text-white/80 hover:text-amber-500 transition-colors"
                 >
                   {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com'}

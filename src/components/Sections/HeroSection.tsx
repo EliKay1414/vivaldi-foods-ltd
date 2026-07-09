@@ -12,7 +12,7 @@ import communitySupport from '@/assets/images/community-support.jpg';
 const slides = [
   {
     eyebrow: 'Pure. Authentic. Premium Quality.',
-    title: "Sourced from the\nVolta Region\nto Your Home",
+    title: " Freshly sourced from the\nVolta Region",
     subtitle: 'Vivaldi Foods Ltd delivers safe, 100% pure honey and food products directly from our Volta Region apiaries.',
     cta1: { label: 'Make an Enquiry', href: '/contact' },
     textColor: 'text-white',
@@ -22,7 +22,7 @@ const slides = [
   },
   {
     eyebrow: 'Guaranteed 100% Pure Honey',
-    title: 'Strict Quality Control\n& Pure Honey Sourcing',
+    title: 'Strict Quality\n& Checks',
     subtitle: 'Every batch of honey is carefully handled to guarantee absolute freshness and customer trust.',
     cta1: { label: 'Our Mission', href: '/about' },
     textColor: 'text-white',
