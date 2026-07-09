@@ -24,12 +24,12 @@ function BlogPage() {
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
       <PageBanner
         title="Blog Insights"
-        subtitle="Read our latest company updates, laboratory standards, and stories directly from Medium."
+        subtitle="Read our latest updates, laboratory standards, and stories directly from Medium."
       />
 
       <section className="py-12 md:py-16 max-w-6xl mx-auto px-6">
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center min-h-[300px] space-y-3">
+          <div className="flex flex-col items-center justify-center min-h-75 space-y-3">
             <Loader2 className="animate-spin text-green-700" size={32} />
             <p className="font-bold text-gray-900 text-sm">Synchronizing with Medium channels...</p>
           </div>

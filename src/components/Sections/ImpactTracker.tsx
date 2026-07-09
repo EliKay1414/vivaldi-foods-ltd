@@ -8,28 +8,28 @@ const metrics = [
     value: '30+',
     label: 'Beekeepers Trained',
     desc: 'Training in safer honey handling and harvesting.',
-    icon: <Users className="w-6 h-6" />,
+    icon: <Users className="w-5 h-5" />,
   },
   {
     id: 'hives',
-    value: '1000+',
+    value: '1,000+',
     label: 'Managed Hives',
     desc: 'Hive planning that supports cleaner supply.',
-    icon: <Award className="w-6 h-6" />,
+    icon: <Award className="w-5 h-5" />,
   },
   {
     id: 'farmers',
     value: '30+',
-    label: 'Farmers and Beekeepers Supported',
+    label: 'Partners Supported',
     desc: 'Local partners connected to clearer supply channels.',
-    icon: <Heart className="w-6 h-6" />,
+    icon: <Heart className="w-5 h-5" />,
   },
   {
     id: 'partners',
     value: '4+',
     label: 'Focus Areas',
     desc: 'Supply, quality, training, and environment support.',
-    icon: <ArrowUpRight className="w-6 h-6" />,
+    icon: <ArrowUpRight className="w-5 h-5" />,
   },
 ];
 
@@ -74,51 +74,69 @@ export default function ImpactTracker() {
   const currentTab = tabContents[activeTab];
 
   return (
-    <section className="section-spacing bg-white border-t border-brand-brown/5 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-80 h-80 bg-brand-green/5 rounded-full blur-3xl" />
+    // COMPACT SPACING: Standardized padding wrappers for a smooth, cohesive aesthetic
+    <section className="py-12 md:py-16 bg-white border-t border-gray-100 relative overflow-hidden text-gray-800">
+      <div className="absolute top-0 right-0 w-80 h-80 bg-green-700/5 rounded-full blur-3xl" />
 
-      <div className="container-custom">
-        <div className="sec-title centered mb-12">
-          <span className="sub-title">Community Impact</span>
-          <h2 className="text-brand-brown tracking-tight text-balance">
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* CENTERED HEADER REFACTOR: Aligned perfectly to lock down top-level visual symmetry */}
+        <div className="max-w-3xl mx-auto text-center mb-10 space-y-2 flex flex-col items-center">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full inline-block">
+            Community Impact
+          </span>
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 tracking-tight pt-1">
             Supporting Communities And Nature
           </h2>
-          <p className="text-body-sm text-brand-brown/70 max-w-2xl mx-auto mt-4">
+          <p className="text-gray-500 text-xs md:text-sm leading-relaxed max-w-xl mx-auto">
             Our impact work is focused on practical training, safer sourcing, and stronger local partnerships.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+        {/* SYMMETRICAL METRIC DECK: Fluid flex-wrap container instead of static height boxes */}
+        <div className="flex flex-wrap gap-5 justify-center items-stretch mb-10">
           {metrics.map((metric) => (
             <div
               key={metric.id}
-              className="bg-brand-cream/50 border border-brand-brown/10 p-6 min-h-52.5 flex flex-col"
+              className="bg-gray-50/50 border border-gray-100 p-5 rounded-2xl flex flex-col justify-between w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] max-w-sm transition-all duration-300 hover:shadow-sm"
             >
-              <div className="w-11 h-11 bg-brand-green/10 text-brand-green flex items-center justify-center mb-5">
-                {metric.icon}
+              <div>
+                <div className="w-10 h-10 bg-green-50 text-green-700 rounded-xl flex items-center justify-center mb-4">
+                  {metric.icon}
+                </div>
+                <div className="font-display font-bold text-2xl md:text-3xl text-gray-900 mb-1">
+                  {metric.value}
+                </div>
+                <h5 className="text-xs md:text-sm font-bold text-gray-800 mb-1.5 tracking-tight leading-tight">
+                  {metric.label}
+                </h5>
               </div>
-              <div className="font-display font-bold text-3xl text-brand-brown mb-2">{metric.value}</div>
-              <h5 className="text-brand-brown mb-2">{metric.label}</h5>
-              <p className="text-caption text-brand-brown/65 leading-relaxed">{metric.desc}</p>
+              <p className="text-gray-500 text-xs leading-relaxed pt-1">
+                {metric.desc}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className="bg-brand-cream border border-brand-brown/10 p-6 md:p-8">
-          <div className="flex flex-wrap border-b border-brand-brown/10 mb-8 pb-1">
+        {/* INTERACTIVE TAB BOX REFACTOR: Wrapped inside a sleek card boundary container */}
+        <div className="bg-white border border-gray-100 p-5 md:p-6 rounded-2xl shadow-xs">
+          <div className="flex flex-wrap border-b border-gray-100 mb-6 pb-0.5">
             {(['empowerment', 'environment', 'skills'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-5 py-3 text-label-sm transition-colors relative ${
-                  activeTab === tab ? 'text-brand-green' : 'text-brand-brown/50 hover:text-brand-brown'
+                className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors relative ${
+                  activeTab === tab ? 'text-green-700' : 'text-gray-400 hover:text-gray-700'
                 }`}
               >
                 {tab === 'empowerment' && 'Supply Partners'}
                 {tab === 'environment' && 'Environment'}
                 {tab === 'skills' && 'Training'}
                 {activeTab === tab && (
-                  <motion.div layoutId="activeTabIndicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-green" />
+                  <motion.div
+                    layoutId="activeTabIndicator"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-700"
+                  />
                 )}
               </button>
             ))}
@@ -127,28 +145,28 @@ export default function ImpactTracker() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-              className="grid lg:grid-cols-12 gap-8"
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22 }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 items-start"
             >
-              <div className="lg:col-span-7">
-                <span className="text-xs font-bold text-brand-green uppercase tracking-widest block mb-2">
+              <div className="lg:col-span-7 space-y-2">
+                <span className="text-[10px] font-bold text-amber-700 uppercase tracking-widest block">
                   {currentTab.subtitle}
                 </span>
-                <h3 className="text-2xl md:text-3xl font-display font-bold text-brand-brown mb-4">
+                <h3 className="text-lg md:text-xl font-display font-bold text-gray-900 tracking-tight">
                   {currentTab.title}
                 </h3>
-                <p className="text-brand-brown/75 text-sm md:text-base leading-relaxed">
+                <p className="text-gray-500 text-xs md:text-sm leading-relaxed pt-1">
                   {currentTab.description}
                 </p>
               </div>
 
-              <ul className="lg:col-span-5 space-y-3">
+              <ul className="lg:col-span-5 space-y-2.5 bg-gray-50/50 p-4 rounded-xl border border-gray-50">
                 {currentTab.bullets.map((bullet) => (
-                  <li key={bullet} className="flex items-start gap-3 text-sm text-brand-brown/75">
-                    <ShieldCheck className="w-5 h-5 text-brand-green shrink-0 mt-0.5" />
+                  <li key={bullet} className="flex items-start gap-2.5 text-xs md:text-sm text-gray-600 leading-relaxed">
+                    <ShieldCheck className="w-4 h-4 text-green-700 shrink-0 mt-0.5" />
                     <span>{bullet}</span>
                   </li>
                 ))}
@@ -156,6 +174,7 @@ export default function ImpactTracker() {
             </motion.div>
           </AnimatePresence>
         </div>
+
       </div>
     </section>
   );

@@ -23,7 +23,7 @@ export default function BlogSection() {
             The Company Blog
           </h2>
           <p className="text-gray-500 text-xs md:text-sm leading-relaxed max-w-md mx-auto pb-2">
-            Stay updated with our latest news, laboratory insights, and community stories.
+            Stay updated with our latest news, insights, and community stories.
           </p>
           <Link
             to="/blog"

@@ -14,7 +14,7 @@ export const Route = createFileRoute('/about')({
 });
 
 function AboutPage() {
-  // Enhanced scroll handler
+  // Enhanced dynamic view hash scroll listener configuration
   useEffect(() => {
     const handleHashScroll = () => {
       const hash = window.location.hash;
@@ -27,7 +27,6 @@ function AboutPage() {
       }
     };
 
-    // Run on mount
     handleHashScroll();
   }, []);
 
@@ -36,10 +35,11 @@ function AboutPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-brand-cream"
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="bg-amber-50/20 min-h-screen"
     >
-      <div id="story" className="scroll-mt-20">
+      {/* SCROLL ANCHOR REFACTOR: Changed standard scroll-mt targets to line up flawlessly with your responsive header bar */}
+      <div id="story" className="scroll-mt-24">
         <PageBanner
           title="About Vivaldi Foods"
           subtitle="Committed to delivering high-quality, safe, and responsibly packaged food products."
@@ -48,7 +48,8 @@ function AboutPage() {
 
       <AboutSection />
 
-      <div id="vision" className="bg-brand-cream border-t border-brand-brown/5 scroll-mt-20">
+      {/* Layer separation lines use high-fidelity, light horizontal grey delimiters */}
+      <div id="vision" className="bg-transparent border-t border-gray-100 scroll-mt-24">
         <MissionSection />
       </div>
 
