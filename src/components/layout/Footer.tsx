@@ -1,7 +1,8 @@
 import { Link } from '@tanstack/react-router';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { COMPANY_DETAILS } from '@/lib/constants';
-import vivaldiLogo from '@/assets/images/Vivaldi-logo.jpg';
+
+// RESOLVED FIX: Removed the JavaScript 'import vivaldiLogo from ...' statement that was pointing to the public folder.
 
 export default function Footer() {
   return (
@@ -13,9 +14,10 @@ export default function Footer() {
           <div className="space-y-6">
             <Link to="/" className="block max-w-32 md:max-w-36 group">
               <img
-                src={vivaldiLogo}
+                // RESOLVED FIX: Pointing src directly to the root path string as per Vite's public asset rules.
+                src="/Vivaldi-logo.webp"
                 alt="Vivaldi Foods Logo"
-                className="w-full h-auto object-contain transition-transform group-hover:scale-[1.03] invert brightness-0 sepia saturate-200 hue-rotate-[15deg] contrast-125"
+                className="w-full h-auto object-contain transition-transform group-hover:scale-[1.03] invert brightness-0 sepia saturate-200 hue-rotate-15 contrast-125"
               />
             </Link>
             <p className="text-white/80 text-xs md:text-sm leading-relaxed pt-2 antialiased select-none">
@@ -61,7 +63,6 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-amber-500 shrink-0" />
                 <a
-                  // ULTIMATE WHATSAPP FIX: Strips out ALL non-digits including the "+" symbol cleanly
                   href={`https://wa.me/${(COMPANY_DETAILS.phone || '233256114661').replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -75,7 +76,6 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-amber-500 shrink-0" />
                 <a
-                  // CLEAN EMAIL FIX: Pulls data safely from the constants object or fallbacks
                   href={`mailto:${(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com').trim().toLowerCase()}`}
                   className="text-white/80 hover:text-amber-500 transition-colors"
                 >

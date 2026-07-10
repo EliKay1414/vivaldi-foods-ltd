@@ -1,4 +1,3 @@
-import { Globe, Share2, Mail } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const team = [
@@ -6,43 +5,31 @@ const team = [
     name: 'Harrison Kafui Enene',
     role: 'Chief Executive Officer (CEO)',
     desc: 'Provides overall leadership and direction, guiding the company’s growth and long-term vision.',
-    image: "/ceo-enene.png",
   },
   {
     name: 'Apostle Dr. Peter Yaw Kudiewu',
     role: 'General Manager',
     desc: 'Manages daily operations to ensure smooth processes, quality products, and efficient service.',
-    image: "/g-manager.png",
   },
   {
     name: 'Bless Kofi Enene',
     role: 'Customer Relationship Manager',
     desc: 'Manages client inquiries, wholesale order fulfillment, and customer satisfaction initiatives.',
-    image: "/Bless.png",
   },
   {
     name: 'Edith Dede Akornor',
     role: 'Quality Assurance Manager',
     desc: 'Oversees laboratory testing and strict compliance with overall safety standards.',
-    image: "/Edith.png",
   },
   {
     name: 'Enoch Kofi Frimpong',
     role: 'Accountant',
     desc: 'Manages financial records, payments, and reporting to ensure accuracy and proper financial control.',
-    image: "/Kofi.png",
   },
   {
     name: 'Philip Teye Tetteh',
     role: 'Production Supervisor',
     desc: 'Oversees production activities to ensure safe, efficient operations and consistent product quality.',
-    image: "/philip.png",
-  },
-  {
-    name: 'Emmanuel Elikplim Atinyuie',
-    role: 'Junior Software Engineer and IT Support',
-    desc: 'Leads the development of Vivaldi softwares and provides continual technical support.',
-    image: "/Eli.png",
   },
 ];
 
@@ -68,36 +55,13 @@ export default function TeamSection() {
           {team.map((member, i) => (
             <div
               key={member.name}
-              className={`reveal reveal-delay-${(i % 2) + 1} group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden`}
+              className={`reveal reveal-delay-${(i % 2) + 1} group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden p-6 relative`}
             >
-              {/* FIXED IMAGE HOUSING: Removed the padding and switched to aspect-4/5 so the portrait matches the card edges */}
-              <div className="relative overflow-hidden aspect-[4/5] bg-gray-50 border-b border-gray-100">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = `https://dicebear.com{encodeURIComponent(member.name)}&backgroundColor=15803d,4a372c&textColor=ffffff`;
-                  }}
-                  // CSS FIX: Setting object-cover ensures the image fills left-to-right and top-to-bottom flawlessly
-                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
-
-                {/* Social hover panel */}
-                <div className="absolute inset-0 bg-green-800/80 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
-                  {[Globe, Share2, Mail].map((Icon, si) => (
-                    <a
-                      key={si}
-                      href="#"
-                      className="w-8 h-8 bg-white/20 hover:bg-white rounded-full flex items-center justify-center text-white hover:text-green-800 transition-all shadow-sm"
-                    >
-                      <Icon size={14} />
-                    </a>
-                  ))}
-                </div>
-              </div>
+              {/* Top Accent line */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-green-700" />
 
               {/* Information area */}
-              <div className="p-5 flex-1 flex flex-col justify-between space-y-2">
+              <div className="flex-1 flex flex-col justify-between space-y-2 pt-2">
                 <div>
                   <h4 className="text-base font-bold text-gray-900 tracking-tight leading-tight">
                     {member.name}

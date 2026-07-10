@@ -4,6 +4,9 @@ import { PageBanner } from '@/components/ui/PageBanner';
 import { ShieldCheck, Sparkles, ClipboardCheck, Microscope } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+// PRODUCTION REFACTOR: Importing the asset locally so Vite handles paths and build optimization correctly
+import labTestImg from '@/assets/images/Lab-Test.png';
+
 export const Route = createFileRoute('/quality')({
   component: QualityPage,
 });
@@ -34,14 +37,14 @@ function QualityPage() {
         subtitle="Simple quality checks that help customers buy with confidence."
       />
 
-      {/* COMPACT SECTION: Reduced vertical padding from py-16/py-24 to consistent py-12/md:py-16 */}
+      {/* COMPACT SECTION: Standardized vertical paddings matching the clean layout framework */}
       <section className="py-12 md:py-16 max-w-7xl mx-auto px-6 relative overflow-hidden">
         <div className="max-w-5xl mx-auto">
 
           {/* TOP LAYOUT SPLIT: Perfectly uniform block distribution */}
           <div className="grid md:grid-cols-12 gap-8 lg:gap-12 items-center mb-16">
 
-            {/* IMAGE REFACTOR: Sized down using md:col-span-5 and rendering ultra sharp */}
+            {/* IMAGE REFACTOR: Using the imported module block asset directly inside the view */}
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -49,9 +52,11 @@ function QualityPage() {
               className="md:col-span-5 overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-white p-1.5"
             >
               <img
-                src="/lab-test.png"
+                src={labTestImg}
                 alt="QA Personnel Lab Testing"
-                className="w-full h-auto max-h-72 object-cover rounded-xl image-rendering-crisp contrast-[1.00] brightness-[1.00]"
+                loading="eager"
+                decoding="async"
+                className="w-full h-auto max-h-72 object-cover rounded-xl image-rendering-crisp"
               />
             </motion.div>
 

@@ -86,7 +86,7 @@ function FactoryPage() {
             whileInView={{ height: "100%" }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1.8, ease: "easeInOut" }}
-            className="absolute left-1/2 top-0 w-1 bg-gradient-to-b from-green-700 via-amber-500 to-amber-600 -translate-x-1/2 hidden md:block origin-top"
+            className="absolute left-1/2 top-0 w-1 bg-linear-to-b from-green-700 via-amber-500 to-amber-600 -translate-x-1/2 hidden md:block origin-top"
           />
 
           {/* Left Progress Line of Honey - Mobile */}
@@ -96,7 +96,7 @@ function FactoryPage() {
             whileInView={{ height: "100%" }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="absolute left-4 top-0 w-1 bg-gradient-to-b from-green-700 to-amber-500 md:hidden origin-top"
+            className="absolute left-4 top-0 w-1 bg-linear-to-b from-green-700 to-amber-500 md:hidden origin-top"
           />
 
           {/* Steps Loop */}
@@ -166,7 +166,7 @@ function FactoryPage() {
                       transition={{ duration: 0.6 }}
                       className="relative overflow-hidden border border-gray-100 p-2 bg-white shadow-sm hover:shadow-md transition-all duration-300 rounded-2xl"
                     >
-                      <div className="aspect-video md:aspect-[4/3] w-full overflow-hidden bg-gray-50 relative rounded-xl">
+                      <div className="aspect-video md:aspect-4/3 w-full overflow-hidden bg-gray-50 relative rounded-xl">
                         <img
                           src={step.image}
                           alt={step.title}

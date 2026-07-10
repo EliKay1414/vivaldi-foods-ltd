@@ -1,13 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-
 import { Link, useLocation, useRouter } from '@tanstack/react-router';
-
 import { Menu, X, Phone, Mail, ChevronDown, ChevronRight } from 'lucide-react';
-
 import { COMPANY_DETAILS } from '@/lib/constants';
-
-import vivaldiLogo from '@/assets/images/Vivaldi-logo.jpg';
-
+import vivaldiLogo from '/public/Vivaldi-logo.webp';
 
 
 const navLinks = [

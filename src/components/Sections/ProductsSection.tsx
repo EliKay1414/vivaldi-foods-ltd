@@ -4,38 +4,38 @@ import { productCatalog } from '@/config/commerce';
 
 export default function ProductsSection() {
   return (
-    // COMPACT SPACING: Standardized layout section wrappers for smooth padding transitions
     <section className="py-10 md:py-14 bg-amber-50/20 border-t border-gray-100">
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* CENTERED HEADER REFACTOR: Aligned perfectly to enforce brand-wide symmetry */}
+        {/* CENTERED HEADER */}
         <div className="max-w-3xl mx-auto text-center mb-10 space-y-2 flex flex-col items-center">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full inline-block">
             Our Products
           </span>
           <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 tracking-tight pt-1">
-            Volta Premium Honey, Straight from the Region
+            Volta Premium Honey, sourced straight from the Region
           </h2>
         </div>
 
-        {/* SYMMETRICAL FLEXIBLE CARD CONTAINER: Fluid wrap fixes trailing odd cards gracefully */}
+        {/* SYMMETRICAL FLEXIBLE CARD CONTAINER */}
         <div className="flex flex-wrap gap-6 justify-center items-stretch">
           {productCatalog.map((p) => (
             <div
               key={p.id}
-              // CUTE CARDS: Removed arbitrary inline min-heights and hardcoded dark text shadows
               className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
             >
-              {/* COMPACT PORTRAIT IMAGE: Changed from square to the sleek, compressed aspect-[3/4] portrait frame */}
-              <div className="relative overflow-hidden aspect-3/4 bg-gray-50 border-b border-gray-100">
+              {/* IMAGE HOUSING REFACTOR: Standardized to pure aspect-square with flush edge placement */}
+              <div className="relative overflow-hidden aspect-square bg-gray-50 border-b border-gray-100">
                 <img
                   src={p.image}
                   alt={p.name}
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
 
-              {/* DETAILS WRAPPER: Squeezed down layout pads to fix overly long cards */}
+              {/* DETAILS WRAPPER */}
               <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between gap-2">
@@ -43,7 +43,6 @@ export default function ProductsSection() {
                       Net Weight: {p.size}
                     </span>
 
-                    {/* Symmetrical Rating Stars */}
                     <div className="flex text-amber-500">
                       {[...Array(p.rating || 5)].map((_, idx) => (
                         <Star key={idx} size={11} fill="currentColor" className="stroke-none" />
@@ -60,7 +59,6 @@ export default function ProductsSection() {
                   </p>
                 </div>
 
-                {/* Call to Action Interactive Button Element */}
                 <div className="pt-1">
                   <Link
                     to="/contact"
