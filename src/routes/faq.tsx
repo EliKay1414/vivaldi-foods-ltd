@@ -10,8 +10,8 @@ import FiltrationImg from '@/assets/factory/Filtration.png';
 import Packaging1Img from '@/assets/factory/Packaging1.png';
 import Packaging2Img from '@/assets/factory/Packaging2.png';
 import HeatingImg from '@/assets/factory/Pre-heating.png';
-import ApiaryImg from '@/assets/images/apiary-live.jpg';
-import HeroImg from '@/assets/images/hero-honey.png';
+import ApiaryImg from '@/assets/images/apiary-live.webp';
+import HeroImg from '@/assets/images/hero-honey.webp';
 
 export const Route = createFileRoute('/faq')({
   component: FAQPage,

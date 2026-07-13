@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from '@tanstack/react-router'
 import { Check, ShieldCheck, Leaf, Truck, Users, ArrowRight } from 'lucide-react'
-import productionHub from '@/assets/images/production-hub.jpg';
+import productionHub from '@/assets/images/production-hub.webp';
 
 const tabs = [
   {

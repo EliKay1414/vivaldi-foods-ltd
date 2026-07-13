@@ -2,12 +2,19 @@ import { useState, useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Secure local asset filesystem paths preserved
-import apiaryLive from '@/assets/images/apiary-live.jpg';
+// Legacy standard fallback routes preserved
+import apiaryLive from '@/assets/images/Apiary-live.png';
 import heroHoney from '@/assets/images/hero-honey.png';
-import productionHub from '@/assets/images/production-hub.jpg';
-import harvestTime from '@/assets/images/harvest-time.jpg';
-import communitySupport from '@/assets/images/community-support.jpg';
+import productionHub from '@/assets/images/production-hub.png';
+import harvestTime from '@/assets/images/harvest-time.png';
+import communitySupport from '@/assets/images/community-support.png';
+
+// NEXT-GEN WEBP ALTERNATIVES: Explicitly maps the new high-performance webp copies you will drop in your assets folder
+import apiaryLiveWebp from '@/assets/images/apiary-live.webp';
+import heroHoneyWebp from '@/assets/images/hero-honey.webp';
+import productionHubWebp from '@/assets/images/production-hub.webp';
+import harvestTimeWebp from '@/assets/images/harvest-time.webp';
+import communitySupportWebp from '@/assets/images/community-support.webp';
 
 const slides = [
   {
@@ -19,6 +26,7 @@ const slides = [
     overlay: 'bg-black/50',
     btnColor: 'bg-green-700 hover:bg-green-800',
     image: productionHub,
+    webp: productionHubWebp,
   },
   {
     eyebrow: 'Guaranteed 100% Pure Honey',
@@ -29,6 +37,7 @@ const slides = [
     overlay: 'bg-black/60',
     btnColor: 'bg-green-700 hover:bg-green-800',
     image: apiaryLive,
+    webp: apiaryLiveWebp,
   },
   {
     eyebrow: 'Sustainable Harvesting',
@@ -39,6 +48,7 @@ const slides = [
     overlay: 'bg-black/50',
     btnColor: 'bg-green-700 hover:bg-green-800',
     image: harvestTime,
+    webp: harvestTimeWebp,
   },
   {
     eyebrow: 'Community Impact',
@@ -49,6 +59,7 @@ const slides = [
     overlay: 'bg-black/50',
     btnColor: 'bg-green-700 hover:bg-green-800',
     image: communitySupport,
+    webp: communitySupportWebp,
   },
   {
     eyebrow: 'Wholesale & Retail Markets',
@@ -59,6 +70,7 @@ const slides = [
     overlay: 'bg-amber-50/40',
     btnColor: 'bg-green-700 hover:bg-green-800',
     image: heroHoney,
+    webp: heroHoneyWebp,
   },
 ];
 
@@ -74,83 +86,72 @@ export default function HeroSection() {
   const isDarkSlide = slide.textColor === 'text-white';
 
   return (
-    // SYMMETRY FIX: Replaced elastic viewport variables with a compact, standardized container size.
-    // Clears the fixed navbar with mt-16 md:mt-24 and keeps the image frame cute, tidy, and proportional across all screens.
-    <section className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-33.75 w-full overflow-hidden bg-gray-100 text-gray-800">
+    <section className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-33.75 w-full aspect-16/7 md:aspect-21/8 min-h-100 md:min-h-115 overflow-hidden bg-gray-100 text-gray-800 flex flex-col justify-center">
 
       {/* Background Slides Engine */}
       {slides.map((s, i) => (
         <div key={i} className={`absolute inset-0 transition-opacity duration-1000 ${i === current ? 'opacity-100' : 'opacity-0'}`}>
-          <img
-            src={s.image}
-            alt=""
-            loading={i === 0 ? "eager" : "lazy"}
-            decoding="async"
-            className="w-full h-full object-cover select-none image-rendering-crisp"
-          />
+          {/* NATIVE LIGHTHOUSE OPTIMIZATION PARADIGM: The <picture> element handles automated
+              WebP delivery shifts with standard legacy JPG fallbacks natively */}
+          <picture className="w-full h-full">
+            <source srcSet={s.webp} type="image/webp" />
+            <img
+              src={s.image}
+              alt=""
+              loading={i === current ? "eager" : "lazy"}
+              decoding="async"
+              fetchPriority={i === current ? "high" : "low"} // Forces Google crawler to download the first active slice instantly
+              className="w-full h-full object-cover object-center select-none image-rendering-crisp"
+            />
+          </picture>
           <div className={`absolute inset-0 ${s.overlay}`} />
         </div>
       ))}
 
-      {/* CONTENT AREA CONTAINER: Applied perfect top-to-bottom pixel symmetry (py-20 md:py-28)
-          This eliminates the overly long vertical look, making it clean and cozy on mobile screens. */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 w-full py-20 sm:py-24 md:py-28 flex flex-col justify-center">
-        <div className="max-w-3xl space-y-4 md:space-y-5">
-
-          {/* Symmetrical Rounded Eyebrow Badge */}
-          <div className={`font-bold tracking-[0.2em] uppercase text-[10px] sm:text-xs bg-black/10 backdrop-blur-xs w-fit px-3 py-1 rounded-full ${slide.textColor}`}>
+      {/* Content Area Container */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 w-full py-8 sm:py-12 md:py-16 flex flex-col justify-center">
+        <div className="max-w-3xl space-y-2 sm:space-y-3 md:space-y-4">
+          <div className={`font-bold tracking-[0.2em] uppercase text-[9px] sm:text-xs bg-black/10 backdrop-blur-xs w-fit px-2.5 py-0.5 rounded-full ${slide.textColor}`}>
             {slide.eyebrow}
           </div>
-
-          {/* Main Title Heading - Clean fluid typography for easy mobile reading */}
-          <h1 className={`${slide.textColor} whitespace-pre-line text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tight leading-[1.15] max-w-4xl`}>
+          <h1 className={`${slide.textColor} whitespace-pre-line text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-tight leading-[1.15] max-w-4xl`}>
             {slide.title}
           </h1>
-
-          {/* Subtitle Description */}
-          <p className={`${slide.textColor} text-xs sm:text-sm md:text-base max-w-xl font-medium opacity-90 leading-relaxed pt-1`}>
+          <p className={`${slide.textColor} text-[11px] sm:text-xs md:text-sm max-w-xl font-medium opacity-90 leading-relaxed`}>
             {slide.subtitle}
           </p>
-
-          {/* Action Trigger Button */}
-          <div className="pt-2">
+          <div className="pt-1">
             <Link
               to={slide.cta1.href as "/"}
-              className={`${slide.btnColor} text-white px-5 py-2.5 rounded-xl transition-colors shadow-sm inline-flex items-center text-xs font-bold uppercase tracking-wider`}
+              className={`${slide.btnColor} text-white px-4 py-2 rounded-xl transition-all shadow-sm inline-flex items-center text-[11px] font-bold uppercase tracking-wider`}
             >
-              {slide.cta1.label} <ArrowRight className="ml-2" size={14} />
+              {slide.cta1.label} <ArrowRight className="ml-1.5" size={13} />
             </Link>
           </div>
-
         </div>
       </div>
 
-      {/* Symmetrical Carousel Round Control Badges */}
-      <div className="absolute bottom-4 right-6 sm:bottom-6 z-20 flex gap-2.5">
+      {/* Navigation Controls */}
+      <div className="absolute bottom-3 right-6 sm:bottom-4 z-20 flex gap-2">
         <button
           onClick={() => setCurrent((current - 1 + slides.length) % slides.length)}
-          className={`w-9 h-9 border rounded-xl flex items-center justify-center transition-all ${
-            isDarkSlide
-              ? 'border-white/30 text-white hover:bg-white hover:text-gray-900'
-              : 'border-gray-300 text-gray-900 hover:bg-green-700 hover:text-white hover:border-green-700'
+          className={`w-8 h-8 border rounded-xl flex items-center justify-center transition-all ${
+            isDarkSlide ? 'border-white/30 text-white hover:bg-white hover:text-gray-900' : 'border-gray-300 text-gray-900 hover:bg-green-700 hover:text-white hover:border-green-700'
           }`}
           aria-label="Previous slide"
         >
-          <ChevronLeft size={15} />
+          <ChevronLeft size={14} />
         </button>
         <button
           onClick={() => setCurrent((current + 1) % slides.length)}
-          className={`w-9 h-9 border rounded-xl flex items-center justify-center transition-all ${
-            isDarkSlide
-              ? 'border-white/30 text-white hover:bg-white hover:text-gray-900'
-              : 'border-gray-300 text-gray-900 hover:bg-green-700 hover:text-white hover:border-green-700'
+          className={`w-8 h-8 border rounded-xl flex items-center justify-center transition-all ${
+            isDarkSlide ? 'border-white/30 text-white hover:bg-white hover:text-gray-900' : 'border-gray-300 text-gray-900 hover:bg-green-700 hover:text-white hover:border-green-700'
           }`}
           aria-label="Next slide"
         >
-          <ChevronRight size={15} />
+          <ChevronRight size={14} />
         </button>
       </div>
-
     </section>
   );
 }

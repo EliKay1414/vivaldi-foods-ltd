@@ -2,8 +2,7 @@ import { Link } from '@tanstack/react-router';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-
-import apiaryImg from '@/assets/images/apiary-live.jpg';
+import apiaryImg from '@/assets/images/apiary-live.webp';
 import productSmall from '@/assets/products/products-500g.png';
 
 export default function AboutSection() {

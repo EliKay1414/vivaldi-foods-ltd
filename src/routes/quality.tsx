@@ -5,7 +5,7 @@ import { ShieldCheck, Sparkles, ClipboardCheck, Microscope } from 'lucide-react'
 import { motion } from 'framer-motion';
 
 // PRODUCTION REFACTOR: Importing the asset locally so Vite handles paths and build optimization correctly
-import labTestImg from '@/assets/images/Lab-Test.png';
+import labTestImg from '@/assets/images/Lab-Test.webp';
 
 export const Route = createFileRoute('/quality')({
   component: QualityPage,

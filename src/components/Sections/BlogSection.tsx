@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowRight, BookOpen, Loader2 } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
 import { getMediumBlogs, type MediumPost } from '@/services/medium';
 
 export default function BlogSection() {
   const [posts, setPosts] = useState<MediumPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getMediumBlogs().then(setPosts);
+    // REAL-TIME CACHE BUSTER MARRY: Clear state to demand the absolute freshest network fetch data
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsLoading(true);
+    getMediumBlogs().then((data) => {
+      setPosts(data);
+      setIsLoading(false);
+    });
   }, []);
 
   return (
@@ -33,52 +40,61 @@ export default function BlogSection() {
           </Link>
         </div>
 
-        {/* Dynamic Card Container Array */}
-        <div className="flex flex-wrap gap-6 justify-center items-stretch">
-          {posts.slice(0, 3).map((post, i) => (
-            <a
-              key={post.guid || i}
-              href={post.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
-            >
-              {/* LANDSCAPE DESIGN: Set back to wide aspect-video, snapping tightly to all borders */}
-              <div className="relative overflow-hidden aspect-video bg-gray-50 border-b border-gray-100">
-                <img
-                  src={post.thumbnail}
-                  alt={post.title}
-                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
+        {/* Dynamic Card Container Array / Micro Loader Section */}
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center min-h-55 space-y-2">
+            <Loader2 className="animate-spin text-green-700" size={24} />
+            <p className="text-gray-500 text-xs font-medium">Loading live feeds...</p>
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-6 justify-center items-stretch">
+            {posts.slice(0, 3).map((post, i) => (
+              <a
+                key={post.guid || i}
+                href={post.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
+              >
+                {/* LANDSCAPE DESIGN: aspect-video layout fits horizontal photography perfectly */}
+                <div className="relative overflow-hidden aspect-video bg-gray-50 border-b border-gray-100">
+                  <img
+                    src={post.thumbnail}
+                    alt={post.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  />
 
-                {/* Interactive slider panel */}
-                <div className="absolute inset-0 bg-green-800/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
-                  <div className="w-10 h-10 rounded-full bg-white text-green-800 flex items-center justify-center shadow-md">
-                    <BookOpen size={16} />
+                  {/* Interactive slider panel */}
+                  <div className="absolute inset-0 bg-green-800/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-xs">
+                    <div className="w-10 h-10 rounded-full bg-white text-green-800 flex items-center justify-center shadow-md">
+                      <BookOpen size={16} />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Data Text Field */}
-              <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                  <h3 className="text-base font-bold text-gray-900 group-hover:text-green-700 transition-colors tracking-tight leading-snug line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed line-clamp-3">
-                    {post.description}
-                  </p>
+                {/* Data Text Field */}
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-base font-bold text-gray-900 group-hover:text-green-700 transition-colors tracking-tight leading-snug line-clamp-2">
+                      {post.title}
+                    </h3>
+                    <p className="text-gray-500 text-xs leading-relaxed line-clamp-3">
+                      {post.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-2 flex items-center justify-between border-t border-gray-50 text-[11px] font-bold uppercase tracking-wider text-green-700">
+                    <span>Read on Medium</span>
+                    <ArrowRight size={12} className="transform transition-transform group-hover:translate-x-1" />
+                  </div>
                 </div>
 
-                <div className="pt-2 flex items-center justify-between border-t border-gray-50 text-[11px] font-bold uppercase tracking-wider text-green-700">
-                  <span>Read on Medium</span>
-                  <ArrowRight size={12} className="transform transition-transform group-hover:translate-x-1" />
-                </div>
-              </div>
-
-            </a>
-          ))}
-        </div>
+              </a>
+            ))}
+          </div>
+        )}
 
       </div>
     </section>
