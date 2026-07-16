@@ -9,7 +9,7 @@ export const Route = createFileRoute('/OurPartners')({
   component: OurPartnersPage,
 });
 
-type Region = 'Ahafo' | 'Ashanti' | 'Bono' | 'Bono East' | 'Central' | 'Eastern' | 'Greater Accra' | 'Northern' | 'North East' | 'Oti' | 'Savannah' | 'Upper East' | 'Upper West' | 'Volta' | 'Western' | 'Western North' | 'Nationwide';
+type Region = 'Ahafo' | 'Ashanti' | 'Bono' | 'Bono East' | 'Central' | 'Eastern' | 'Greater Accra Region' | 'Northern' | 'North East' | 'Oti' | 'Savannah' | 'Upper East' | 'Upper West' | 'Volta Region' | 'Western' | 'Western North' | 'Nationwide';
 
 interface StoreLocation {
   id: number;
@@ -23,82 +23,186 @@ interface StoreLocation {
 const stores: StoreLocation[] = [
   {
     id: 1,
-    name: "Marina Mall Supermarket",
-    address: "Airport City, Airport Bypass Road, Accra",
-    phone: "+233 25 620 9060",
-    region: "Greater Accra",
+    name: "Leed Pharmacy (Akorlor)",
+    address: "Hohoe, Akorlor",
+    phone: "+233 24 546 2195",
+    region: "Volta Region",
     stockStatus: "In Stock"
   },
   {
     id: 2,
-    name: "Petrosol Marts",
-    address: "Freetown Avenue, East Legon, Accra",
-    phone: "+233 36 219 6538",
-    region: "Greater Accra",
+    name: "Albertisam",
+    address: "Ho-Road, Ho",
+    phone: "+233 54 377 7246",
+    region: "Volta Region",
     stockStatus: "In Stock"
   },
   {
     id: 3,
-    name: "Lyzzdee Shopping",
-    address: "Civic Centre area, Ho, Volta Region",
-    phone: "+233 24 482 1735",
-    region: "Volta",
+    name: "In His Hands Enterprise",
+    address: "Kpando",
+    phone: "+233 55 729 6386",
+    region: "Volta Region",
     stockStatus: "In Stock"
   },
   {
     id: 4,
-    name: "Silver Link Mart",
-    address: "Ho-Road, Ho, Volta Region",
-    phone: "+233 24 481 7841",
-    region: "Volta",
+    name: "Domi-DD Supermarket",
+    address: "Denu Market, Denu",
+    phone: "+233 24 327 1788",
+    region: "Volta Region",
     stockStatus: "In Stock"
   },
   {
     id: 5,
-    name: "Victories Mount Zion Pharmacy",
-    address: "Opposite Market Complex, Ho, Volta Region",
-    phone: "+233 36 200 1254",
-    region: "Volta",
+    name: "Runnel Mart",
+    address: "Aflao Road, Aflao",
+    phone: "+233 54 710 2426",
+    region: "Volta Region",
     stockStatus: "In Stock"
   },
   {
     id: 6,
-    name: "Sebatose Pharmacy",
-    address: "Main Market Road, Kpando, Volta Region",
-    phone: "+233 20 817 3880",
-    region: "Volta",
+    name: "First Family Pharmacy",
+    address: "Ho",
+    phone: "+233 55 863 8400",
+    region: "Volta Region",
     stockStatus: "In Stock"
   },
   {
     id: 7,
-    name: "Choice Mart & Pharmacy",
-    address: "Town Loop Circle, Kpando, Volta Region",
-    phone: "+233 55 491 0023",
-    region: "Volta",
+    name: "Domingo Pharmacy and Mart",
+    address: "Aflao",
+    phone: "+233 20 696 1159",
+    region: "Volta Region",
     stockStatus: "In Stock"
   },
   {
     id: 8,
-    name: "Silver Link Mart",
-    address: "Stadium Street in Ho, Volta Region",
-    phone: "+233 24 481 7841",
-    region: "Volta",
+    name: "Edivade Pharmacy",
+    address: "Manet Junction, Manet",
+    phone: "+233 20 201 1588",
+    region: "Greater Accra Region",
     stockStatus: "In Stock"
   },
   {
     id: 9,
-    name: "Volta Premium Honey Nationwide Delivery",
-    address: "Community 18, Sakumono, Accra",
-    phone: "+233 25 611 4661",
-    region: "Nationwide",
+    name: "Kassbic Enterprise",
+    address: "Kotobabi - Spintex Road",
+    phone: "+233 53 886 3002",
+    region: "Greater Accra Region",
     stockStatus: "In Stock"
   },
+  {
+    id: 10,
+    name: "Point of Grace Enterprise",
+    address: "Kpando",
+    phone: "+233 24 407 4513",
+    region: "Volta Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 11,
+    name: "Petrosol Mart",
+    address: "Coca-Cola, Spintex Road",
+    phone: "+233 55 402 5458",
+    region: "Greater Accra Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 12,
+    name: "Jucad Pharmacy",
+    address: "Okaishie Drug Lane",
+    phone: "+233 26 900 1113",
+    region: "Greater Accra Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 13,
+    name: "Victorious Mt Zion Pharmacy",
+    address: "Ho",
+    phone: "+233 55 458 3230",
+    region: "Volta Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 14,
+    name: "Narouma Mart",
+    address: "Manet New Road (Martey Tsuru)",
+    phone: "+233 24 009 9099",
+    region: "Greater Accra Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 15,
+    name: "Marina Mall",
+    address: "Marina Mall",
+    phone: "+233 24 054 0440",
+    region: "Greater Accra Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 16,
+    name: "JS Victory Pharmacy",
+    address: "Hohoe Road",
+    phone: "+233 53 395 2491",
+    region: "Volta Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 17,
+    name: "Statesman Pharmacy",
+    address: "Hohoe",
+    phone: "+233 24 927 2307",
+    region: "Volta Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 18,
+    name: "The U Plaza Mart (Madam Irene Shop) ",
+    address: "Hohoe",
+    phone: "+233 54 128 7983",
+    region: "Volta Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 19,
+    name: "Atiwoto / Messiah House",
+    address: "Denu Market, Denu",
+    phone: "+233 54 160 6024",
+    region: "Volta Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 20,
+    name: "Lyzdee Shopping Mall",
+    address: "Ho",
+    phone: "N/A",
+    region: "Volta Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 21,
+    name: "Silver Link Mart",
+    address: "Accra",
+    phone: "+233 24 481 7841",
+    region: "Greater Accra Region",
+    stockStatus: "In Stock"
+  },
+  {
+    id: 22,
+    name: "Vivaldi Foods Distribution",
+    address: "Lashibi, Spintex",
+    phone: "+233 30 210 1234",
+    region: "Greater Accra Region",
+    stockStatus: "In Stock"
+  }
 ];
 
 const allRegions: Region[] = [
   'Ahafo', 'Ashanti', 'Bono', 'Bono East', 'Central', 'Eastern',
-  'Greater Accra', 'Northern', 'North East', 'Oti', 'Savannah',
-  'Upper East', 'Upper West', 'Volta', 'Western', 'Western North'
+  'Greater Accra Region', 'Northern', 'North East', 'Oti', 'Savannah',
+  'Upper East', 'Upper West', 'Volta Region', 'Western', 'Western North'
 ];
 
 export function OurPartnersPage() {
