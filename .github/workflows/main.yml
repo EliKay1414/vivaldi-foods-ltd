@@ -9,11 +9,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-   env:
+    env:
       VITE_APP_TITLE: ${{ secrets.VITE_APP_TITLE }}
       VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
       VITE_MEDIUM_FEED_URL: ${{ secrets.VITE_MEDIUM_FEED_URL }}
-
 
     steps:
       - name: ⬇️ Checkout code
@@ -40,7 +39,6 @@ jobs:
 
       - name: 🔐 Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
-
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -48,11 +46,4 @@ jobs:
 
       - name: 🪣 Deploy to S3
         run: |
-          aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET }} \
-            --delete
-
-
-
-
-
-
+          aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET }} --delete --cache-control "public, max-age=31536000, immutable"
