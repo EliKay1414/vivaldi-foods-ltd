@@ -160,114 +160,125 @@ export default function Header() {
       />
 
       {/* Drawer panel */}
-      <div
-        className={`fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-white z-50 lg:hidden flex flex-col transition-transform duration-300 ease-in-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Main navigation"
-      >
-        {/* Drawer header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-          <div className="max-w-24">
-            <img
-              src={vivaldiLogo}
-              alt="Vivaldi Foods Ltd"
-              className="w-full h-auto object-contain"
-            />
-          </div>
-          <button
-            onClick={closeMenu}
-            className="text-gray-500 hover:text-gray-800 transition-colors p-1.5 hover:bg-gray-50 rounded-xl"
-            aria-label="Close menu"
-          >
-            <X size={22} />
-          </button>
-        </div>
-
-        {/* Nav items — WhatsApp-style list */}
-        <nav className="flex-1 overflow-y-auto">
-          <ul>
-            {navLinks.map((link) => (
-              <li key={link.label} className="border-b border-gray-50 last:border-b-0">
-                {link.children ? (
-                  <>
-                    {/* MOBILE ACTION REFACTOR: Separated the link routing context from accordion expansion logic */}
-                    <div className="w-full flex items-center justify-between hover:bg-gray-50 transition-colors">
-                      <Link
-                        to={link.href as '/'}
-                        onClick={closeMenu}
-                        className={`flex-1 px-6 py-4 text-sm font-bold uppercase tracking-wider transition-colors ${location.pathname === link.href ? 'text-green-700' : 'text-gray-800'}`}
-                      >
-                        {link.label}
-                      </Link>
-
-                      {/* Chevron Box expansion trigger handles child item reveal paths exclusively */}
-                      <button
-                        onClick={() => toggleExpanded(link.label)}
-                        className="px-6 py-4 border-l border-gray-100 text-gray-400 hover:text-green-700 transition-colors"
-                        aria-label={`Toggle ${link.label} sub-navigation`}
-                      >
-                        <ChevronRight
-                          size={16}
-                          className={`transition-transform duration-200 ${expandedItem === link.label ? 'rotate-90 text-green-700' : ''}`}
-                        />
-                      </button>
-                    </div>
-
-                    {/* Sub-items */}
-                    <div
-                      className={`overflow-hidden transition-all duration-200 bg-gray-50/50 ${expandedItem === link.label ? 'max-h-96' : 'max-h-0'}`}
-                    >
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.label}
-                          to={child.href as '/'}
-                          onClick={closeMenu}
-                          className="flex items-center gap-3 px-8 py-3.5 text-xs font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50/50 transition-colors border-b border-gray-100/40 last:border-b-0"
-                        >
-                          <span className="w-1 h-1 rounded-full bg-green-700 shrink-0" />
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    to={link.href as '/'}
-                    onClick={closeMenu}
-                    className={`flex items-center px-6 py-4 text-sm font-bold uppercase tracking-wider transition-colors hover:bg-gray-50 ${location.pathname === link.href ? 'text-green-700' : 'text-gray-800'}`}
-                  >
-                    {link.label}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* Drawer footer */}
-        <div className="px-6 py-5 border-t border-gray-100 bg-gray-50/50 space-y-4">
-          <Link
-            to="/contact"
-            onClick={closeMenu}
-            className="block w-full text-center bg-green-700 text-white px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-green-800 transition-all shadow-sm active:scale-95"
-          >
-            Enquiry
-          </Link>
-          <div className="space-y-1">
-            <p className="text-green-700 text-[10px] font-bold uppercase tracking-widest">Contact Us</p>
-            <a
-              href={`https://wa.me{cleanPhone}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-green-700 transition-colors text-xs font-medium block"
+        <div
+          className={`fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-white z-50 lg:hidden flex flex-col transition-transform duration-300 ease-in-out ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Main navigation"
+        >
+          {/* Drawer header */}
+          <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+            <div className="max-w-24">
+              <img
+                src={vivaldiLogo}
+                alt="Vivaldi Foods Ltd"
+                className="w-full h-auto object-contain"
+              />
+            </div>
+            <button
+              onClick={closeMenu}
+              className="text-gray-500 hover:text-gray-800 transition-colors p-1.5 hover:bg-gray-50 rounded-xl"
+              aria-label="Close menu"
             >
-              {COMPANY_DETAILS.phone}
-            </a>
-            <p className="text-gray-500 text-xs font-medium">{COMPANY_DETAILS.email}</p>
+              <X size={22} />
+            </button>
+          </div>
+
+          {/* Nav items — WhatsApp-style list */}
+          <nav className="flex-1 overflow-y-auto">
+            <ul>
+              {navLinks.map((link) => (
+                <li key={link.label} className="border-b border-gray-50 last:border-b-0">
+                  {link.children ? (
+                    <>
+                      {/* MOBILE ACTION REFACTOR: Separated the link routing context from accordion expansion logic */}
+                      <div className="w-full flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <Link
+                          to={link.href as '/'}
+                          onClick={closeMenu}
+                          className={`flex-1 px-6 py-4 text-sm font-bold uppercase tracking-wider transition-colors ${location.pathname === link.href ? 'text-green-700' : 'text-gray-800'}`}
+                        >
+                          {link.label}
+                        </Link>
+
+                        {/* Chevron Box expansion trigger handles child item reveal paths exclusively */}
+                        <button
+                          onClick={() => toggleExpanded(link.label)}
+                          className="px-6 py-4 border-l border-gray-100 text-gray-400 hover:text-green-700 transition-colors"
+                          aria-label={`Toggle ${link.label} sub-navigation`}
+                        >
+                          <ChevronRight
+                            size={16}
+                            className={`transition-transform duration-200 ${expandedItem === link.label ? 'rotate-90 text-green-700' : ''}`}
+                          />
+                        </button>
+                      </div>
+
+                      {/* Sub-items */}
+                      <div
+                        className={`overflow-hidden transition-all duration-200 bg-gray-50/50 ${expandedItem === link.label ? 'max-h-96' : 'max-h-0'}`}
+                      >
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.label}
+                            to={child.href as '/'}
+                            onClick={closeMenu}
+                            className="flex items-center gap-3 px-8 py-3.5 text-xs font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50/50 transition-colors border-b border-gray-100/40 last:border-b-0"
+                          >
+                            <span className="w-1 h-1 rounded-full bg-green-700 shrink-0" />
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      to={link.href as '/'}
+                      onClick={closeMenu}
+                      className={`flex items-center px-6 py-4 text-sm font-bold uppercase tracking-wider transition-colors hover:bg-gray-50 ${location.pathname === link.href ? 'text-green-700' : 'text-gray-800'}`}
+                    >
+                      {link.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Drawer footer */}
+          <div className="px-6 py-5 border-t border-gray-100 bg-gray-50/50 space-y-4">
+            {/* Enquiry Button - Remains untouched to direct visitors to the main Contact form page */}
+            <Link
+              to="/contact"
+              onClick={closeMenu}
+              className="block w-full text-center bg-green-700 text-white px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-green-800 transition-all shadow-sm active:scale-95"
+            >
+              Enquiry
+            </Link>
+
+            <div className="space-y-1.5">
+              <p className="text-green-700 text-[10px] font-bold uppercase tracking-widest">Contact Us</p>
+
+              {/* CELLULAR CALL TRIGGER: Launches an offline telephone call directly on smart screens */}
+              <a
+                href={`tel:${cleanPhone}`}
+                className="text-gray-600 hover:text-green-700 transition-colors text-xs font-bold block tracking-tight pt-0.5"
+              >
+                {COMPANY_DETAILS.phone || '+233 256 114 661'}
+              </a>
+
+              {/* DIRECT GMAIL COMPOWSURE LINK: Directs mobile and desktop users directly into Gmail compose panels */}
+              <a
+                href={`mailto:${(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com').trim().toLowerCase()}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-green-700 transition-colors text-xs font-medium block break-all"
+              >
+                {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com'}
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
-  );
-}
+      </header>
+    );
+  }
