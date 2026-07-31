@@ -85,7 +85,7 @@ function ContactPage() {
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.9324545281486!2d-0.03816762512686737!3d5.663118933454796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10207f0000000001%3A0x0!2zNcKwMzknNDcuMiJOIDDCsDAnMTMuMiJX!5e0!3m2!1sen!2sgh!4v1715856488319!5m2!1sen!2sgh"
           width="100%"
           height="100%"
-          style={{ border: 0, filter: 'grayscale(100%) contrast(1.1)' }}
+          style={{ border: 0, filter: 'cyanscale(100%) contrast(2.1)' }}
           className="hover:filter-none transition-all duration-1000"
           allowFullScreen
           loading="lazy"
