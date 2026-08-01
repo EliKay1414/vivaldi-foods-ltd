@@ -3,8 +3,6 @@ import { Link } from '@tanstack/react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ArrowRight, ShieldCheck, Leaf, Truck, Users } from 'lucide-react';
 
-// Secure local asset filesystem paths preserved
-import productionHub from '@/assets/images/production-hub.png';
 import productionHubWebp from '@/assets/images/production-hub.webp';
 
 // PRODUCTION REFACTOR: Unified dataset mapping array with your three corporate parameters
@@ -158,7 +156,7 @@ export default function MissionSection() {
               <picture className="w-full h-full">
                 <source srcSet={productionHubWebp} type="image/webp" />
                 <img
-                  src={productionHub}
+                  src={productionHubWebp}
                   alt="Honey processing and packing hub"
                   loading="lazy"
                   decoding="async"

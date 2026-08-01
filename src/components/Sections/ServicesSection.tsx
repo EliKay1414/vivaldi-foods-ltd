@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import apiaryLive from '@/assets/images/apiary-live.jpg';
-import productionHub from '@/assets/images/production-hub.jpg';
-import heroHoney from '@/assets/images/hero-honey.png';
-import packagingProduct1 from '@/assets/factory/Packaging1.png';
-import PackageProduct2 from '@/assets/factory/Packaging2.png';
+import apiaryLive from '@/assets/images/apiary-live.webp';
+import productionHub from '@/assets/images/production-hub.webp';
+import heroHoney from '@/assets/images/hero-honey.webp';
+import packagingProduct1 from '@/assets/factory/Packaging1.webp';
+import PackageProduct2 from '@/assets/factory/Packaging2.webp';
 
 const services = [
   {

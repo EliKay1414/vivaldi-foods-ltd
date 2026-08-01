@@ -8,11 +8,6 @@ import {
   ClipboardCheck, Leaf, ChevronRight,
 } from 'lucide-react';
 
-// Legacy standard PNG fallback references
-import Hive1 from '@/assets/Com-Impact/Hive-1.png';
-import Hive2 from '@/assets/Com-Impact/Hive-2.png';
-import Hive3 from '@/assets/Com-Impact/Hive-3.png';
-import Hive4 from '@/assets/Com-Impact/Hive-4.png';
 
 // PERFORMANCE OPTIMIZATION: High-speed WebP image formats mapping
 import Hive1Webp from '@/assets/Com-Impact/Hive-1.webp';
@@ -25,7 +20,6 @@ export const Route = createFileRoute('/community-impact')({
 });
 
 interface SliderImage {
-  png: string;
   webp: string;
 }
 
@@ -52,7 +46,7 @@ const ImageSlider = ({ images }: { images: SliderImage[] }) => {
           <picture className="w-full h-full">
             <source srcSet={images[index].webp} type="image/webp" />
             <img
-              src={images[index].png}
+              src={images[index].webp}
               alt="VOBCU Cooperative Community Event"
               loading={index === 0 ? "eager" : "lazy"} // Prioritizes the very first slide view to slash contentful paint latency
               decoding="async" // Frees main user interaction threads instantly
@@ -70,9 +64,9 @@ const initiativeGroups = [
   {
     title: "Strategic Event Pillars",
     images: [
-      { png: Hive1, webp: Hive1Webp },
-      { png: Hive2, webp: Hive2Webp },
-      { png: Hive3, webp: Hive3Webp }
+      { webp: Hive1Webp },
+      { webp: Hive2Webp },
+      { webp: Hive3Webp }
     ],
     items: [
       { icon: Users, title: 'VOBCU Formation', description: 'Formal introduction of the union to unite local beekeepers.' },
@@ -83,9 +77,9 @@ const initiativeGroups = [
   {
     title: "Business & Inclusion",
     images: [
-      { png: Hive2, webp: Hive2Webp },
-      { png: Hive3, webp: Hive3Webp },
-      { png: Hive4, webp: Hive4Webp }
+      { webp: Hive2Webp },
+      { webp: Hive3Webp },
+      { webp: Hive4Webp }
     ],
     items: [
       { icon: HandCoins, title: 'Financial Inclusion', description: 'Integrating insurance and mobile money solutions for growth.' },

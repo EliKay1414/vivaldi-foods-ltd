@@ -8,7 +8,6 @@ export default function Footer() {
   return (
     // COMPACT BRANDING FOOTER: Standard background color with balanced vertical paddings
     <footer className="bg-[#4a372c] text-white pt-16 border-t border-white/5">
-      {/* HORIZONTAL SYMMETRICS: Max width changed from 7xl to 6xl to match header grid layouts perfectly */}
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12">
 
@@ -18,11 +17,11 @@ export default function Footer() {
               <img
                 src="/Vivaldi-logo.webp"
                 alt="Vivaldi Foods Logo"
-                className="w-full h-auto object-contain transition-transform group-hover:scale-[1.02] invert brightness-0 sepia saturate-200 hue-rotate-15 contrast-125"
+                className="w-full h-auto object-contain transition-transform group-hover:scale-[1.02] brightness-0 invert"
               />
             </Link>
             <p className="text-white/70 text-xs leading-relaxed antialiased select-none pt-1">
-              Committed to delivering high-quality, safe, and responsibly packaged food products.
+              We are committed to delivering high-quality, safe, and responsibly packaged food products.
             </p>
           </div>
 
@@ -34,18 +33,34 @@ export default function Footer() {
               <li><Link to="/about" className="hover:text-green-400 transition-colors">Our Story</Link></li>
               <li><Link to="/products" className="hover:text-green-400 transition-colors">Our Products</Link></li>
               <li><Link to="/community-impact" className="hover:text-green-400 transition-colors">Community Impact</Link></li>
-              <li><Link to="/OurPartners" className="hover:text-green-400 transition-colors">Where to Buy</Link></li>
+              <li><Link to="/our-partners" className="hover:text-green-400 transition-colors">Where to Buy</Link></li>
             </ul>
           </div>
 
-          {/* Core Services */}
+          {/* Core Services — UPDATED WITH COMPILING, ACTIVE ROUTE LINKS */}
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white antialiased">Products & Services</h4>
             <ul className="space-y-3 text-xs text-white/70 antialiased">
-              <li className="hover:text-green-400 transition-colors cursor-default">Premium Honey Products</li>
-              <li className="hover:text-green-400 transition-colors cursor-default">Food Processing & Packaging</li>
-              <li className="hover:text-green-400 transition-colors cursor-default">Wholesale Distribution</li>
-              <li className="hover:text-green-400 transition-colors cursor-default">Retail Distribution</li>
+              <li>
+                <Link to="/products" className="hover:text-green-400 transition-colors block">
+                  Premium Honey Products
+                </Link>
+              </li>
+              <li>
+                <Link to="/factory" className="hover:text-green-400 transition-colors block">
+                  Food Processing & Packaging
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="hover:text-green-400 transition-colors block">
+                  Wholesale Distribution
+                </Link>
+              </li>
+              <li>
+                <Link to="/our-partners" className="hover:text-green-400 transition-colors block">
+                  Retail Distribution
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -73,11 +88,13 @@ export default function Footer() {
                 </a>
               </li>
 
-              {/* Email Link Route */}
+              {/* Email Link Route - CLEAN INTENT SETUP */}
               <li className="flex items-center gap-3">
                 <Mail size={14} className="text-green-400 shrink-0" />
                 <a
                   href={`mailto:${(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com').trim().toLowerCase()}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-white/70 hover:text-green-400 transition-colors font-medium"
                 >
                   {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com'}
@@ -93,7 +110,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Vivaldi Foods Ltd. All Rights Reserved.
           </p>
           <div className="flex gap-6 text-[11px] font-bold uppercase tracking-wider text-white/50">
-             <Link to="/" className="hover:text-green-400 transition-colors">Home</Link>
+            <Link to="/" className="hover:text-green-400 transition-colors">Home</Link>
             <Link to="/contact" className="hover:text-green-400 transition-colors">Contact</Link>
             <Link to="/faq" className="hover:text-green-400 transition-colors">FAQ</Link>
           </div>

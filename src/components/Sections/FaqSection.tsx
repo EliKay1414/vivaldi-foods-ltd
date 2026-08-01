@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import FiltrationImg from '@/assets/factory/Filtration.png';
-import Packaging1Img from '@/assets/factory/Packaging1.png';
-import Packaging2Img from '@/assets/factory/Packaging2.png';
-import HeatingImg from '@/assets/factory/Pre-heating.png';
-import ApiaryImg from '@/assets/images/apiary-live.jpg';
-import HeroImg from '@/assets/images/hero-honey.png';
+import FiltrationImg from '@/assets/factory/Filtration.webp';
+import Packaging1Img from '@/assets/factory/Packaging1.webp';
+import Packaging2Img from '@/assets/factory/Packaging2.webp';
+import HeatingImg from '@/assets/factory/Pre-heating.webp';
+import ApiaryImg from '@/assets/images/apiary-live.webp';
+import HeroImg from '@/assets/images/hero-honey.webp';
 
 const faqImages = [FiltrationImg, Packaging1Img, Packaging2Img, HeatingImg, ApiaryImg, HeroImg];
 

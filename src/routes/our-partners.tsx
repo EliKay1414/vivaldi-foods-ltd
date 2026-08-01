@@ -5,7 +5,7 @@ import { PageBanner } from '@/components/ui/PageBanner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, Phone, ChevronDown, CheckCircle, AlertCircle, HelpCircle } from 'lucide-react';
 
-export const Route = createFileRoute('/OurPartners')({
+export const Route = createFileRoute('/our-partners')({
   component: OurPartnersPage,
 });
 

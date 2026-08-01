@@ -2,7 +2,7 @@ import { COMPANY_DETAILS } from "@/lib/constants";
 
 export const SITE_CONFIG = {
   titleTemplate: "%s | Vivaldi Foods Ltd",
-  defaultTitle: "Vivaldi Foods Ltd | Premium Volta Honey in Ghana",
+  defaultTitle: "Vivaldi Foods Ltd",
   defaultDescription:
     "Shop 100% pure, raw, and responsibly packaged Volta honey from Vivaldi Foods Ltd. Serving retail, wholesale, and bulk agribusiness customers across Accra and Ghana.",
   siteUrl: "https://vivaldifoodsltd.com",

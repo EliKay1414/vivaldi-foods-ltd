@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 import { Flame, Compass, Filter, Sparkles, CheckCircle2 } from 'lucide-react';
 
 // Process Images
-import FromHive from '@/assets/factory/From-hive.png';
-import PreHeating from '@/assets/factory/Pre-heating.png';
-import Filtration from '@/assets/factory/Filtration.png';
-import Packaging from '@/assets/factory/Packaging1.png';
+import FromHive from '@/assets/factory/From-hive.webp';
+import PreHeating from '@/assets/factory/Pre-heating.webp';
+import Filtration from '@/assets/factory/Filtration.webp';
+import Packaging from '@/assets/factory/Packaging1.webp';
 
 export const Route = createFileRoute('/factory')({
   component: FactoryPage,

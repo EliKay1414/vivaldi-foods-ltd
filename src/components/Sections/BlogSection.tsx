@@ -8,9 +8,6 @@ export default function BlogSection() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // REAL-TIME CACHE BUSTER MARRY: Clear state to demand the absolute freshest network fetch data
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsLoading(true);
     getMediumBlogs().then((data) => {
       setPosts(data);
       setIsLoading(false);

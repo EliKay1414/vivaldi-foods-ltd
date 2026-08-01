@@ -13,13 +13,13 @@ import { Route as TeamRouteImport } from './routes/team'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as QualityRouteImport } from './routes/quality'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as OurPartnersRouteImport } from './routes/our-partners'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as FactoryRouteImport } from './routes/factory'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CommunityImpactRouteImport } from './routes/community-impact'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as OurPartnersRouteImport } from './routes/OurPartners'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
@@ -42,6 +42,11 @@ const QualityRoute = QualityRouteImport.update({
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OurPartnersRoute = OurPartnersRouteImport.update({
+  id: '/our-partners',
+  path: '/our-partners',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -74,11 +79,6 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OurPartnersRoute = OurPartnersRouteImport.update({
-  id: '/OurPartners',
-  path: '/OurPartners',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -97,13 +97,13 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/OurPartners': typeof OurPartnersRoute
   '/about': typeof AboutRoute
   '/community-impact': typeof CommunityImpactRoute
   '/contact': typeof ContactRoute
   '/factory': typeof FactoryRoute
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
+  '/our-partners': typeof OurPartnersRoute
   '/products': typeof ProductsRoute
   '/quality': typeof QualityRoute
   '/services': typeof ServicesRoute
@@ -113,13 +113,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/OurPartners': typeof OurPartnersRoute
   '/about': typeof AboutRoute
   '/community-impact': typeof CommunityImpactRoute
   '/contact': typeof ContactRoute
   '/factory': typeof FactoryRoute
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
+  '/our-partners': typeof OurPartnersRoute
   '/products': typeof ProductsRoute
   '/quality': typeof QualityRoute
   '/services': typeof ServicesRoute
@@ -130,13 +130,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/OurPartners': typeof OurPartnersRoute
   '/about': typeof AboutRoute
   '/community-impact': typeof CommunityImpactRoute
   '/contact': typeof ContactRoute
   '/factory': typeof FactoryRoute
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
+  '/our-partners': typeof OurPartnersRoute
   '/products': typeof ProductsRoute
   '/quality': typeof QualityRoute
   '/services': typeof ServicesRoute
@@ -148,13 +148,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/OurPartners'
     | '/about'
     | '/community-impact'
     | '/contact'
     | '/factory'
     | '/faq'
     | '/gallery'
+    | '/our-partners'
     | '/products'
     | '/quality'
     | '/services'
@@ -164,13 +164,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/OurPartners'
     | '/about'
     | '/community-impact'
     | '/contact'
     | '/factory'
     | '/faq'
     | '/gallery'
+    | '/our-partners'
     | '/products'
     | '/quality'
     | '/services'
@@ -180,13 +180,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/OurPartners'
     | '/about'
     | '/community-impact'
     | '/contact'
     | '/factory'
     | '/faq'
     | '/gallery'
+    | '/our-partners'
     | '/products'
     | '/quality'
     | '/services'
@@ -197,13 +197,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  OurPartnersRoute: typeof OurPartnersRoute
   AboutRoute: typeof AboutRoute
   CommunityImpactRoute: typeof CommunityImpactRoute
   ContactRoute: typeof ContactRoute
   FactoryRoute: typeof FactoryRoute
   FaqRoute: typeof FaqRoute
   GalleryRoute: typeof GalleryRoute
+  OurPartnersRoute: typeof OurPartnersRoute
   ProductsRoute: typeof ProductsRoute
   QualityRoute: typeof QualityRoute
   ServicesRoute: typeof ServicesRoute
@@ -240,6 +240,13 @@ declare module '@tanstack/react-router' {
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/our-partners': {
+      id: '/our-partners'
+      path: '/our-partners'
+      fullPath: '/our-partners'
+      preLoaderRoute: typeof OurPartnersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -284,13 +291,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/OurPartners': {
-      id: '/OurPartners'
-      path: '/OurPartners'
-      fullPath: '/OurPartners'
-      preLoaderRoute: typeof OurPartnersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -317,13 +317,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  OurPartnersRoute: OurPartnersRoute,
   AboutRoute: AboutRoute,
   CommunityImpactRoute: CommunityImpactRoute,
   ContactRoute: ContactRoute,
   FactoryRoute: FactoryRoute,
   FaqRoute: FaqRoute,
   GalleryRoute: GalleryRoute,
+  OurPartnersRoute: OurPartnersRoute,
   ProductsRoute: ProductsRoute,
   QualityRoute: QualityRoute,
   ServicesRoute: ServicesRoute,

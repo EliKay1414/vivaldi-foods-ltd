@@ -3,7 +3,7 @@ import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import apiaryImg from '@/assets/images/apiary-live.webp';
-import productSmall from '@/assets/products/products-500g.png';
+import productSmall from '@/assets/products/products-500g.webp';
 
 export default function AboutSection() {
   const containerVariants = {

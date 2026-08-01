@@ -2,14 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
-// Legacy standard fallback routes preserved
-import apiaryLive from '@/assets/images/Apiary-live.png';
-import heroHoney from '@/assets/images/hero-honey.png';
-import productionHub from '@/assets/images/production-hub.png';
-import harvestTime from '@/assets/images/harvest-time.png';
-import communitySupport from '@/assets/images/community-support.png';
-
-// NEXT-GEN WEBP ALTERNATIVES: Explicitly maps the new high-performance webp copies you will drop in your assets folder
 import apiaryLiveWebp from '@/assets/images/apiary-live.webp';
 import heroHoneyWebp from '@/assets/images/hero-honey.webp';
 import productionHubWebp from '@/assets/images/production-hub.webp';
@@ -25,7 +17,6 @@ const slides = [
     textColor: 'text-white',
     overlay: 'bg-black/50',
     btnColor: 'bg-green-700 hover:bg-green-800',
-    image: productionHub,
     webp: productionHubWebp,
   },
   {
@@ -36,7 +27,6 @@ const slides = [
     textColor: 'text-white',
     overlay: 'bg-black/60',
     btnColor: 'bg-green-700 hover:bg-green-800',
-    image: apiaryLive,
     webp: apiaryLiveWebp,
   },
   {
@@ -47,7 +37,6 @@ const slides = [
     textColor: 'text-white',
     overlay: 'bg-black/50',
     btnColor: 'bg-green-700 hover:bg-green-800',
-    image: harvestTime,
     webp: harvestTimeWebp,
   },
   {
@@ -58,7 +47,6 @@ const slides = [
     textColor: 'text-white',
     overlay: 'bg-black/50',
     btnColor: 'bg-green-700 hover:bg-green-800',
-    image: communitySupport,
     webp: communitySupportWebp,
   },
   {
@@ -69,7 +57,6 @@ const slides = [
     textColor: 'text-gray-900',
     overlay: 'bg-amber-50/40',
     btnColor: 'bg-green-700 hover:bg-green-800',
-    image: heroHoney,
     webp: heroHoneyWebp,
   },
 ];
@@ -96,7 +83,7 @@ export default function HeroSection() {
           <picture className="w-full h-full">
             <source srcSet={s.webp} type="image/webp" />
             <img
-              src={s.image}
+              src={s.webp}
               alt=""
               loading={i === current ? "eager" : "lazy"}
               decoding="async"

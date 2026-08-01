@@ -3,7 +3,6 @@ import { Link, useLocation, useRouter } from '@tanstack/react-router';
 import { Menu, X, Phone, Mail, ChevronDown, ChevronRight } from 'lucide-react';
 import { COMPANY_DETAILS } from '@/lib/constants';
 
-// RESOLVED VITE STRING PATH: Directly references the public asset file path as a static root string
 const vivaldiLogo = "/Vivaldi-logo.webp";
 
 const navLinks = [
@@ -22,7 +21,7 @@ const navLinks = [
   },
   { label: 'Products', href: '/products' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Our Partners', href: '/OurPartners' }, // Synced case parameter naming convention
+  { label: 'Our Partners', href: '/our-partners' },
 ];
 
 export default function Header() {
@@ -269,12 +268,12 @@ export default function Header() {
 
               {/* DIRECT GMAIL COMPOWSURE LINK: Directs mobile and desktop users directly into Gmail compose panels */}
               <a
-                href={`mailto:${(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com').trim().toLowerCase()}`}
+                href={`mailto:${(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd').trim().toLowerCase()}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-green-700 transition-colors text-xs font-medium block break-all"
               >
-                {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com'}
+                {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd'}
               </a>
             </div>
           </div>

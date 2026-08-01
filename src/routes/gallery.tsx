@@ -8,14 +8,6 @@ import apiaryImgWebp from '@/assets/images/apiary-live.webp';
 import productionHubImgWebp from '@/assets/images/production-hub.webp';
 import honeyProcessImgWebp from '@/assets/images/hero-honey.webp';
 
-// Standard Legacy Fallback Imports
-import p330Img from '@/assets/products/products-330g.png';
-import p500Img from '@/assets/products/products-500g.png';
-import allProductsImg from '@/assets/products/products.png';
-import fromHiveImg from '@/assets/factory/From-hive.png';
-import filtrationImg from '@/assets/factory/Filtration.png';
-import packagingImg from '@/assets/factory/Packaging1.png';
-
 // Next-Gen WebP Fallback Imports (Drop these into your asset folders after running through Squoosh)
 import p330ImgWebp from '@/assets/products/products-330g.webp';
 import p500ImgWebp from '@/assets/products/products-500g.webp';
@@ -30,7 +22,7 @@ export const Route = createFileRoute('/gallery')({
 
 const galleryItems = [
   {
-    src: p500Img, // Keep standard as fallback base source
+    src: apiaryImgWebp, // Keep standard as fallback base source
     webp: apiaryImgWebp, // Already optimized webp asset reference
     title: "Sustainable Harvesting",
     category: "Production",
@@ -38,7 +30,7 @@ const galleryItems = [
     accentColor: "text-amber-400"
   },
   {
-    src: fromHiveImg,
+    src: fromHiveImgWebp,
     webp: fromHiveImgWebp,
     title: "From Hive to Handling",
     category: "Sourcing",
@@ -46,7 +38,7 @@ const galleryItems = [
     accentColor: "text-green-400"
   },
   {
-    src: filtrationImg,
+    src: filtrationImgWebp,
     webp: filtrationImgWebp,
     title: "Purity Filtration",
     category: "Quality",
@@ -54,7 +46,7 @@ const galleryItems = [
     accentColor: "text-amber-400"
   },
   {
-    src: p500Img,
+    src: honeyProcessImgWebp,
     webp: honeyProcessImgWebp,
     title: "Pure Extraction",
     category: "Process",
@@ -62,7 +54,7 @@ const galleryItems = [
     accentColor: "text-amber-400"
   },
   {
-    src: packagingImg,
+    src: packagingImgWebp,
     webp: packagingImgWebp,
     title: "Sealed Packaging",
     category: "Packaging",
@@ -70,7 +62,7 @@ const galleryItems = [
     accentColor: "text-green-400"
   },
   {
-    src: p500Img,
+    src: productionHubImgWebp,
     webp: productionHubImgWebp,
     title: "Packaging Hub",
     category: "Facility",
@@ -78,7 +70,7 @@ const galleryItems = [
     accentColor: "text-green-400"
   },
   {
-    src: p330Img,
+    src: p330ImgWebp,
     webp: p330ImgWebp,
     title: "Volta Premium Honey 330g",
     category: "Product",
@@ -86,7 +78,7 @@ const galleryItems = [
     accentColor: "text-amber-400"
   },
   {
-    src: p500Img,
+    src: p500ImgWebp,
     webp: p500ImgWebp,
     title: "Volta Premium Honey 500g",
     category: "Product",
@@ -94,7 +86,7 @@ const galleryItems = [
     accentColor: "text-green-400"
   },
   {
-    src: allProductsImg,
+    src: allProductsImgWebp,
     webp: allProductsImgWebp,
     title: "Wholesale Product Range",
     category: "Distribution",

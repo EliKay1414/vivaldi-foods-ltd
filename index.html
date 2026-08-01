@@ -36,8 +36,9 @@
     />
     <meta name="twitter:image" content="https://vivaldifoodsltd.comimages/products.png" />
 
-    <link rel="preload" fetchpriority="high" as="image" href="/src/assets/images/production-hub.webp" type="image/webp" />
-    <link rel="preload" fetchpriority="high" as="image" href="/Vivaldi-logo.webp" type="image/webp" />
+    <!-- Removed fetchpriority (not supported by Firefox/Opera). Use importance for broader support. -->
+    <link rel="preload" importance="high" as="image" href="/src/assets/images/production-hub.webp" type="image/webp" />
+    <link rel="preload" importance="high" as="image" href="/Vivaldi-logo.webp" type="image/webp" />
 
     <!-- GOOGLE FONTS INSTANT INJECTION LAYER: Shifting font imports here removes PostCSS @import ordering errors completely -->
     <link rel="preconnect" href="https://googleapis.com" />
