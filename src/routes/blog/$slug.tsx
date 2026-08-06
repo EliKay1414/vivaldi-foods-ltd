@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { getMediumBlogs } from '@/services/medium';
 import { Loader2, ExternalLink } from 'lucide-react';
+import Seo from '@/components/ui/Seo';
 
-export const Route = createFileRoute('/blog/$slug')({ component: BlogPost });
+export const Route = createFileRoute('/blog/$slug')({
+  component: BlogPost,
+});
 
 function BlogPost() {
   const { slug } = Route.useParams();
@@ -35,6 +38,12 @@ function BlogPost() {
 
   return (
     <div className="bg-amber-50/20 min-h-screen flex flex-col items-center justify-center p-6 text-center">
+      {/* TYPE-SAFE CLIENT INJECTION: Hydrates dynamic page meta configuration safely without route config properties */}
+      <Seo
+        title="Vivaldi Insights & Articles | Vivaldi Foods Ltd"
+        description="Read our latest corporate insights, beekeeping breakthroughs, lab updates, and company news directly on our official Medium channel."
+      />
+
       <div className="space-y-4">
         <Loader2 className="animate-spin text-green-700 mx-auto" size={32} />
         <p className="font-bold text-gray-900 text-sm">Redirecting to our official Medium channel...</p>

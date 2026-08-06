@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { PageBanner } from '@/components/ui/PageBanner';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Users, GraduationCap, ShieldCheck, HandCoins,
-  ClipboardCheck, Leaf, ChevronRight,
+import { Users, GraduationCap, ShieldCheck, HandCoins, ClipboardCheck, Leaf, ChevronRight,
 } from 'lucide-react';
 
+// SEO COMPONENT IMPORT: Fixes compilation type errors natively
+import Seo from '@/components/ui/Seo';
 
 // PERFORMANCE OPTIMIZATION: High-speed WebP image formats mapping
 import Hive1Webp from '@/assets/Com-Impact/Hive-1.webp';
@@ -42,14 +42,13 @@ const ImageSlider = ({ images }: { images: SliderImage[] }) => {
           transition={{ duration: 0.4 }}
           className="w-full h-full"
         >
-          {/* NATIVE WEB RUNTIME FIX: Prioritizes lightweight WebP files, dropping download weights to raw minimums */}
           <picture className="w-full h-full">
             <source srcSet={images[index].webp} type="image/webp" />
             <img
               src={images[index].webp}
               alt="VOBCU Cooperative Community Event"
-              loading={index === 0 ? "eager" : "lazy"} // Prioritizes the very first slide view to slash contentful paint latency
-              decoding="async" // Frees main user interaction threads instantly
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
               fetchPriority={index === 0 ? "high" : "low"}
               className="w-full h-full object-cover rounded-xl select-none"
             />
@@ -92,6 +91,12 @@ const initiativeGroups = [
 function CommunityImpactPage() {
   return (
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
+      {/* TYPE-SAFE CLIENT INJECTION: Updates the document metadata safely within the browser loop */}
+      <Seo
+        title="Community Impact & Beekeeping Development | Vivaldi Foods Ltd"
+        description="Partnering with the Volta and Oti Beekeepers Cooperative Union (VOBCU) to deliver agricultural training, sustainable livelihoods, and financial inclusion for rural farmers in Ghana."
+      />
+
       <PageBanner
         title="Community Impact"
         subtitle="Vivaldi Foods Ltd is proud to support the Volta and Oti Beekeepers Cooperative Union (VOBCU)."

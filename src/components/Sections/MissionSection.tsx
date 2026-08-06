@@ -5,7 +5,6 @@ import { Check, ArrowRight, ShieldCheck, Leaf, Truck, Users } from 'lucide-react
 
 import productionHubWebp from '@/assets/images/production-hub.webp';
 
-// PRODUCTION REFACTOR: Unified dataset mapping array with your three corporate parameters
 const tabs = [
   {
     key: 'about',
@@ -72,9 +71,10 @@ export default function MissionSection() {
               {tabs.map((t) => (
                 <button
                   key={t.key}
+                  type="button"
                   onClick={() => setActive(t.key)}
-                  className={`relative px-4 py-3 text-xs font-bold uppercase tracking-wider transition-colors duration-200 ${
-                    active === t.key ? 'text-green-700' : 'text-gray-400 hover:text-gray-700'
+                  className={`relative px-4 py-3 text-xs font-bold uppercase tracking-wider transition-colors duration-200 cursor-pointer select-none ${
+                    active === t.key ? 'text-green-700' : 'text-gray-700 hover:text-green-700'
                   }`}
                 >
                   {t.label}
@@ -131,15 +131,14 @@ export default function MissionSection() {
 
             {/* Action Trigger Button */}
             <div className="pt-2">
-            <Link
-            // ROUTING FIX: Enforces TanStack Router type routing to make the link fully clickable
-            to="/products"
-            search={{}} /* Clears stale query parameters explicitly */
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm group cursor-pointer"
-            >
-              Discover More
-             <ArrowRight className="transition-transform group-hover:translate-x-0.5" size={13} />
-             </Link>
+              <Link
+                to="/products"
+                search={{}}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm group cursor-pointer"
+              >
+                Discover More
+                <ArrowRight className="transition-transform group-hover:translate-x-0.5" size={13} />
+              </Link>
             </div>
           </motion.div>
 
@@ -149,10 +148,10 @@ export default function MissionSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative lg:pt-4"
+            className="relative lg:pt-4 w-full"
           >
-            {/* Image Box configured with modern Picture performance markers */}
-            <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-white p-1.5 relative">
+            {/* FIXED ASPECT RATIO INFRASTRUCTURE: Prevents layout shifts on initial asset parsing cycles */}
+            <div className="rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-white p-1.5 relative w-full aspect-4/3 sm:aspect-video lg:aspect-4/3">
               <picture className="w-full h-full">
                 <source srcSet={productionHubWebp} type="image/webp" />
                 <img
@@ -160,7 +159,7 @@ export default function MissionSection() {
                   alt="Honey processing and packing hub"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-80 md:h-100 object-cover rounded-xl transition-transform duration-700 hover:scale-[1.02]"
+                  className="w-full h-full object-cover rounded-xl transition-transform duration-700 hover:scale-[1.02] select-none"
                 />
               </picture>
             </div>
@@ -170,7 +169,7 @@ export default function MissionSection() {
               initial={{ y: 20, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="absolute -bottom-6 left-4 right-4 md:left-10 md:right-auto md:w-80 bg-white p-5 shadow-md border border-gray-100 rounded-2xl"
+              className="absolute -bottom-6 left-4 right-4 md:left-10 md:right-auto md:w-80 bg-white p-5 shadow-md border border-gray-100 rounded-2xl z-20"
             >
               <div className="flex items-center gap-4">
                 <div className="text-center shrink-0">

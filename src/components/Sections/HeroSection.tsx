@@ -73,13 +73,12 @@ export default function HeroSection() {
   const isDarkSlide = slide.textColor === 'text-white';
 
   return (
-    <section className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-33.75 w-full aspect-16/7 md:aspect-21/8 min-h-100 md:min-h-115 overflow-hidden bg-gray-100 text-gray-800 flex flex-col justify-center">
+    /* ASPECT RATIO CONFIGURATION: Locked to standard container proportions to preserve structural layout fluidly */
+    <section className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-33.75 w-full aspect-4/3 md:aspect-16/7 lg:aspect-21/9 overflow-hidden bg-gray-100 text-gray-800 flex flex-col justify-center">
 
       {/* Background Slides Engine */}
       {slides.map((s, i) => (
         <div key={i} className={`absolute inset-0 transition-opacity duration-1000 ${i === current ? 'opacity-100' : 'opacity-0'}`}>
-          {/* NATIVE LIGHTHOUSE OPTIMIZATION PARADIGM: The <picture> element handles automated
-              WebP delivery shifts with standard legacy JPG fallbacks natively */}
           <picture className="w-full h-full">
             <source srcSet={s.webp} type="image/webp" />
             <img
@@ -87,7 +86,7 @@ export default function HeroSection() {
               alt=""
               loading={i === current ? "eager" : "lazy"}
               decoding="async"
-              fetchPriority={i === current ? "high" : "low"} // Forces Google crawler to download the first active slice instantly
+              fetchPriority={i === current ? "high" : "low"}
               className="w-full h-full object-cover object-center select-none image-rendering-crisp"
             />
           </picture>
@@ -96,15 +95,15 @@ export default function HeroSection() {
       ))}
 
       {/* Content Area Container */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 w-full py-8 sm:py-12 md:py-16 flex flex-col justify-center">
-        <div className="max-w-3xl space-y-2 sm:space-y-3 md:space-y-4">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 w-full py-4 sm:py-8 md:py-12 flex flex-col justify-center h-full">
+        <div className="max-w-3xl space-y-1.5 sm:space-y-3 md:space-y-4">
           <div className={`font-bold tracking-[0.2em] uppercase text-[9px] sm:text-xs bg-black/10 backdrop-blur-xs w-fit px-2.5 py-0.5 rounded-full ${slide.textColor}`}>
             {slide.eyebrow}
           </div>
-          <h1 className={`${slide.textColor} whitespace-pre-line text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-tight leading-[1.15] max-w-4xl`}>
+          <h1 className={`${slide.textColor} whitespace-pre-line text-lg sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-tight leading-[1.15] max-w-4xl`}>
             {slide.title}
           </h1>
-          <p className={`${slide.textColor} text-[11px] sm:text-xs md:text-sm max-w-xl font-medium opacity-90 leading-relaxed`}>
+          <p className={`${slide.textColor} text-[10px] sm:text-xs md:text-sm max-w-xl font-medium opacity-90 leading-relaxed`}>
             {slide.subtitle}
           </p>
           <div className="pt-1">

@@ -4,6 +4,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { PageBanner } from '@/components/ui/PageBanner';
 import { ChevronDown, HelpCircle, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Seo from '@/components/ui/Seo';
 
 // Image Assets Imports
 import FiltrationImg from '@/assets/factory/Filtration.webp';
@@ -73,6 +74,12 @@ function ImageSlider({ images }: { images: string[] }) {
 function FAQPage() {
   return (
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
+      {/* TYPE-SAFE CLIENT INJECTION: Hydrates document meta configurations safely without route conflicts */}
+      <Seo
+        title="Frequently Asked Questions | Vivaldi Foods Ltd"
+        description="Find answers to common questions about Vivaldi Foods Ltd. Learn about our 100% pure honey sourcing in Adaklu, wholesale orders, FDA standards compliance, and international bulk supply."
+      />
+
       <PageBanner
         title="Frequently Asked Questions"
         subtitle="Everything you need to know about our honey, our process, and our commitment to food safety."
@@ -87,8 +94,10 @@ function FaqSection() {
 
   return (
     <section className="py-16 md:py-24 max-w-7xl mx-auto px-6 relative overflow-hidden">
+      <div className="absolute top-48 left-10 w-48 h-48 bg-green-700/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-48 right-10 w-64 h-64 bg-green-700/5 rounded-full blur-3xl" />
 
-      {/* INTRO HEADER REFACTOR: Centered perfectly to lock down top-level visual symmetry */}
+      {/* INTRO HEADER */}
       <div className="max-w-3xl mx-auto text-center mb-16 md:mb-20 space-y-4 flex flex-col items-center">
         <span className="text-[11px] font-bold uppercase tracking-wider text-green-700 bg-green-50 px-3 py-1 rounded-full inline-block">
           FAQ's
@@ -102,12 +111,12 @@ function FaqSection() {
       </div>
 
       {/* Structured Multi-Column Action Section Grid */}
-      <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
 
-        {/* Left Column Area: Promotional Callouts & Cute Image Slider */}
+        {/* Left Column Area */}
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4">
-            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">
               <HelpCircle className="w-5 h-5" />
             </div>
             <h3 className="text-lg font-bold text-gray-900 tracking-tight">Still have queries or need custom adjustments?</h3>
@@ -125,7 +134,7 @@ function FaqSection() {
           <ImageSlider images={faqImages} />
         </div>
 
-        {/* Right Column Area: Beautiful High-Contrast Accordion Directory List */}
+        {/* Right Column Area */}
         <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm divide-y divide-gray-100">
           {faqs.map((faq, i) => {
             const isOpen = open === i;

@@ -4,6 +4,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { PageBanner } from '@/components/ui/PageBanner';
 import { ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Seo from '@/components/ui/Seo';
 
 // Asset Imports
 import apiaryLive from '@/assets/images/apiary-live.webp';
@@ -71,8 +72,14 @@ function ImageSlider({ images }: { images: string[] }) {
 function ServicesPage() {
   return (
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
+      {/* TYPE-SAFE CLIENT INJECTION: Hydrates dynamic page meta configuration safely without route config properties */}
+      <Seo
+        title="Food Production & Agribusiness Services | Vivaldi Foods Ltd"
+        description="Explore agribusiness solutions by Vivaldi Foods Ltd. We offer premium bulk honey production, safe contract food packaging, and commercial wholesale distribution across Ghana."
+      />
+
       <PageBanner
-        title="Agribusiness Services"
+        title="Food Production & Agribusiness Services"
         subtitle="End-to-end food production, manufacturing, processing, and packaging solutions."
       />
 
@@ -84,6 +91,9 @@ function ServicesPage() {
 function ServicesSection() {
   return (
     <section className="py-16 md:py-24 max-w-7xl mx-auto px-6 relative overflow-hidden">
+      {/* Decorative Blur Vectors */}
+      <div className="absolute top-48 left-10 w-48 h-48 bg-green-700/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-48 right-10 w-64 h-64 bg-green-700/5 rounded-full blur-3xl" />
 
       {/* HEADER REFACTOR: Perfectly centered introduction section for crisp symmetry */}
       <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24 space-y-4 flex flex-col items-center">

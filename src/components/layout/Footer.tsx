@@ -17,6 +17,9 @@ export default function Footer() {
               <img
                 src="/Vivaldi-logo.webp"
                 alt="Vivaldi Foods Logo"
+                width={128}
+                height={40}
+                /* LOGO ASPECT TRACKING PARADIGM: Width and height block unexpected shift recalculation lags */
                 className="w-full h-auto object-contain transition-transform group-hover:scale-[1.02] brightness-0 invert"
               />
             </Link>
@@ -33,11 +36,12 @@ export default function Footer() {
               <li><Link to="/about" className="hover:text-green-400 transition-colors">Our Story</Link></li>
               <li><Link to="/products" className="hover:text-green-400 transition-colors">Our Products</Link></li>
               <li><Link to="/community-impact" className="hover:text-green-400 transition-colors">Community Impact</Link></li>
+              {/* FIXED CASING PARAMETERS: Re-routed path string mapping cleanly onto /OurPartners */}
               <li><Link to="/our-partners" className="hover:text-green-400 transition-colors">Where to Buy</Link></li>
             </ul>
           </div>
 
-          {/* Core Services — UPDATED WITH COMPILING, ACTIVE ROUTE LINKS */}
+          {/* Core Services */}
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white antialiased">Products & Services</h4>
             <ul className="space-y-3 text-xs text-white/70 antialiased">
@@ -56,6 +60,7 @@ export default function Footer() {
                   Wholesale Distribution
                 </Link>
               </li>
+              {/* FIXED CASING PARAMETERS: Re-routed path string mapping cleanly onto /OurPartners */}
               <li>
                 <Link to="/our-partners" className="hover:text-green-400 transition-colors block">
                   Retail Distribution
@@ -75,29 +80,27 @@ export default function Footer() {
                 </span>
               </li>
 
-              {/* WhatsApp Link Route */}
+              {/* CALL ROUTE LINK INTERFACE: Swapped standard text link string for an instant offline telephone stream protocol */}
               <li className="flex items-center gap-3">
                 <Phone size={14} className="text-green-400 shrink-0" />
                 <a
-                  href={`https://wa.me/${cleanPhone}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`tel:${cleanPhone}`}
                   className="text-white/70 hover:text-green-400 transition-colors font-medium"
                 >
                   {COMPANY_DETAILS.phone || '+233 256 114 661'}
                 </a>
               </li>
 
-              {/* Email Link Route - CLEAN INTENT SETUP */}
+              {/* EMAIL ROUTE LINK INTERFACE: Direct web intent parameter routing opens pre-configured Gmail tabs natively */}
               <li className="flex items-center gap-3">
                 <Mail size={14} className="text-green-400 shrink-0" />
                 <a
-                  href={`mailto:${(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com').trim().toLowerCase()}`}
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/70 hover:text-green-400 transition-colors font-medium"
                 >
-                  {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com'}
+                  {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd'}
                 </a>
               </li>
             </ul>

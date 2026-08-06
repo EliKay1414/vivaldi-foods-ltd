@@ -9,12 +9,14 @@ import TeamSection from '@/components/Sections/TeamSection';
 import StatsSection from '@/components/Sections/StatsSection';
 import ImpactTracker from '@/components/Sections/ImpactTracker';
 
+// SEO COMPONENT IMPORT: Resolves compilation errors while managing unique meta headers natively
+import Seo from '@/components/ui/Seo';
+
 export const Route = createFileRoute('/about')({
   component: AboutPage,
 });
 
 function AboutPage() {
-  // Enhanced dynamic view hash scroll listener configuration
   useEffect(() => {
     const handleHashScroll = () => {
       const hash = window.location.hash;
@@ -38,7 +40,12 @@ function AboutPage() {
       transition={{ duration: 0.4, ease: 'easeOut' }}
       className="bg-amber-50/20 min-h-screen"
     >
-      {/* SCROLL ANCHOR REFACTOR: Changed standard scroll-mt targets to line up flawlessly with your responsive header bar */}
+      {/* TYPE-SAFE CLIENT INJECTION: Dynamically sets unique meta parameters upon component initialization */}
+      <Seo
+        title="Our Story & Core Values | Vivaldi Foods Ltd"
+        description="Discover the story behind Vivaldi Foods Ltd. Learn about our strict quality standards, sustainable beekeeping partnerships, and premium Volta Honey processing factory in Adaklu, Ghana."
+      />
+
       <div id="story" className="scroll-mt-24">
         <PageBanner
           title="About Vivaldi Foods"
@@ -48,7 +55,6 @@ function AboutPage() {
 
       <AboutSection />
 
-      {/* Layer separation lines use high-fidelity, light horizontal grey delimiters */}
       <div id="vision" className="bg-transparent border-t border-gray-100 scroll-mt-24">
         <MissionSection />
       </div>

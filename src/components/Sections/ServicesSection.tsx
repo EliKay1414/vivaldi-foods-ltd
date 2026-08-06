@@ -32,10 +32,6 @@ const services = [
   },
 ];
 
-/**
- * ImageSlider Component
- * Handles auto-cycling through arrays of images
- */
 function ImageSlider({ images }: { images: string[] }) {
   const [index, setIndex] = useState(0);
 
@@ -57,7 +53,7 @@ function ImageSlider({ images }: { images: string[] }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-xl"
         />
       </AnimatePresence>
     </div>
@@ -66,23 +62,30 @@ function ImageSlider({ images }: { images: string[] }) {
 
 export default function ServicesSection() {
   return (
-    <section className="section-spacing bg-brand-cream relative overflow-hidden">
-      <div className="container-custom">
-        {/* Header Section */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-(--space-md) mb-16">
-          <div className="sec-title mb-0">
-            <span className="sub-title">Our Expertise</span>
-            <h2 className="text-brand-brown">
+    /* COMPACT SPACING PARADIGM: Synchronized spacing tokens across all homepage view section decks (py-12 md:py-16) */
+    <section className="py-12 md:py-16 bg-white border-t border-gray-100 relative overflow-hidden text-gray-800">
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* HEADER SECTION REFACTOR */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+          <div className="space-y-1.5 flex flex-col items-start text-left">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full inline-block">
+              Our Expertise
+            </span>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 tracking-tight pt-1">
               Simple, Clean Food Processing
             </h2>
           </div>
-          <Link to="/products" className="btn-corporate shrink-0">
-            View Products <ArrowRight className="ml-2" size={16} />
+          <Link
+            to="/products"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm shrink-0 w-full sm:w-auto cursor-pointer"
+          >
+            View Products <ArrowRight size={14} />
           </Link>
         </div>
 
-        {/* Services List */}
-        <div className="border-t border-brand-brown/10">
+        {/* Services List Loop Directory */}
+        <div className="border-t border-gray-100 max-w-5xl mx-auto">
           {services.map((svc, i) => (
             <motion.div
               key={svc.num}
@@ -94,34 +97,34 @@ export default function ServicesSection() {
               <Link
                 to="/contact"
                 search={{ subject: svc.title }}
-                className="group border-b border-brand-brown/10 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 py-10 hover:bg-white/50 transition-all duration-500"
+                className="group border-b border-gray-100 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 py-8 md:py-10 px-4 rounded-2xl hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer"
               >
-                {/* Number */}
-                <span className="font-display font-bold text-5xl md:text-6xl text-brand-brown/10 group-hover:text-brand-green transition-colors w-20 shrink-0">
+                {/* List Structural Counter */}
+                <span className="font-display font-bold text-5xl md:text-6xl text-gray-200/80 group-hover:text-green-700 transition-colors w-20 shrink-0">
                   {svc.num}
                 </span>
 
-                {/* Content */}
-                <div className="flex-1">
-                  <span className="inline-block text-[10px] font-bold text-brand-green uppercase tracking-[0.3em] mb-3">
+                {/* Main Copy Context */}
+                <div className="flex-1 space-y-1">
+                  <span className="inline-block text-[10px] font-bold text-green-700 uppercase tracking-widest">
                     {svc.tag}
                   </span>
-                  <h3 className="text-2xl font-bold text-brand-brown group-hover:text-brand-green transition-colors mb-2">
+                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-green-700 transition-colors">
                     {svc.title}
                   </h3>
-                  <p className="text-slate-body text-base max-w-2xl leading-relaxed opacity-80">
+                  <p className="text-gray-600 text-sm md:text-base leading-relaxed max-w-xl">
                     {svc.desc}
                   </p>
                 </div>
 
-                {/* Responsive Slider/Image Container */}
-                <div className="w-full md:w-64 h-48 md:h-32 overflow-hidden shadow-lg rounded-sm bg-brand-brown/5">
+                {/* SLIDER CONTROLLER REFACTOR: Explicit strict dual-aspect ratios assigned for layout stability */}
+                <div className="w-full md:w-56 aspect-4/3 md:aspect-2/1 overflow-hidden shadow-sm rounded-xl border border-gray-100 bg-gray-50 shrink-0 p-1">
                   <ImageSlider images={svc.images} />
                 </div>
 
-                {/* Action Arrow */}
-                <div className="w-12 h-12 bg-brand-brown text-white flex items-center justify-center shrink-0 group-hover:bg-brand-green transition-colors">
-                  <ArrowRight size={20} />
+                {/* Symmetrical Interactive Vector Action Arrow Housing */}
+                <div className="w-10 h-10 rounded-xl bg-gray-50 text-gray-600 flex items-center justify-center shrink-0 group-hover:bg-green-700 group-hover:text-white transition-all duration-300 shadow-sm">
+                  <ArrowRight size={16} />
                 </div>
               </Link>
             </motion.div>

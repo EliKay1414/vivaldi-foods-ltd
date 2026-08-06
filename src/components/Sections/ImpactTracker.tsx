@@ -74,13 +74,12 @@ export default function ImpactTracker() {
   const currentTab = tabContents[activeTab];
 
   return (
-    // COMPACT SPACING: Standardized padding wrappers for a smooth, cohesive aesthetic
     <section className="py-12 md:py-16 bg-white border-t border-gray-100 relative overflow-hidden text-gray-800">
       <div className="absolute top-0 right-0 w-80 h-80 bg-green-700/5 rounded-full blur-3xl" />
 
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* CENTERED HEADER REFACTOR: Aligned perfectly to lock down top-level visual symmetry */}
+        {/* CENTERED HEADER */}
         <div className="max-w-3xl mx-auto text-center mb-10 space-y-2 flex flex-col items-center">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full inline-block">
             Community Impact
@@ -93,7 +92,7 @@ export default function ImpactTracker() {
           </p>
         </div>
 
-        {/* SYMMETRICAL METRIC DECK: Fluid flex-wrap container instead of static height boxes */}
+        {/* SYMMETRIC METRIC DECK GRID */}
         <div className="flex flex-wrap gap-5 justify-center items-stretch mb-10">
           {metrics.map((metric) => (
             <div
@@ -101,7 +100,7 @@ export default function ImpactTracker() {
               className="bg-gray-50/50 border border-gray-100 p-5 rounded-2xl flex flex-col justify-between w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)] max-w-sm transition-all duration-300 hover:shadow-sm"
             >
               <div>
-                <div className="w-10 h-10 bg-green-50 text-green-700 rounded-xl flex items-center justify-center mb-4">
+                <div className="w-10 h-10 bg-green-50 text-green-700 rounded-xl flex items-center justify-center mb-4 shrink-0">
                   {metric.icon}
                 </div>
                 <div className="font-display font-bold text-2xl md:text-3xl text-gray-900 mb-1">
@@ -118,14 +117,15 @@ export default function ImpactTracker() {
           ))}
         </div>
 
-        {/* INTERACTIVE TAB BOX REFACTOR: Wrapped inside a sleek card boundary container */}
+        {/* INTERACTIVE TAB SYSTEM */}
         <div className="bg-white border border-gray-100 p-5 md:p-6 rounded-2xl shadow-xs">
           <div className="flex flex-wrap border-b border-gray-100 mb-6 pb-0.5">
             {(['empowerment', 'environment', 'skills'] as const).map((tab) => (
               <button
                 key={tab}
+                type="button" // FIXED MOBILE BEHAVIOR: Prevents inadvertent parent submit triggers
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors relative ${
+                className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors relative cursor-pointer select-none ${
                   activeTab === tab ? 'text-green-700' : 'text-gray-400 hover:text-gray-700'
                 }`}
               >
@@ -163,7 +163,7 @@ export default function ImpactTracker() {
                 </p>
               </div>
 
-              <ul className="lg:col-span-5 space-y-2.5 bg-gray-50/50 p-4 rounded-xl border border-gray-50">
+              <ul className="lg:col-span-5 space-y-2.5 bg-gray-50/50 p-4 rounded-xl border border-gray-50 w-full">
                 {currentTab.bullets.map((bullet) => (
                   <li key={bullet} className="flex items-start gap-2.5 text-xs md:text-sm text-gray-600 leading-relaxed">
                     <ShieldCheck className="w-4 h-4 text-green-700 shrink-0 mt-0.5" />

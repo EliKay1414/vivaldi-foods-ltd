@@ -2,13 +2,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { PageBanner } from '@/components/ui/PageBanner';
 import { motion } from 'framer-motion';
+import Seo from '@/components/ui/Seo';
 
-// High-Performance WebP Imports
 import apiaryImgWebp from '@/assets/images/apiary-live.webp';
 import productionHubImgWebp from '@/assets/images/production-hub.webp';
 import honeyProcessImgWebp from '@/assets/images/hero-honey.webp';
-
-// Next-Gen WebP Fallback Imports (Drop these into your asset folders after running through Squoosh)
 import p330ImgWebp from '@/assets/products/products-330g.webp';
 import p500ImgWebp from '@/assets/products/products-500g.webp';
 import allProductsImgWebp from '@/assets/products/products.webp';
@@ -22,8 +20,8 @@ export const Route = createFileRoute('/gallery')({
 
 const galleryItems = [
   {
-    src: apiaryImgWebp, // Keep standard as fallback base source
-    webp: apiaryImgWebp, // Already optimized webp asset reference
+    src: apiaryImgWebp,
+    webp: apiaryImgWebp,
     title: "Sustainable Harvesting",
     category: "Production",
     desc: "Our carefully handled sourcing channels in the Volta Region of Ghana.",
@@ -98,6 +96,12 @@ const galleryItems = [
 function GalleryPage() {
   return (
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
+      {/* TYPE-SAFE CLIENT INJECTION: Hydrates document meta configurations safely without route conflicts */}
+      <Seo
+        title="Production Gallery & Visual Journey | Vivaldi Foods Ltd"
+        description="Explore the visual journey of Vivaldi Foods Ltd. View high-quality images of our sustainable beekeeping apiaries in the Volta Region, micro-mesh filtration setups, and sterile honey bottling factory."
+      />
+
       <PageBanner
         title="Visual Journey"
         subtitle="Explore the pristine environments where our gold is harvested and processed."
@@ -111,23 +115,20 @@ function GalleryPage() {
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.05, duration: 0.3 }} // Optimized staggering delay to eliminate thread locking
+              transition={{ delay: index * 0.05, duration: 0.3 }}
               className="group relative overflow-hidden aspect-3/4 bg-white rounded-2xl border border-gray-100 shadow-sm w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1"
             >
-              {/* PERFORMANCE RESOLUTION PARADIGM: Picture markup ensures WebP files render
-                  by default, completely eliminating heavy loading delay metrics */}
               <picture className="w-full h-full">
                 <source srcSet={item.webp} type="image/webp" />
                 <img
                   src={item.src}
                   alt={item.title}
                   loading="lazy"
-                  decoding="async" // Offloads parsing so scrolling stays silky smooth
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 select-none"
                 />
               </picture>
 
-              {/* Overlay Content Metadata */}
               <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/35 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 p-5 flex flex-col justify-end text-left backdrop-blur-[1px]">
                 <span className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${item.accentColor}`}>
                   {item.category}

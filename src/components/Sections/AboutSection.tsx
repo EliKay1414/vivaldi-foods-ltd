@@ -20,7 +20,6 @@ export default function AboutSection() {
   };
 
   return (
-    // COMPACT SPACING: Standardized vertical paddings matching the clean layout framework (py-12 md:py-16)
     <section className="py-12 md:py-16 bg-amber-50/20 overflow-hidden text-gray-800">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -31,28 +30,28 @@ export default function AboutSection() {
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative pr-4 md:pr-8"
+            className="relative pr-4 md:pr-8 w-full"
           >
-            <div className="relative z-10">
-              {/* Main Image Base with clean rounded borders */}
-              <div className="overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-white p-1.5">
+            <div className="relative z-10 w-full">
+              {/* Main Image Base with clean rounded borders and fixed aspect framework */}
+              <div className="overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-white p-1.5 w-full aspect-4/3 sm:aspect-square md:aspect-4/3">
                 <motion.img
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.8 }}
                   src={apiaryImg}
                   alt="Vivaldi Apiary"
-                  className="w-full h-80 md:h-96 object-cover rounded-xl"
+                  className="w-full h-full object-cover rounded-xl select-none"
                 />
               </div>
 
-              {/* Floating Product Image - Symmetrical 500g bottle badge housing */}
+              {/* Floating Product Image - Symmetrical 500g bottle badge housing with explicit aspect ratio rules */}
               <motion.div
                 initial={{ x: 30, opacity: 0 }}
                 whileInView={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
-                className="absolute -bottom-8 -right-4 w-48 md:w-56 bg-white shadow-md border-4 border-white rounded-xl overflow-hidden z-20 hidden sm:block"
+                className="absolute -bottom-8 -right-4 w-44 md:w-52 aspect-3/4 bg-white shadow-md border-4 border-white rounded-xl overflow-hidden z-20 hidden sm:block p-1"
               >
-                <img src={productSmall} alt="Volta Premium Honey" className="w-full h-auto p-4 bg-gray-50/50 rounded-lg" />
+                <img src={productSmall} alt="Volta Premium Honey" className="w-full h-full object-contain p-2 bg-gray-50/50 rounded-lg select-none" />
               </motion.div>
             </div>
 
@@ -116,7 +115,7 @@ export default function AboutSection() {
             <motion.div variants={itemVariants} className="pt-2">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm group"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm group cursor-pointer"
               >
                 Make an Enquiry
                 <ArrowRight className="transition-transform group-hover:translate-x-0.5" size={13} />

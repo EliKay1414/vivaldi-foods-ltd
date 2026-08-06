@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Calendar, Loader2, BookOpen, ArrowRight } from 'lucide-react';
 import { PageBanner } from '@/components/ui/PageBanner';
 import { getMediumBlogs, type MediumPost } from '@/services/medium';
+import Seo from '@/components/ui/Seo';
 
 export const Route = createFileRoute('/blog/')({
   component: BlogPage,
@@ -22,6 +23,12 @@ function BlogPage() {
 
   return (
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
+      {/* TYPE-SAFE CLIENT INJECTION: Hydrates dynamic page meta configuration safely without route config properties */}
+      <Seo
+        title="Vivaldi Insights & Corporate Blog | Vivaldi Foods Ltd"
+        description="Stay updated with Vivaldi Foods Ltd. Explore our latest blog posts, laboratory honey training articles, and sustainable development insights directly from our headquarters."
+      />
+
       <PageBanner
         title="Blog Insights"
         subtitle="Read our latest updates, laboratory standards, and stories directly from Medium."
@@ -71,7 +78,7 @@ function BlogPage() {
                       <span>{new Date(post.pubDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                     </div>
 
-                    <h3 className="font-bold text-base text-gray-900 group-hover:text-green-700 transition-colors tracking-tight leading-snug line-clamp-2">
+                    <h3 className="font-bold text-base text-gray-900 group-hover:text-green-700 tracking-tight leading-snug line-clamp-2">
                       {post.title}
                     </h3>
 

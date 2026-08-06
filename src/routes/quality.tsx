@@ -4,6 +4,9 @@ import { PageBanner } from '@/components/ui/PageBanner';
 import { ShieldCheck, Sparkles, ClipboardCheck, Microscope } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+// SEO COMPONENT IMPORT: Fixes compilation type errors natively
+import Seo from '@/components/ui/Seo';
+
 // PRODUCTION REFACTOR: Importing the asset locally so Vite handles paths and build optimization correctly
 import labTestImg from '@/assets/images/Lab-Test.webp';
 
@@ -32,6 +35,12 @@ const qualityGuidelines = [
 function QualityPage() {
   return (
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
+      {/* TYPE-SAFE CLIENT INJECTION: Hydrates dynamic page meta configuration safely without route config properties */}
+      <Seo
+        title="Quality Controls & Food Safety Standards | Vivaldi Foods Ltd"
+        description="Learn about our strict quality assurance and safety protocols at Vivaldi Foods Ltd. We enforce a zero food adulteration check across every batch to provide pure honey you can trust."
+      />
+
       <PageBanner
         title="Quality & Safety"
         subtitle="Simple quality checks that help customers buy with confidence."

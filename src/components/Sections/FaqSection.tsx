@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from '@tanstack/react-router';
 import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -18,7 +19,7 @@ const faqs = [
   },
   {
     q: 'Where does your honey come from?',
-    a: 'Our bees are kept at our own apiaries in Adaaklu, Volta Region. We manage the hives ourselves, which means we control quality right from the source.',
+    a: 'Our bees are kept at our own apiaries in Adaklu, Volta Region. We manage the hives ourselves, which means we control quality right from the source.',
   },
   {
     q: 'Who can buy from Vivaldi Foods?',
@@ -30,7 +31,7 @@ const faqs = [
   },
   {
     q: 'Can I visit your factory or apiary?',
-    a: 'Yes, we welcome visits by arrangement. Our main factory and apiaries are located in Adaaklu, Volta Region. Reach out through our contact page to schedule a visit.',
+    a: 'Yes, we welcome visits by arrangement. Our main factory and apiaries are located in Adaklu, Volta Region. Reach out through our contact page to schedule a visit.',
   },
   {
     q: 'How do I place a bulk or wholesale order?',
@@ -46,7 +47,8 @@ function ImageSlider({ images }: { images: string[] }) {
   }, [images]);
 
   return (
-    <div className="relative w-full h-64 overflow-hidden rounded-sm shadow-lg border border-brand-brown/10">
+    /* FIXED ASPECT SHIFT: Pre-calculates exact dimensions on compile runs to drop shift indices */
+    <div className="relative w-full aspect-4/3 sm:aspect-video lg:aspect-4/3 overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-white p-1.5">
       <AnimatePresence mode="wait">
         <motion.img
           key={index}
@@ -54,8 +56,8 @@ function ImageSlider({ images }: { images: string[] }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
-          className="w-full h-full object-cover"
+          transition={{ duration: 0.6 }}
+          className="w-full h-full object-cover rounded-xl select-none"
         />
       </AnimatePresence>
     </div>
@@ -66,46 +68,57 @@ export default function FaqSection() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="section-spacing bg-brand-cream">
-      <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+    <section className="py-12 md:py-16 bg-white overflow-hidden text-gray-800 border-t border-gray-100">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-          {/* Left column — same as before */}
-          <div>
-            <span className="text-label block mb-3">FAQ's</span>
-            <h2 className="text-brand-brown mb-6">Frequently Asked Questions</h2>
-            <p className="text-body text-brand-brown/70 leading-relaxed mb-8">
+          {/* Left Column Information Area */}
+          <div className="space-y-5">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full inline-block">
+              FAQ's
+            </span>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 tracking-tight leading-tight">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
               Everything you need to know about Vivaldi Foods Ltd, our premium products, and our quality standards.
             </p>
-            <a href="/contact" className="btn-corporate">Get a Quote</a>
+            <div className="pt-1">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm cursor-pointer"
+              >
+                Get a Quote
+              </Link>
+            </div>
 
-            <div className="mt-8">
+            <div className="pt-4 w-full">
               <ImageSlider images={faqImages} />
             </div>
           </div>
 
-          {/* Right column — WhatsApp-style accordion */}
-          <div className="divide-y divide-brand-brown/10">
+          {/* Right Column Area: Standard High-Contrast Accordion Directory List */}
+          <div className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm divide-y divide-gray-100 w-full lg:mt-4">
             {faqs.map((faq, i) => {
               const isOpen = open === i;
               return (
-                <div key={i}>
+                <div key={i} className={i === 0 ? "pb-4" : "py-4 first:pt-0 last:pb-0"}>
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="w-full flex items-center justify-between px-0 py-5 text-left gap-4 group"
+                    className="w-full flex items-center justify-between text-left gap-4 group py-2"
                     aria-expanded={isOpen}
                   >
                     <span
-                      className={`text-[15px] font-semibold leading-snug transition-colors ${
-                        isOpen ? 'text-brand-green' : 'text-brand-brown group-hover:text-brand-green'
+                      className={`text-sm md:text-base font-bold leading-snug transition-colors ${
+                        isOpen ? 'text-green-700' : 'text-gray-800 group-hover:text-green-700'
                       }`}
                     >
                       {faq.q}
                     </span>
                     <ChevronDown
-                      size={18}
+                      size={16}
                       className={`shrink-0 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180 text-brand-green' : 'text-brand-brown/40 group-hover:text-brand-green'
+                        isOpen ? 'rotate-180 text-green-700' : 'text-gray-400 group-hover:text-green-700'
                       }`}
                     />
                   </button>
@@ -120,7 +133,7 @@ export default function FaqSection() {
                         transition={{ duration: 0.22, ease: 'easeInOut' }}
                         className="overflow-hidden"
                       >
-                        <p className="pb-5 pr-8 text-[14px] text-brand-brown/65 leading-relaxed">
+                        <p className="pt-2 pb-2 pr-4 text-xs md:text-sm text-gray-500 leading-relaxed antialiased">
                           {faq.a}
                         </p>
                       </motion.div>

@@ -3,6 +3,7 @@ import { Link, useLocation, useRouter } from '@tanstack/react-router';
 import { Menu, X, Phone, Mail, ChevronDown, ChevronRight } from 'lucide-react';
 import { COMPANY_DETAILS } from '@/lib/constants';
 
+// RESOLVED PUBLIC FILE PATH: References the lightweight static image webp module
 const vivaldiLogo = "/Vivaldi-logo.webp";
 
 const navLinks = [
@@ -77,10 +78,20 @@ export default function Header() {
       <div className={`bg-[#4a372c] text-white/70 text-[10px] font-bold tracking-wider hidden lg:block transition-all duration-300 ${scrolled ? 'h-0 overflow-hidden opacity-0' : 'h-9 opacity-100 border-b border-white/10'}`}>
         <div className="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <a href={`mailto:${COMPANY_DETAILS.email}`} className="flex items-center gap-2 hover:text-amber-400 transition-colors uppercase">
+            {/* DIRECT GMAIL INTENT LINK: Opens an immediate mail draft inside client web boxes */}
+            <a
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-amber-400 transition-colors uppercase"
+            >
               <Mail size={12} className="text-amber-500" /> {COMPANY_DETAILS.email}
             </a>
-            <a href={`https://wa.me/${cleanPhone}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-amber-400 transition-colors uppercase">
+            {/* OFFLINE CELLULAR PHONE LINK: Triggers instant browser-to-native phone call pad dialer loops */}
+            <a
+              href={`tel:${cleanPhone}`}
+              className="flex items-center gap-2 hover:text-amber-400 transition-colors uppercase"
+            >
               <Phone size={12} className="text-amber-500" /> {COMPANY_DETAILS.phone}
             </a>
           </div>
@@ -99,6 +110,9 @@ export default function Header() {
               <img
                 src={vivaldiLogo}
                 alt="Vivaldi Foods Ltd"
+                width={112}
+                height={35}
+                /* FIXED OPTIMIZATION: Height and width attributes stop unexpected layout reflow shifts completely */
                 className="w-full h-auto object-contain transition-transform group-hover:scale-[1.02]"
               />
             </Link>
@@ -139,7 +153,8 @@ export default function Header() {
 
             {/* Mobile Menu Toggle Button */}
             <button
-              className="lg:hidden text-gray-900 p-1.5 hover:bg-gray-50 rounded-xl transition-colors"
+              type="button"
+              className="lg:hidden text-gray-900 p-1.5 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer select-none"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-expanded={mobileOpen}
               aria-label={mobileOpen ? "Close main menu" : "Open main menu"}
@@ -151,7 +166,6 @@ export default function Header() {
       </nav>
 
       {/* Mobile Menu — WhatsApp-style overlay */}
-      {/* Backdrop */}
       <div
         className={`fixed inset-0 bg-black/40 z-50 lg:hidden transition-opacity duration-300 ${mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={closeMenu}
@@ -171,12 +185,15 @@ export default function Header() {
               <img
                 src={vivaldiLogo}
                 alt="Vivaldi Foods Ltd"
+                width={96}
+                height={30}
                 className="w-full h-auto object-contain"
               />
             </div>
             <button
+              type="button"
               onClick={closeMenu}
-              className="text-gray-500 hover:text-gray-800 transition-colors p-1.5 hover:bg-gray-50 rounded-xl"
+              className="text-gray-500 hover:text-gray-800 transition-colors p-1.5 hover:bg-gray-50 rounded-xl cursor-pointer"
               aria-label="Close menu"
             >
               <X size={22} />
@@ -189,6 +206,7 @@ export default function Header() {
               {navLinks.map((link) => (
                 <li key={link.label} className="border-b border-gray-50 last:border-b-0">
                   {link.children ? (
+
                     <>
                       {/* MOBILE ACTION REFACTOR: Separated the link routing context from accordion expansion logic */}
                       <div className="w-full flex items-center justify-between hover:bg-gray-50 transition-colors">
@@ -268,12 +286,12 @@ export default function Header() {
 
               {/* DIRECT GMAIL COMPOWSURE LINK: Directs mobile and desktop users directly into Gmail compose panels */}
               <a
-                href={`mailto:${(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd').trim().toLowerCase()}`}
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(COMPANY_DETAILS.email || 'socials@vivaldifoodsltd')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-green-700 transition-colors text-xs font-medium block break-all"
               >
-                {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd'}
+                {COMPANY_DETAILS.email || 'socials@vivaldifoodsltd.com'}
               </a>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { PageBanner } from '@/components/ui/PageBanner';
 import { motion } from 'framer-motion';
 import { Flame, Compass, Filter, Sparkles, CheckCircle2 } from 'lucide-react';
+import Seo from '@/components/ui/Seo';
 
 // Process Images
 import FromHive from '@/assets/factory/From-hive.webp';
@@ -52,6 +53,12 @@ const processSteps = [
 function FactoryPage() {
   return (
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
+      {/* TYPE-SAFE CLIENT INJECTION: Updates the document metadata safely within the browser loop */}
+      <Seo
+        title="Our Factory, Processing & FDA Standards | Vivaldi Foods Ltd"
+        description="Step inside the Vivaldi Foods Ltd honey processing factory. Discover how our modern, sterile facility in Sakumono / Community 18 adheres to strict FDA hygiene, filtration, and nutrients preservation protocols."
+      />
+
       <PageBanner
         title="Inside our Factory"
         subtitle="Inside our clean, modern facility located in Community 18 / Sakumono, Greater Accra Region."
@@ -63,7 +70,7 @@ function FactoryPage() {
         <div className="absolute top-48 left-10 w-48 h-48 bg-green-700/5 rounded-full blur-3xl" />
         <div className="absolute bottom-48 right-10 w-64 h-64 bg-green-700/5 rounded-full blur-3xl" />
 
-        {/* REFACTORED HEADER: Centered perfectly to anchor the page symmetry */}
+        {/* HEADER: Centered perfectly to anchor the page symmetry */}
         <div className="max-w-3xl mx-auto text-center mb-20 md:mb-32 space-y-4">
           <span className="text-[11px] font-bold uppercase tracking-wider text-green-700 bg-green-50 px-3 py-1 rounded-full inline-block">
             Sourcing & Production Integrity
@@ -122,7 +129,7 @@ function FactoryPage() {
                     <div className="w-2.5 h-2.5 rounded-full bg-green-700" />
                   </div>
 
-                  {/* Content Block Container (Alternates layout alignment based on index status) */}
+                  {/* Content Block Container */}
                   <div className={`pl-10 md:pl-0 md:col-span-5 ${isEven ? 'md:text-right order-2 md:order-1 md:items-end flex flex-col' : 'md:col-start-8 order-2 flex flex-col'}`}>
                     <motion.div
                       initial={{ opacity: 0, x: isEven ? -30 : 30 }}

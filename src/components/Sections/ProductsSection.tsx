@@ -1,34 +1,69 @@
+import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { Star, MessageSquare } from 'lucide-react';
+import { Star, MessageSquare, Layers, ChevronRight } from 'lucide-react';
 import { productCatalog } from '@/config/commerce';
 
 export default function ProductsSection() {
-  return (
-    <section className="py-10 md:py-14 bg-amber-50/20 border-t border-gray-100">
-      <div className="max-w-6xl mx-auto px-6">
+  // FUTURE-PROOF GROUPING: Dynamically extracts unique categories automatically
+  const availableCategories = ['All', ...Array.from(new Set(productCatalog.map((p) => p.category)))];
+  const [activeCategory, setActiveCategory] = useState('All');
 
-        {/* CENTERED HEADER */}
+  const filteredProducts = activeCategory === 'All'
+    ? productCatalog
+    : productCatalog.filter((p) => p.category === activeCategory);
+
+  return (
+    <section className="py-12 md:py-16 bg-amber-50/20 border-t border-gray-100 text-gray-800 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+
+        {/* CENTERED COMPACT HEADER */}
         <div className="max-w-3xl mx-auto text-center mb-10 space-y-2 flex flex-col items-center">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full inline-block">
             Our Products
           </span>
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 tracking-tight pt-1">
-            Volta Premium Honey, sourced straight from the Region
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 tracking-tight pt-1 px-2">
+            Premium Sourced Food products
           </h2>
+          <p className="text-gray-500 text-xs md:text-sm leading-relaxed max-w-md mx-auto pt-0.5 px-4">
+            Discover our premium processed consumer food products across Ghana.
+          </p>
         </div>
 
-        {/* SYMMETRICAL FLEXIBLE CARD CONTAINER */}
-        <div className="flex flex-wrap gap-6 justify-center items-stretch">
-          {productCatalog.map((p) => {
+        {/* 📱 RESPONSIVE FILTER MATRIX: Snap-scroll navigation on phones, centered deck layout on desktop */}
+        <div className="relative max-w-2xl mx-auto mb-10">
+          <div className="w-full overflow-x-auto scrollbar-none flex items-center justify-start sm:justify-center gap-1.5 p-1.5 bg-gray-100/70 border border-gray-200/40 rounded-xl snap-x snap-mandatory">
+            {availableCategories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer select-none snap-center ${
+                  activeCategory === cat
+                    ? 'bg-white text-green-700 shadow-xs border border-gray-200/50'
+                    : 'text-gray-400 hover:text-gray-700 hover:bg-white/30'
+                }`}
+              >
+                {cat === 'All' ? 'All Lines' : cat}
+              </button>
+            ))}
+          </div>
+          {/* Mobile indicator for multi-category scroll hint */}
+          <div className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none sm:hidden opacity-40 animate-pulse">
+            <ChevronRight size={14} />
+          </div>
+        </div>
+
+        {/* 📱 FLUID SYMMETRICAL CARD GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-sm sm:max-w-none mx-auto items-stretch">
+          {filteredProducts.map((p) => {
             return (
               <div
                 key={p.id}
-                className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
+                className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
               >
-                {/* IMAGE HOUSING REFACTOR: Picture elements load lightweight webp automatically */}
-                <div className="relative overflow-hidden aspect-square bg-gray-50 border-b border-gray-100">
+                {/* IMAGE CONTAINER LAYER WITH FIXED ASPECT SQUARE COMPLIANCE */}
+                <div className="relative overflow-hidden aspect-square w-full bg-gray-50 border-b border-gray-100">
                   <picture className="w-full h-full">
-                    {/* FIXED OPTIMIZATION: Swapped out string replacement for direct catalog object property */}
                     <source srcSet={p.imageWebp} type="image/webp" />
                     <img
                       src={p.image}
@@ -40,12 +75,13 @@ export default function ProductsSection() {
                   </picture>
                 </div>
 
-                {/* DETAILS WRAPPER */}
-                <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-green-700 bg-green-50 px-2 py-0.5 rounded-full inline-block">
-                        Net Weight: {p.size}
+                {/* DETAILS CONTENT PACK BOX */}
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-50 text-[9px] font-bold uppercase text-green-700 rounded-md border border-green-100/30">
+                        <Layers size={10} />
+                        {p.category} • {p.size}
                       </span>
 
                       <div className="flex text-amber-500">
@@ -55,7 +91,7 @@ export default function ProductsSection() {
                       </div>
                     </div>
 
-                    <h3 className="text-sm md:text-base font-bold text-gray-900 group-hover:text-green-700 transition-colors tracking-tight leading-snug">
+                    <h3 className="text-base font-bold text-gray-900 group-hover:text-green-700 transition-colors tracking-tight leading-snug">
                       {p.name}
                     </h3>
 
@@ -64,11 +100,11 @@ export default function ProductsSection() {
                     </p>
                   </div>
 
-                  <div className="pt-1">
+                  <div className="pt-2">
                     <Link
                       to="/contact"
                       search={{ subject: `Price Enquiry - ${p.name} (${p.size})` }}
-                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm"
+                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm cursor-pointer"
                     >
                       <MessageSquare size={13} />
                       <span>Make an Enquiry</span>

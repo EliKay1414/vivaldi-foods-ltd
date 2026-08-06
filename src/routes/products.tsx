@@ -1,33 +1,75 @@
 /* eslint-disable react-refresh/only-export-components */
+import { useState } from 'react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { PageBanner } from '@/components/ui/PageBanner';
-import { Star, MessageSquare } from 'lucide-react';
+import { Star, MessageSquare, Layers, ChevronRight } from 'lucide-react';
 import { productCatalog } from '@/config/commerce';
+import Seo from '@/components/ui/Seo';
 
 export const Route = createFileRoute('/products')({
   component: ProductsPage,
 });
 
 function ProductsPage() {
+  // DYNAMIC PORTFOLIO AXIS: Extracts unique category layers automatically for any future food brand expansions
+  const availableCategories = ['All', ...Array.from(new Set(productCatalog.map((p) => p.category)))];
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  const filteredProducts = activeCategory === 'All'
+    ? productCatalog
+    : productCatalog.filter((p) => p.category === activeCategory);
+
   return (
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
-      <PageBanner
-        title="Our Products"
-        subtitle="Taste the pure, natural flavor of Volta Premium Honey. Perfect for your morning tea at home or at the office."
+      {/* TYPE-SAFE CLIENT INJECTION: Hydrates unique metadata context safely inside browser window scopes */}
+      <Seo
+        title="Official Products Catalog | Vivaldi Foods Ltd"
+        description="Explore the full food and agricultural brand selection from Vivaldi Foods Ltd. Shop our 100% pure Volta Premium Honey alongside our expanding premium product collections available across Ghana."
       />
 
+      <PageBanner
+        title="Our Products"
+        subtitle="Explore our pure, natural flavor selections and premium consumer food brands tailored for your family."
+      />
+
+      {/* 📱 HORIZONTAL FILTER SLIDER DECK: Touch-friendly horizontal swipe rail on phones, centered links on laptop screens */}
+      <div className="max-w-6xl mx-auto px-6 pt-10 relative">
+        <div className="relative max-w-2xl mx-auto">
+          <div className="w-full overflow-x-auto scrollbar-none flex items-center justify-start sm:justify-center gap-1.5 p-1.5 bg-white border border-gray-100 rounded-xl shadow-xs snap-x snap-mandatory">
+            {availableCategories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer select-none snap-center ${
+                  activeCategory === cat
+                    ? 'bg-green-700 text-white shadow-sm'
+                    : 'text-gray-400 hover:text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                {cat === 'All' ? 'All Brands' : cat}
+              </button>
+            ))}
+          </div>
+          {/* Mobile slider swipe hint icon */}
+          <div className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none sm:hidden opacity-30 animate-pulse">
+            <ChevronRight size={14} />
+          </div>
+        </div>
+      </div>
+
+      {/* 📱 GRIDS ENVIRONMENT DECK */}
       <section className="py-8 md:py-12 max-w-6xl mx-auto px-6">
-        <div className="flex flex-wrap gap-6 justify-center items-stretch">
-          {productCatalog.map((p) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-sm sm:max-w-none mx-auto items-stretch">
+          {filteredProducts.map((p) => {
             return (
               <div
                 key={p.id}
-                className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
+                className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
               >
-                {/* IMAGE HOUSING: HTML5 picture syntax eliminates first contentful paint latency */}
-                <div className="relative overflow-hidden aspect-square bg-gray-50 border-b border-gray-100">
+                {/* IMAGE BOUNDS LAYER - Locked to strict square aspect ratio box elements */}
+                <div className="relative overflow-hidden aspect-square w-full bg-gray-50 border-b border-gray-100">
                   <picture className="w-full h-full">
-                    {/* FIXED OPTIMIZATION: Pulls the pre-compiled WebP asset module path directly from data */}
                     <source srcSet={p.imageWebp} type="image/webp" />
                     <img
                       src={p.image}
@@ -39,22 +81,25 @@ function ProductsPage() {
                   </picture>
                 </div>
 
-                {/* DETAILS WRAPPER */}
-                <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
-                  <div className="space-y-1.5">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full inline-block">
-                      {p.category} • {p.size}
-                    </span>
+                {/* DETAILS WRAPPER PACK TEXT */}
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-50 text-[9px] font-bold uppercase text-green-700 rounded-md border border-green-100/30">
+                        <Layers size={10} />
+                        {p.category} • {p.size}
+                      </span>
 
-                    <h3 className="text-sm md:text-base font-bold text-gray-900 group-hover:text-green-700 transition-colors tracking-tight leading-snug">
+                      <div className="flex text-amber-500">
+                        {[...Array(p.rating || 5)].map((_, i) => (
+                          <Star key={i} size={11} fill="currentColor" className="stroke-none" />
+                        ))}
+                      </div>
+                    </div>
+
+                    <h3 className="text-base font-bold text-gray-900 group-hover:text-green-700 transition-colors tracking-tight leading-snug">
                       {p.name}
                     </h3>
-
-                    <div className="flex text-amber-500 py-0.5">
-                      {[...Array(p.rating || 5)].map((_, i) => (
-                        <Star key={i} size={12} fill="currentColor" className="stroke-none" />
-                      ))}
-                    </div>
 
                     <p className="text-gray-500 text-xs leading-relaxed line-clamp-3">
                       {p.description}
@@ -65,7 +110,7 @@ function ProductsPage() {
                     <Link
                       to="/contact"
                       search={{ subject: `Enquiry: ${p.name} (${p.size})` }}
-                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm"
+                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm cursor-pointer"
                     >
                       <MessageSquare size={13} />
                       Make an Enquiry

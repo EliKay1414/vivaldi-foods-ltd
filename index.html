@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vivaldi Foods Ltd | Premium Volta Honey in Ghana</title>
+    <title> Vivaldi Foods Ltd </title>
     <meta
       name="description"
       content="Shop 100% pure, raw, and responsibly packaged Volta honey from Vivaldi Foods Ltd. Serving retail, wholesale, and bulk agribusiness customers across Accra and Ghana."
@@ -23,7 +23,7 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://vivaldifoodsltd.com" />
-    <meta property="og:image" content="https://vivaldifoodsltd.comimages/products.png" />
+    <meta property="og:image" content="https://vivaldifoodsltd.comimages" />
     <meta property="og:site_name" content="Vivaldi Foods Ltd" />
     <meta property="og:locale" content="en_GH" />
 
@@ -34,21 +34,15 @@
       name="twitter:description"
       content="Shop 100% pure, raw, and responsibly packaged Volta honey from Vivaldi Foods Ltd. Serving retail, wholesale, and bulk agribusiness customers across Accra and Ghana."
     />
-    <meta name="twitter:image" content="https://vivaldifoodsltd.comimages/products.png" />
+    <meta name="twitter:image" content="https://vivaldifoodsltd.comimages" />
 
-    <!-- Removed fetchpriority (not supported by Firefox/Opera). Use importance for broader support. -->
-    <link rel="preload" importance="high" as="image" href="/src/assets/images/production-hub.webp" type="image/webp" />
+    {/* RESOLVED PRELOAD ERROR: Removed production-hub from layout headers to prevent unused asset warnings */}
     <link rel="preload" importance="high" as="image" href="/Vivaldi-logo.webp" type="image/webp" />
 
-    <!-- GOOGLE FONTS INSTANT INJECTION LAYER: Shifting font imports here removes PostCSS @import ordering errors completely -->
-    <link rel="preconnect" href="https://googleapis.com" />
-    <link rel="preconnect" href="https://gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://googleapis.com" />
-    <link rel="dns-prefetch" href="https://gstatic.com" />
-    <link
-      href="https://googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
+    <!-- GOOGLE FONTS INSTANT INJECTION LAYER: Applied explicit font delivery parameters natively -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <script type="application/ld+json">
       {
@@ -57,8 +51,8 @@
         "@id": "https://vivaldifoodsltd.com#organization",
         "name": "Vivaldi Foods Ltd",
         "url": "https://vivaldifoodsltd.com",
-        "logo": "https://vivaldifoodsltd.comVivaldi-logo.webp",
-        "image": "https://vivaldifoodsltd.comimages/products.png",
+        "logo": "https://comvivaldi-logo.webp",
+        "image": "https://vivaldifoodsltd.comimages",
         "description": "Shop 100% pure, raw, and responsibly packaged Volta honey from Vivaldi Foods Ltd. Serving retail, wholesale, and bulk agribusiness customers across Accra and Ghana.",
         "email": "socials@vivaldifoodsltd.com",
         "telephone": "+233256114661",

@@ -31,7 +31,7 @@ export default function BlogSection() {
           </p>
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm cursor-pointer"
           >
             View All Posts <ArrowRight size={14} />
           </Link>
@@ -53,14 +53,14 @@ export default function BlogSection() {
                 rel="noopener noreferrer"
                 className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
               >
-                {/* LANDSCAPE DESIGN: aspect-video layout fits horizontal photography perfectly */}
-                <div className="relative overflow-hidden aspect-video bg-gray-50 border-b border-gray-100">
+                {/* LANDSCAPE DESIGN FIXED: aspect-video utility token guarantees strict horizontal dimension boxes */}
+                <div className="relative overflow-hidden aspect-video w-full bg-gray-50 border-b border-gray-100">
                   <img
                     src={post.thumbnail}
                     alt={post.title}
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 select-none"
                   />
 
                   {/* Interactive slider panel */}
