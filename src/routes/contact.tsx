@@ -41,10 +41,10 @@ function ContactPage() {
       {/* TYPE-SAFE CLIENT INJECTION: Updates the document metadata safely within the browser loop */}
       <Seo
         title="Contact Us & Inquiries | Vivaldi Foods Ltd"
-        description="Get in touch with Vivaldi Foods Ltd. Contact our Spintex headquarters or Adaklu farm for wholesale inquiries, bulk premium Volta honey distribution, and retail sales."
+        description="Get in touch with Vivaldi Foods Ltd. Contact our Spintex headquarters for wholesale inquiries, bulk product distribution, and retail sales."
       />
 
-      <PageBanner title="Contact Us" subtitle="Home / Contact Vivaldi Foods" />
+      <PageBanner title="Contact Us" subtitle="Contact Vivaldi Foods" />
 
       <section className="relative py-16 z-10 max-w-6xl mx-auto px-6">
         <div className="max-w-5xl mx-auto">

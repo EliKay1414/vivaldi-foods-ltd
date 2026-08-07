@@ -3,17 +3,13 @@ import p330Webp from "@/assets/products/products-330g.webp";
 import p500Webp from "@/assets/products/products-500g.webp";
 import pAllWebp from "@/assets/products/products.webp";
 
-// Future Product Placeholders (Uncomment and update paths when your new food lines arrive)
-// import spiceBlendWebp from "@/assets/products/spices-chili.webp";
-// import organicOilWebp from "@/assets/products/oil-coconut.webp";
-
 export interface CatalogProduct {
   id: number;
   name: string;
   size: string;
   image: string;
   imageWebp: string;
-  category: string;
+  category: string; // The dynamic categorization axis that powers your front-end layout tab filters
   rating: number;
   description: string;
 }
@@ -53,66 +49,55 @@ export const productCatalog: CatalogProduct[] = [
     description: "Designed for retailers, manufacturing laboratories, and distributors. A cost-effective, certified high-quality honey supply solution.",
   },
 
-  /* ==========================================
-     BRAND LINE 2: FUTURE FOOD EXPANSION TEMPLATE
-     (Simply uncomment and fill this section out when new food items launch!)
-     ========================================== */
-  /*
-  {
-    id: 4,
-    name: "Premium Spices",
-    size: "150g ",
-    image: spiceBlendWebp,
-    imageWebp: spiceBlendWebp,
-    category: "Spices & Seasonings", // A new tab button will form on your page automatically!
-    rating: 5,
-    description: "Hygienically milled local spices packaged under strict compliance protocols for premium flavor retention.",
-  },
-  {
-    id: 5,
-    name: "Pure Coconut Oil",
-    size: "1 Litre",
-    image: organicOilWebp,
-    imageWebp: organicOilWebp,
-    category: "Organic Oils",
-    rating: 5,
-    description: "100% pure, additive-free organic coconut oil processed to international retail standards.",
-  },
+  // /* ==========================================
+  //    BRAND LINE 2: PREMIUM SPICES & SEASONINGS
+  //    ========================================== */
+  // {
+  //   id: 4,
+  //   name: "Premium Spices Blend",
+  //   size: "150g Pack",
+  //   image: "", // LEFT EMPTY: Prevents old honey photography reuse bugs
+  //   imageWebp: "",
+  //   category: "Spices & Seasonings",
+  //   rating: 5,
+  //   description: "Hygienically milled local spices packaged under strict compliance protocols for premium flavor retention and kitchen utility.",
+  // },
 
-   /* ==========================================
-     BRAND LINE 3: FUTURE FOOD EXPANSION TEMPLATE
-     (Simply uncomment and fill this section out when new food items launch!)
-     ========================================== */
-  /*
- {
-    id: 6,
-    name: "Premium Sugurs",
-    size: "150g ",
-    image: spiceBlendWebp,
-    imageWebp: spiceBlendWebp,
-    category: "Spices & Seasonings", // A new tab button will form on your page automatically!
-    rating: 5,
-    description: "Hygienically milled local spices packaged under strict compliance protocols for premium flavor retention.",
-  },
-  {
-    id: 7,
-    name: "Bottled water",
-    size: "o.5 ml",
-    image: organicOilWebp,
-    imageWebp: organicOilWebp,
-    category: "Organic Oils",
-    rating: 5,
-    description: "100% pure, additive-free organic coconut oil processed to international retail standards.",
-  },
-   {
-    id: 8,
-    name: "Bottled water",
-    size: "1 Litre",
-    image: organicOilWebp,
-    imageWebp: organicOilWebp,
-    category: "Organic Oils",
-    rating: 5,
-    description: "100% pure, additive-free organic coconut oil processed to international retail standards.",
-    },
-  */
+  // /* ==========================================
+  //    BRAND LINE 3: PREMIUM SUGARS
+  //    ========================================== */
+  // {
+  //   id: 5,
+  //   name: "Premium Refined Sugars",
+  //   size: "150g Pack",
+  //   image: "", // LEFT EMPTY: Prevents old honey photography reuse bugs
+  //   imageWebp: "",
+  //   category: "Premium Sugars",
+  //   rating: 5,
+  //   description: "Pure, clean-processed refined sweetening grains packed under safe sanitary environments for household and industrial beverage uses.",
+  // },
+
+  // /* ==========================================
+  //    BRAND LINE 4: BOTTLED WATER
+  //    ========================================== */
+  // {
+  //   id: 6,
+  //   name: "Vivaldi Pure Minerals Water",
+  //   size: "0.5 L",
+  //   image: "", // LEFT EMPTY: Prevents old honey photography reuse bugs
+  //   imageWebp: "",
+  //   category: "Bottled Water",
+  //   rating: 5,
+  //   description: "Pure, refreshingly filtered drinking water packaged in modern lightweight bottles for absolute mobile convenience and hydration.",
+  // },
+  // {
+  //   id: 7,
+  //   name: "Vivaldi Pure Minerals Drink",
+  //   size: "750 ML",
+  //   image: "", // LEFT EMPTY: Prevents old honey photography reuse bugs
+  //   imageWebp: "",
+  //   category: "Bottled Water",
+  //   rating: 5,
+  //   description: "Family-size hydration option meticulously processed through advanced multi-stage hygienic micro-filtration layers.",
+  // }
 ];

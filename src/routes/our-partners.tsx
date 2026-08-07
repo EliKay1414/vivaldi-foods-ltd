@@ -3,256 +3,13 @@ import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { PageBanner } from '@/components/ui/PageBanner';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Phone, ChevronDown, CheckCircle2, AlertCircle, Building2, Store, HelpCircle } from 'lucide-react';
+import { Search, MapPin, Phone, ChevronDown, CheckCircle2, AlertCircle, Building2, Store, HelpCircle, Navigation } from 'lucide-react';
 import Seo from '@/components/ui/Seo';
+import { stores, allRegions, type StoreLocation, type StoreCategory } from '@/config/partners'; // EXTERNAL DATABASE INTEGRATION: Pulls types, static lists, and raw array models from your decoupled configuration file
 
 export const Route = createFileRoute('/our-partners')({
   component: OurPartnersPage,
 });
-
-type Region = 'Ahafo' | 'Ashanti' | 'Bono' | 'Bono East' | 'Central' | 'Eastern' | 'Greater Accra Region' | 'Northern' | 'North East' | 'Oti' | 'Savannah' | 'Upper East' | 'Upper West' | 'Volta Region' | 'Western' | 'Western North' | 'Nationwide';
-
-type StoreCategory = 'All' | 'Mart' | 'Filling Station' | 'SuperMarkets' | 'Malls' | 'Pharmacy';
-
-interface StoreLocation {
-  id: number;
-  name: string;
-  address: string;
-  gpsAddress: string;
-  phone: string;
-  region: Region;
-  category: StoreCategory;
-  stockStatus: 'In Stock' | 'Limited Stock' | 'Contact Store';
-}
-
-const stores: StoreLocation[] = [
-  {
-    id: 1,
-    name: "Leed Pharmacy (Akorlor)",
-    address: "Hohoe, Akorlor",
-    gpsAddress: "VC-0044-8912",
-    phone: "+233 24 546 2195",
-    region: "Volta Region",
-    category: "Pharmacy",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 2,
-    name: "Albertisam",
-    address: "Ho-Road, Ho",
-    gpsAddress: "VC-0044-8913",
-    phone: "+233 54 377 7246",
-    region: "Volta Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 3,
-    name: "In His Hands Enterprise",
-    address: "Kpando",
-    gpsAddress: "VC-0044-8914",
-    phone: "+233 55 729 6386",
-    region: "Volta Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 4,
-    name: "Domi-DD Supermarket",
-    address: "Denu Market, Denu",
-    gpsAddress: "VC-0044-8915",
-    phone: "+233 24 327 1788",
-    region: "Volta Region",
-    category: "SuperMarkets",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 5,
-    name: "Runnel Mart",
-    address: "Aflao Road, Aflao",
-    gpsAddress: "VC-0044-8916",
-    phone: "+233 54 710 2426",
-    region: "Volta Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 6,
-    name: "First Family Pharmacy",
-    address: "Ho",
-    gpsAddress: "VC-0044-8917",
-    phone: "+233 55 863 8400",
-    region: "Volta Region",
-    category: "Pharmacy",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 7,
-    name: "Domingo Pharmacy and Mart",
-    address: "Aflao",
-    gpsAddress: "VC-0044-8918",
-    phone: "+233 20 696 1159",
-    region: "Volta Region",
-    category: "Pharmacy",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 8,
-    name: "Edivade Pharmacy",
-    address: "Manet Junction, Manet",
-    gpsAddress: "VC-0044-8919",
-    phone: "+233 20 201 1588",
-    region: "Greater Accra Region",
-    category: "Pharmacy",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 9,
-    name: "Kassbic Enterprise",
-    address: "Kotobabi - Spintex Road",
-    gpsAddress: "VC-0044-8920",
-    phone: "+233 53 886 3002",
-    region: "Greater Accra Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 10,
-    name: "Point of Grace Enterprise",
-    address: "Kpando",
-    gpsAddress: "VC-0044-8921",
-    phone: "+233 24 407 4513",
-    region: "Volta Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 11,
-    name: "Petrosol Mart",
-    address: "Coca-Cola, Spintex Road",
-    gpsAddress: "VC-0044-8922",
-    phone: "+233 55 402 5458",
-    region: "Greater Accra Region",
-    category: "Filling Station",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 12,
-    name: "Jucad Pharmacy",
-    address: "Okaishie Drug Lane",
-    gpsAddress: "VC-0044-8923",
-    phone: "+233 26 900 1113",
-    region: "Greater Accra Region",
-    category: "Pharmacy",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 13,
-    name: "Victorious Mt Zion Pharmacy",
-    address: "Ho",
-    gpsAddress: "VC-0044-8924",
-    phone: "+233 55 458 3230",
-    region: "Volta Region",
-    category: "Pharmacy",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 14,
-    name: "Narouma Mart",
-    address: "Manet New Road (Martey Tsuru)",
-    gpsAddress: "VC-0044-8925",
-    phone: "+233 24 009 9099",
-    region: "Greater Accra Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 15,
-    name: "Marina Mall",
-    address: "Airport Commercial Area, Accra",
-    gpsAddress: "VC-0044-8926",
-    phone: "+233 24 054 0440",
-    region: "Greater Accra Region",
-    category: "Malls",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 16,
-    name: "JS Victory Pharmacy",
-    address: "Hohoe Road",
-    gpsAddress: "VC-0044-8927",
-    phone: "+233 53 395 2491",
-    region: "Volta Region",
-    category: "Pharmacy",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 17,
-    name: "Statesman Pharmacy",
-    address: "Hohoe",
-    gpsAddress: "VC-0044-8928",
-    phone: "+233 24 927 2307",
-    region: "Volta Region",
-    category: "Pharmacy",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 18,
-    name: "The U Plaza Mart (Madam Irene Shop)",
-    address: "Hohoe",
-    gpsAddress: "VC-0044-8929",
-    phone: "+233 54 128 7983",
-    region: "Volta Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 19,
-    name: "Atiwoto / Messiah House",
-    address: "Denu Market, Denu",
-    gpsAddress: "VC-0044-8930",
-    phone: "+233 54 160 6024",
-    region: "Volta Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 20,
-    name: "Lyzdee Shopping Mall",
-    address: "Ho Central",
-    gpsAddress: "VC-0044-8931",
-    phone: "N/A",
-    region: "Volta Region",
-    category: "Malls",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 21,
-    name: "Silver Link Mart",
-    address: "Accra",
-    gpsAddress: "VC-0044-8932",
-    phone: "+233 24 481 7841",
-    region: "Greater Accra Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  },
-  {
-    id: 22,
-    name: "Vivaldi Foods Distribution",
-    address: "Lashibi, Spintex",
-    gpsAddress: "VC-0044-8933",
-    phone: "+233 30 210 1234",
-    region: "Greater Accra Region",
-    category: "Mart",
-    stockStatus: "In Stock"
-  }
-];
-
-const allRegions: Region[] = [
-  'Ahafo', 'Ashanti', 'Bono', 'Bono East', 'Central', 'Eastern',
-  'Greater Accra Region', 'Northern', 'North East', 'Oti', 'Savannah',
-  'Upper East', 'Upper West', 'Volta Region', 'Western', 'Western North', 'Nationwide'
-];
 
 export function OurPartnersPage() {
   const [selectedRegion, setSelectedRegion] = useState<string>('All');
@@ -262,6 +19,7 @@ export function OurPartnersPage() {
 
   const categories: StoreCategory[] = ['All', 'Mart', 'Filling Station', 'SuperMarkets', 'Malls', 'Pharmacy'];
 
+  // FILTERING MACHINE: Safely resolves search filters across store name, address, and GPS text fields concurrently
   const filteredStores = stores.filter(store => {
     const matchesRegion = selectedRegion === 'All' || store.region === selectedRegion || store.region === 'Nationwide';
     const matchesSearch = store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -302,7 +60,7 @@ export function OurPartnersPage() {
               <Search className="absolute left-3.5 top-3.5 text-gray-400 w-4 h-4" />
               <input
                 type="text"
-                placeholder="Search store name, address, or GPS code (e.g. GQ-361)..."
+                placeholder="Search store name, address, or GPS code (e.g. VC-0044)..."
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-green-700 transition-colors bg-gray-50/50"
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -313,7 +71,7 @@ export function OurPartnersPage() {
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 hover:border-gray-300 transition-colors"
+                className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 hover:border-gray-300 transition-colors cursor-pointer"
               >
                 <span className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-green-700" />
@@ -385,7 +143,7 @@ export function OurPartnersPage() {
                 key={store.id}
                 className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row justify-between sm:items-center gap-4 transition-all duration-200 hover:shadow-md"
               >
-                {/* Left: Metadata Details */}
+                {/* Left Side: Metadata Details */}
                 <div className="space-y-1.5">
                   <div className="flex flex-wrap items-center gap-2.5">
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-50 text-[9px] font-bold uppercase text-gray-500 rounded-md border border-gray-100">
@@ -395,39 +153,56 @@ export function OurPartnersPage() {
                     <h3 className="font-bold text-base text-gray-900">{store.name}</h3>
                     {getStatusBadge(store.stockStatus)}
                   </div>
-                  <p className="text-xs text-gray-500 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-green-700 shrink-0" />
-                    <span className="text-gray-600 font-semibold">{store.address}</span> <span className="text-gray-300">|</span> <span className="font-medium text-green-700">{store.region}</span>
-                  </p>
+
+                  {/* Location block containing address and clean inline GPS map triggers */}
+                  <div className="space-y-1.5 pt-0.5">
+                    <p className="text-xs text-gray-500 flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-green-700 shrink-0" />
+                      <span className="text-gray-600 font-semibold">{store.address}</span>
+                      <span className="text-gray-300">|</span>
+                      <span className="font-medium text-green-700">{store.region}</span>
+                    </p>
+
+                    <a
+                      href={`https://ghanapostgps.com/map#GR1126539`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-green-700 hover:underline bg-green-50/60 px-2 py-0.5 rounded-lg border border-green-100/50"
+                    >
+                      <Navigation size={10} className="fill-current text-green-700" />
+                      GPS: {store.gpsAddress}
+                    </a>
+                  </div>
                 </div>
 
-                {/* Right: Phone Action Button */}
-                <div className="shrink-0 pt-2 sm:pt-0">
-                  {store.phone !== 'N/A' ? (
-                    <a
-                      href={`tel:${store.phone.replace(/[^0-9+]/g, '')}`}
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm w-full sm:w-auto"
-                    >
-                      <Phone className="w-3.5 h-3.5" />
-                      {store.phone}
-                    </a>
-                  ) : (
-                    <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-gray-400 bg-gray-50 border border-gray-100 cursor-not-allowed w-full sm:w-auto">
-                      <Store className="w-3.5 h-3.5" /> Walk-In Only
-                    </div>
-                  )}
-                </div>
+               {/* Right Side: Phone Action Button */}
+              <div className="shrink-0 pt-2 sm:pt-0">
+                {store.phone !== 'N/A' ? (
+                  <a
+                    href={`tel:${store.phone.replace(/[^0-9+]/g, '')}`}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm w-full sm:w-auto"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    {store.phone}
+                  </a>
+                ) : (
+                  <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-gray-400 bg-gray-50 border border-gray-100 cursor-not-allowed w-full sm:w-auto select-none">
+                    <Store className="w-3.5 h-3.5" /> Walk-In Only
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
-        ) : (
-          /* Empty Search Fallback */
-          <div className="bg-white text-center py-16 px-4 rounded-2xl border border-gray-100 shadow-sm">
-            <p className="text-sm text-gray-500 font-medium">No active stockists found matching your parameters.</p>
-          </div>
-        )
-        }
-      </section>
-    </div>
-  );
+            </div>
+          ))}
+        </div>
+      ) : (
+        /* Empty Search Fallback */
+        <div className="bg-white text-center py-16 px-4 rounded-2xl border border-gray-100 shadow-sm max-w-sm sm:max-w-none mx-auto w-full">
+          <p className="text-sm text-gray-500 font-medium">
+            No active stockists found matching your parameters.
+          </p>
+        </div>
+      )}
+    </section>
+  </div>
+);
 }

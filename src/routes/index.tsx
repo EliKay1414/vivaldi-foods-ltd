@@ -14,7 +14,7 @@ export const Route = createFileRoute('/')({
       {/* TYPE-SAFE CLIENT INJECTION: Hydrates homepage document meta configurations safely inside the browser window lifecycle */}
       <Seo
         title=" Vivaldi Foods Ltd "
-        description="Shop 100% pure, raw, and responsibly food products from Vivaldi Foods Ltd. Sourced, processed and distributed directly from our factory for retailers, wholesalers, and households consumers across Ghana."
+        description="Responsibly packaged food products from Vivaldi Foods Ltd. Serving retail, wholesale, and bulk  customers across Ghana."
       />
 
       <HeroSection />

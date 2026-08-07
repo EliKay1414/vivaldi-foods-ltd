@@ -73,8 +73,8 @@ export default function HeroSection() {
   const isDarkSlide = slide.textColor === 'text-white';
 
   return (
-    /* ASPECT RATIO CONFIGURATION: Locked to standard container proportions to preserve structural layout fluidly */
-    <section className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-33.75 w-full aspect-4/3 md:aspect-16/7 lg:aspect-21/9 overflow-hidden bg-gray-100 text-gray-800 flex flex-col justify-center">
+    /* ASPECT RATIO CONFIGURATION: Locked to 16:9 using Tailwind's aspect-video utility */
+    <section className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-33.75 w-full aspect-video overflow-hidden bg-gray-100 text-gray-800 flex flex-col justify-center">
 
       {/* Background Slides Engine */}
       {slides.map((s, i) => (
@@ -87,6 +87,7 @@ export default function HeroSection() {
               loading={i === current ? "eager" : "lazy"}
               decoding="async"
               fetchPriority={i === current ? "high" : "low"}
+              /* width: 100%, height: 100%, and object-fit: cover inside the forced 16:9 container */
               className="w-full h-full object-cover object-center select-none image-rendering-crisp"
             />
           </picture>

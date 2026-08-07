@@ -53,20 +53,23 @@ function QualityPage() {
           {/* TOP LAYOUT SPLIT: Perfectly uniform block distribution */}
           <div className="grid md:grid-cols-12 gap-8 lg:gap-12 items-center mb-16">
 
-            {/* IMAGE REFACTOR: Using the imported module block asset directly inside the view */}
+            {/* IMAGE REFACTOR: Using a fluid aspect-ratio configuration with fixed parent layout constraints */}
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               className="md:col-span-5 overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-white p-1.5"
             >
-              <img
-                src={labTestImg}
-                alt="QA Personnel Lab Testing"
-                loading="eager"
-                decoding="async"
-                className="w-full h-auto max-h-72 object-cover rounded-xl image-rendering-crisp"
-              />
+              <div className="w-full aspect-square md:aspect-4/3 lg:aspect-square overflow-hidden rounded-xl">
+                <img
+                  src={labTestImg}
+                  alt="QA Personnel Lab Testing"
+                  loading="eager"
+                  decoding="async"
+                  /* Locked to take full height/width of its strict aspect-ratio parent container safely */
+                  className="w-full h-full object-cover object-center select-none image-rendering-crisp"
+                />
+              </div>
             </motion.div>
 
             {/* CONTENT REFACTOR: Shifted up and gap compressed using a tighter space-y-3 stack */}

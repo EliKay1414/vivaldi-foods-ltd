@@ -43,7 +43,7 @@ export default function ProductsSection() {
                     : 'text-gray-400 hover:text-gray-700 hover:bg-white/30'
                 }`}
               >
-                {cat === 'All' ? 'All Lines' : cat}
+                {cat === 'All' ? 'All Products' : cat}
               </button>
             ))}
           </div>
@@ -62,17 +62,27 @@ export default function ProductsSection() {
                 className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
               >
                 {/* IMAGE CONTAINER LAYER WITH FIXED ASPECT SQUARE COMPLIANCE */}
-                <div className="relative overflow-hidden aspect-square w-full bg-gray-50 border-b border-gray-100">
-                  <picture className="w-full h-full">
-                    <source srcSet={p.imageWebp} type="image/webp" />
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      loading="lazy"
-                      decoding="async"
-                      className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 select-none"
-                    />
-                  </picture>
+                <div className="relative overflow-hidden aspect-square w-full bg-gray-50 border-b border-gray-100 flex items-center justify-center">
+                  {p.imageWebp && p.image ? (
+                    <picture className="w-full h-full">
+                      <source srcSet={p.imageWebp} type="image/webp" />
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        loading="lazy"
+                        decoding="async"
+                        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 select-none"
+                      />
+                    </picture>
+                  ) : (
+                    /* LIGHTWEIGHT FALLBACK VECTOR CARD: Displays for brand categories with unreleased images */
+                    <div className="flex flex-col items-center justify-center text-center p-6 space-y-2 select-none">
+                      <div className="w-12 h-12 rounded-xl bg-green-50 text-green-700 flex items-center justify-center">
+                        <Layers size={20} />
+                      </div>
+                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-1">Image Coming Soon</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* DETAILS CONTENT PACK BOX */}
