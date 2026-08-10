@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
-import apiaryLiveWebp from '@/assets/images/apiary-live.webp';
-import heroHoneyWebp from '@/assets/images/hero-honey.webp';
-import productionHubWebp from '@/assets/images/production-hub.webp';
-import harvestTimeWebp from '@/assets/images/harvest-time.webp';
-import communitySupportWebp from '@/assets/images/community-support.webp';
+import apiaryLiveWebp from '@/assets/Hero/apiary-live.webp';
+import heroHoneyWebp from '@/assets/Hero/hero-honey.webp';
+import productionHubWebp from '@/assets/Hero/production-hub.webp';
+import harvestTimeWebp from '@/assets/Hero/harvest-time.webp';
+import communitySupportWebp from '@/assets/Hero/community-support.webp';
 
 const slides = [
   {
@@ -73,8 +73,12 @@ export default function HeroSection() {
   const isDarkSlide = slide.textColor === 'text-white';
 
   return (
-    /* ASPECT RATIO CONFIGURATION: Locked to 16:9 using Tailwind's aspect-video utility */
-    <section className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-33.75 w-full aspect-video overflow-hidden bg-gray-100 text-gray-800 flex flex-col justify-center">
+    /*
+      HEIGHT OPTIMIZATION REFACTOR:
+      - Mobile: Shifted down to a shorter, clean layout block (aspect-[4/5] -> aspect-[1 disguise to a tighter ratio])
+      - Desktop (md+): Ultra cinematic widescreen mode (md:aspect-[21/9]) removes massive vertical canvas bulk.
+    */
+    <section className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-33.75 w-full aspect-4/5 sm:aspect-4/3 md:aspect-21/9 overflow-hidden bg-gray-100 text-gray-800 flex flex-col justify-center">
 
       {/* Background Slides Engine */}
       {slides.map((s, i) => (
@@ -87,7 +91,7 @@ export default function HeroSection() {
               loading={i === current ? "eager" : "lazy"}
               decoding="async"
               fetchPriority={i === current ? "high" : "low"}
-              /* width: 100%, height: 100%, and object-fit: cover inside the forced 16:9 container */
+              /* Object-cover strictly locks image bounds, stopping layout blowing on any aspect ratio changes */
               className="w-full h-full object-cover object-center select-none image-rendering-crisp"
             />
           </picture>
@@ -96,15 +100,15 @@ export default function HeroSection() {
       ))}
 
       {/* Content Area Container */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 w-full py-4 sm:py-8 md:py-12 flex flex-col justify-center h-full">
-        <div className="max-w-3xl space-y-1.5 sm:space-y-3 md:space-y-4">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 w-full py-6 md:py-8 flex flex-col justify-center h-full">
+        <div className="max-w-3xl space-y-2 md:space-y-3">
           <div className={`font-bold tracking-[0.2em] uppercase text-[9px] sm:text-xs bg-black/10 backdrop-blur-xs w-fit px-2.5 py-0.5 rounded-full ${slide.textColor}`}>
             {slide.eyebrow}
           </div>
-          <h1 className={`${slide.textColor} whitespace-pre-line text-lg sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-tight leading-[1.15] max-w-4xl`}>
+          <h1 className={`${slide.textColor} whitespace-pre-line text-lg sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-tight leading-[1.2] max-w-4xl`}>
             {slide.title}
           </h1>
-          <p className={`${slide.textColor} text-[10px] sm:text-xs md:text-sm max-w-xl font-medium opacity-90 leading-relaxed`}>
+          <p className={`${slide.textColor} text-[11px] sm:text-xs md:text-sm max-w-xl font-medium opacity-90 leading-relaxed`}>
             {slide.subtitle}
           </p>
           <div className="pt-1">
@@ -119,11 +123,11 @@ export default function HeroSection() {
       </div>
 
       {/* Navigation Controls */}
-      <div className="absolute bottom-3 right-6 sm:bottom-4 z-20 flex gap-2">
+      <div className="absolute bottom-4 right-6 z-20 flex gap-2">
         <button
           onClick={() => setCurrent((current - 1 + slides.length) % slides.length)}
-          className={`w-8 h-8 border rounded-xl flex items-center justify-center transition-all ${
-            isDarkSlide ? 'border-white/30 text-white hover:bg-white hover:text-gray-900' : 'border-gray-300 text-gray-900 hover:bg-green-700 hover:text-white hover:border-green-700'
+          className={`w-8 h-8 border rounded-xl flex items-center justify-center transition-all backdrop-blur-xs ${
+            isDarkSlide ? 'border-white/30 text-white hover:bg-white hover:text-gray-900 bg-black/10' : 'border-gray-300 text-gray-900 hover:bg-green-700 hover:text-white hover:border-green-700 bg-white/40'
           }`}
           aria-label="Previous slide"
         >
@@ -131,8 +135,8 @@ export default function HeroSection() {
         </button>
         <button
           onClick={() => setCurrent((current + 1) % slides.length)}
-          className={`w-8 h-8 border rounded-xl flex items-center justify-center transition-all ${
-            isDarkSlide ? 'border-white/30 text-white hover:bg-white hover:text-gray-900' : 'border-gray-300 text-gray-900 hover:bg-green-700 hover:text-white hover:border-green-700'
+          className={`w-8 h-8 border rounded-xl flex items-center justify-center transition-all backdrop-blur-xs ${
+            isDarkSlide ? 'border-white/30 text-white hover:bg-white hover:text-gray-900 bg-black/10' : 'border-gray-300 text-gray-900 hover:bg-green-700 hover:text-white hover:border-green-700 bg-white/40'
           }`}
           aria-label="Next slide"
         >
@@ -142,3 +146,4 @@ export default function HeroSection() {
     </section>
   );
 }
+

@@ -11,8 +11,8 @@ import FiltrationImg from '@/assets/factory/Filtration.webp';
 import Packaging1Img from '@/assets/factory/Packaging1.webp';
 import Packaging2Img from '@/assets/factory/Packaging2.webp';
 import HeatingImg from '@/assets/factory/Pre-heating.webp';
-import ApiaryImg from '@/assets/images/apiary-live.webp';
-import HeroImg from '@/assets/images/hero-honey.webp';
+import ApiaryImg from '@/assets/Hero/apiary-live.webp';
+import HeroImg from '@/assets/Hero/hero-honey.webp';
 
 export const Route = createFileRoute('/faq')({
   component: FAQPage,
@@ -55,7 +55,8 @@ function ImageSlider({ images }: { images: string[] }) {
   }, [images]);
 
   return (
-    <div className="relative w-full h-56 md:h-64 overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-gray-50">
+    /* ASPECT RATIO REFACTOR: Locked to a strict fluid aspect ratio constraint instead of fixed heights */
+    <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-square lg:aspect-[4/3] overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-gray-50">
       <AnimatePresence mode="wait">
         <motion.img
           key={index}
@@ -63,15 +64,15 @@ function ImageSlider({ images }: { images: string[] }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
-          className="w-full h-full object-cover"
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          className="w-full h-full object-cover object-center select-none image-rendering-crisp"
         />
       </AnimatePresence>
     </div>
   );
 }
 
-function FAQPage() {
+export default function FAQPage() {
   return (
     <div className="bg-amber-50/20 min-h-screen text-gray-800">
       {/* TYPE-SAFE CLIENT INJECTION: Hydrates document meta configurations safely without route conflicts */}
@@ -114,7 +115,7 @@ function FaqSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
 
         {/* Left Column Area */}
-        <div className="lg:col-span-5 space-y-6">
+        <div className="lg:col-span-5 space-y-6 w-full">
           <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4">
             <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">
               <HelpCircle className="w-5 h-5" />
@@ -135,7 +136,7 @@ function FaqSection() {
         </div>
 
         {/* Right Column Area */}
-        <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm divide-y divide-gray-100">
+        <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm divide-y divide-gray-100 w-full">
           {faqs.map((faq, i) => {
             const isOpen = open === i;
             return (
@@ -146,7 +147,7 @@ function FaqSection() {
                   aria-expanded={isOpen}
                 >
                   <span
-                    className={`text-sm md:text-base font-bold leading-snug transition-colors ${
+                    className={`text-sm md:text-base font-bold leading-snug transition-colors duration-200 ${
                       isOpen ? 'text-green-700' : 'text-gray-800 group-hover:text-green-700'
                     }`}
                   >
@@ -160,6 +161,7 @@ function FaqSection() {
                   />
                 </button>
 
+                {/* ACCORDION REFACTOR: Clean height-hydration strategy eliminates layout jumping */}
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
@@ -167,10 +169,10 @@ function FaqSection() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.22, ease: 'easeInOut' }}
+                      transition={{ duration: 0.25, ease: [0.04, 0.62, 0.23, 0.98] }}
                       className="overflow-hidden"
                     >
-                      <p className="pt-2 pb-2 pr-4 text-xs md:text-sm text-gray-500 leading-relaxed antialiased">
+                      <p className="pt-1 pb-3 pr-4 text-xs md:text-sm text-gray-500 leading-relaxed antialiased">
                         {faq.a}
                       </p>
                     </motion.div>

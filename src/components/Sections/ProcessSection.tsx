@@ -4,7 +4,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 const steps = [
   {
     num: '01',
-    title: 'Volta Sourcing Integrity',
+    title: 'Premium Manufacturing Integrity',
     desc: 'We work with trusted Volta supply areas so customers know where the honey comes from.',
     icon: Sprout,
   },

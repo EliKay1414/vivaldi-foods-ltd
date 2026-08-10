@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import apiaryLive from '@/assets/images/apiary-live.webp';
-import productionHub from '@/assets/images/production-hub.webp';
-import heroHoney from '@/assets/images/hero-honey.webp';
+import apiaryLive from '@/assets/Hero/apiary-live.webp';
+import productionHub from '@/assets/Hero/production-hub.webp';
+import heroHoney from '@/assets/Hero/hero-honey.webp';
 import packagingProduct1 from '@/assets/factory/Packaging1.webp';
 import PackageProduct2 from '@/assets/factory/Packaging2.webp';
 

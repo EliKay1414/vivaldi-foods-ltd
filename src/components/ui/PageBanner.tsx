@@ -7,7 +7,7 @@ export function PageBanner({ title, subtitle }: PageBannerProps) {
   return (
     <div
       // CLEARANCE FIX: Uses a responsive margin stack to keep the banner perfectly flush beneath the header on all screen profiles
-      className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-[135px] py-12 flex items-center w-full"
+      className="relative mt-16 sm:mt-20 md:mt-24 lg:mt-33.75 py-12 flex items-center w-full"
       style={{ background: 'linear-gradient(135deg, #052e16 0%, #14532d 60%, #166534 100%)' }}
     >
       <div className="absolute inset-0 honeycomb-bg opacity-20" />

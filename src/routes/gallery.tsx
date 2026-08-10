@@ -4,9 +4,9 @@ import { PageBanner } from '@/components/ui/PageBanner';
 import { motion } from 'framer-motion';
 import Seo from '@/components/ui/Seo';
 
-import apiaryImgWebp from '@/assets/images/apiary-live.webp';
-import productionHubImgWebp from '@/assets/images/production-hub.webp';
-import honeyProcessImgWebp from '@/assets/images/hero-honey.webp';
+import apiaryImgWebp from '@/assets/Hero/apiary-live.webp';
+import productionHubImgWebp from '@/assets/Hero/production-hub.webp';
+import honeyProcessImgWebp from '@/assets/Hero/community-support.webp';
 import p330ImgWebp from '@/assets/products/products-330g.webp';
 import p500ImgWebp from '@/assets/products/products-500g.webp';
 import allProductsImgWebp from '@/assets/products/products.webp';

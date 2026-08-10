@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ArrowRight, ShieldCheck, Leaf, Truck, Users } from 'lucide-react';
 
-import productionHubWebp from '@/assets/images/production-hub.webp';
+import productionHubWebp from '@/assets/Hero/production-hub.webp';
 
 const tabs = [
   {

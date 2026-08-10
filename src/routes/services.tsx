@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Seo from '@/components/ui/Seo';
 
 // Asset Imports
-import apiaryLive from '@/assets/images/apiary-live.webp';
-import productionHub from '@/assets/images/production-hub.webp';
-import heroHoney from '@/assets/images/hero-honey.webp';
+import apiaryLive from '@/assets/Hero/apiary-live.webp';
+import productionHub from '@/assets/Hero/production-hub.webp';
+import heroHoney from '@/assets/Hero/hero-honey.webp';
 import packagingProduct1 from '@/assets/factory/Packaging1.webp';
 import PackageProduct2 from '@/assets/factory/Packaging2.webp';
 
