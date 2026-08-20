@@ -3,34 +3,38 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Phone, MessageCircle, MapPin } from 'lucide-react';
 import { PageBanner } from '@/components/ui/PageBanner';
 import Seo from '@/components/ui/Seo';
+import { COMPANY_DETAILS } from '@/lib/constants';
 
 export const Route = createFileRoute('/contact')({
   component: ContactPage,
 });
 
 function ContactPage() {
+  const landlineDigits = COMPANY_DETAILS.landline.replace(/\D/g, '');
+  const whatsappDigits = COMPANY_DETAILS.phone.replace(/\D/g, '');
+
   const contactMethods = [
     {
       icon: <Phone className="w-5 h-5" />,
       title: "Call Anytime",
-      detail: "+233 302 940 063",
-      subDetail: "Mon - Sat: 8am - 5pm",
+      detail: COMPANY_DETAILS.landline,
+      subDetail: COMPANY_DETAILS.hours,
       color: "bg-green-700",
-      href: "tel:+233302940063"
+      href: `tel:+${landlineDigits}`
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,
       title: "WhatsApp Hub",
-      detail: "+233 256 114 661",
+      detail: COMPANY_DETAILS.phone,
       subDetail: "24/7 Direct Assistance",
       color: "bg-green-700",
-      href: "https://wa.me"
+      href: `https://wa.me/${whatsappDigits}`
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       title: "Headquarters",
-      detail: "Community 18 / Sakumono",
-      subDetail: "Accra, Ghana (GQ-361-8042)",
+      detail: COMPANY_DETAILS.factoryAddress,
+      subDetail: `Accra, Ghana (${COMPANY_DETAILS.gpsAddress})`,
       color: "bg-[#4a372c]",
       href: "#map"
     }
@@ -41,7 +45,7 @@ function ContactPage() {
       {/* TYPE-SAFE CLIENT INJECTION: Updates the document metadata safely within the browser loop */}
       <Seo
         title="Contact Us & Inquiries | Vivaldi Foods Ltd"
-        description="Get in touch with Vivaldi Foods Ltd. Contact our Spintex headquarters for wholesale inquiries, bulk product distribution, and retail sales."
+        description="Get in touch with Vivaldi Foods Ltd. Call or WhatsApp for wholesale inquiries, bulk product distribution, and retail sales. Factory: Community 18 / Sakumono. Office: Spintex, Accra."
       />
 
       <PageBanner title="Contact Us" subtitle="Contact Vivaldi Foods" />

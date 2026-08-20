@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from '@tanstack/react-router';
 
 interface SeoProps {
   title: string;
@@ -6,6 +7,8 @@ interface SeoProps {
 }
 
 export default function Seo({ title, description }: SeoProps) {
+  const { pathname } = useLocation();
+
   useEffect(() => {
     document.title = title;
 
@@ -22,7 +25,16 @@ export default function Seo({ title, description }: SeoProps) {
 
     const ogDesc = document.querySelector('meta[property="og:description"]');
     if (ogDesc) ogDesc.setAttribute('content', description);
-  }, [title, description]);
+
+    const siteUrl = (import.meta.env.VITE_SITE_URL || 'https://vivaldifoodsltd.com').replace(/\/$/, '');
+    const canonical = pathname === '/' ? `${siteUrl}/` : `${siteUrl}${pathname}`;
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', canonical);
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) canonicalLink.setAttribute('href', canonical);
+  }, [title, description, pathname]);
 
   return null;
 }

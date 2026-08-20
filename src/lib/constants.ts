@@ -3,7 +3,10 @@ export const COMPANY_DETAILS = {
   tagline: "Food Manufacturer in Ghana",
   email: "socials@vivaldifoodsltd.com",
   phone: "+233 256 114 661",
+  landline: "+233 302 940 063",
   address: "Office: Spintex, Accra",
+  factoryAddress: "Community 18 / Sakumono, Accra",
+  gpsAddress: "GQ-361-8042",
   hours: "Mon-Sat: 8:00 AM - 5:00 PM",
   socials: {
     facebook: "https://facebook.com/vivaldifoods",

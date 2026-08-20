@@ -1,25 +1,81 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { PageBanner } from '@/components/ui/PageBanner';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, MapPin, Phone, ChevronDown, CheckCircle2, AlertCircle, Building2, Store, HelpCircle, Navigation } from 'lucide-react';
+import { Search, MapPin, Phone, ChevronDown, CheckCircle2, AlertCircle, Building2, Store, HelpCircle, Navigation, ChevronLeft, ChevronRight } from 'lucide-react';
 import Seo from '@/components/ui/Seo';
-import { stores, allRegions, type StoreLocation, type StoreCategory } from '@/config/partners'; // EXTERNAL DATABASE INTEGRATION: Pulls types, static lists, and raw array models from your decoupled configuration file
+import { stores, allRegions, type StoreLocation, type StoreCategory } from '@/config/partners';
 
 export const Route = createFileRoute('/our-partners')({
   component: OurPartnersPage,
 });
+
+const PAGE_SIZE = 6;
+
+function storeDestination(store: StoreLocation) {
+  if (store.gpsAddress) return `${store.gpsAddress}, Ghana`;
+  return [store.name, store.address, store.region, 'Ghana'].filter(Boolean).join(', ');
+}
+
+function ghanaPostUrl(gpsAddress: string) {
+  const compact = gpsAddress.replace(/[-\s]/g, '').toUpperCase();
+  return `https://ghanapostgps.com/map#${compact}`;
+}
+
+function directionsUrl(store: StoreLocation, origin?: { lat: number; lng: number }) {
+  const destination = encodeURIComponent(storeDestination(store));
+  if (origin) {
+    return `https://www.google.com/maps/dir/?api=1&origin=${origin.lat},${origin.lng}&destination=${destination}&travelmode=driving`;
+  }
+  return `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=driving`;
+}
+
+function telHref(phone: string) {
+  const first = phone.split('/')[0] ?? phone;
+  const digits = first.replace(/\D/g, '');
+  if (!digits) return undefined;
+  if (digits.startsWith('233')) return `tel:+${digits}`;
+  if (digits.startsWith('0')) return `tel:+233${digits.slice(1)}`;
+  return `tel:+${digits}`;
+}
 
 export function OurPartnersPage() {
   const [selectedRegion, setSelectedRegion] = useState<string>('All');
   const [selectedCategory, setSelectedCategory] = useState<StoreCategory>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [navigatingId, setNavigatingId] = useState<number | null>(null);
+
+  const openShopGps = (store: StoreLocation) => {
+    const fallback = directionsUrl(store);
+    setNavigatingId(store.id);
+
+    const finish = (url: string) => {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      setNavigatingId(null);
+    };
+
+    if (!navigator.geolocation) {
+      finish(fallback);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        finish(directionsUrl(store, {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        }));
+      },
+      () => finish(fallback),
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 120000 },
+    );
+  };
 
   const categories: StoreCategory[] = ['All', 'Mart', 'Filling Station', 'SuperMarkets', 'Malls', 'Pharmacy'];
 
-  // FILTERING MACHINE: Safely resolves search filters across store name, address, and GPS text fields concurrently
   const filteredStores = stores.filter(store => {
     const matchesRegion = selectedRegion === 'All' || store.region === selectedRegion || store.region === 'Nationwide';
     const matchesSearch = store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -28,6 +84,15 @@ export function OurPartnersPage() {
     const matchesCategory = selectedCategory === 'All' || store.category === selectedCategory;
     return matchesRegion && matchesSearch && matchesCategory;
   });
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPage(1);
+  }, [selectedRegion, selectedCategory, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredStores.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pagedStores = filteredStores.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   const getStatusBadge = (status: StoreLocation['stockStatus']) => {
     switch (status) {
@@ -49,24 +114,21 @@ export function OurPartnersPage() {
 
       <PageBanner title="Our Partners" subtitle="Find an official Vivaldi Foods retail stockist near you." />
 
-      <section className="py-12 max-w-4xl mx-auto px-4 lg:px-6 space-y-4">
+      <section className="py-12 max-w-6xl mx-auto px-4 lg:px-6 space-y-4">
 
-        {/* SHADCN-STYLE CONTROL PANEL MATRIX */}
         <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm space-y-4">
           <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
 
-            {/* Search Box Input */}
             <div className="relative flex-1 w-full">
               <Search className="absolute left-3.5 top-3.5 text-gray-400 w-4 h-4" />
               <input
                 type="text"
-                placeholder="Search store name, address, or GPS code (e.g. VC-0044)..."
+                placeholder="Search store name or address..."
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-green-700 transition-colors bg-gray-50/50"
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
 
-            {/* Clean Region Dropdown Selection */}
             <div className="relative w-full md:w-64">
               <button
                 type="button"
@@ -114,7 +176,6 @@ export function OurPartnersPage() {
             </div>
           </div>
 
-          {/* SHADCN TABS INTERFACE LAYOUT FOR CATEGORIES */}
           <div className="border-t border-gray-50 pt-3">
             <div className="flex flex-wrap gap-1.5 p-1 bg-gray-50/80 rounded-xl w-full border border-gray-100/50">
               {categories.map((cat) => (
@@ -135,74 +196,129 @@ export function OurPartnersPage() {
           </div>
         </div>
 
-        {/* Clean, Non-Complex Unified Content Cards Deck Layout */}
         {filteredStores.length > 0 ? (
           <div className="space-y-4">
-            {filteredStores.map((store) => (
-              <div
-                key={store.id}
-                className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col sm:flex-row justify-between sm:items-center gap-4 transition-all duration-200 hover:shadow-md"
-              >
-                {/* Left Side: Metadata Details */}
-                <div className="space-y-1.5">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-50 text-[9px] font-bold uppercase text-gray-500 rounded-md border border-gray-100">
-                      <Building2 className="w-2.5 h-2.5 text-green-700" />
-                      {store.category}
-                    </span>
-                    <h3 className="font-bold text-base text-gray-900">{store.name}</h3>
-                    {getStatusBadge(store.stockStatus)}
-                  </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {pagedStores.map((store) => {
+                const callHref = store.phone !== 'N/A' ? telHref(store.phone) : undefined;
 
-                  {/* Location block containing address and clean inline GPS map triggers */}
-                  <div className="space-y-1.5 pt-0.5">
-                    <p className="text-xs text-gray-500 flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-green-700 shrink-0" />
-                      <span className="text-gray-600 font-semibold">{store.address}</span>
-                      <span className="text-gray-300">|</span>
-                      <span className="font-medium text-green-700">{store.region}</span>
-                    </p>
-
-                    <a
-                      href={`https://ghanapostgps.com/map#GR1126539`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[11px] font-bold text-green-700 hover:underline bg-green-50/60 px-2 py-0.5 rounded-lg border border-green-100/50"
-                    >
-                      <Navigation size={10} className="fill-current text-green-700" />
-                      GPS: {store.gpsAddress}
-                    </a>
-                  </div>
-                </div>
-
-               {/* Right Side: Phone Action Button */}
-              <div className="shrink-0 pt-2 sm:pt-0">
-                {store.phone !== 'N/A' ? (
-                  <a
-                    href={`tel:${store.phone.replace(/[^0-9+]/g, '')}`}
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm w-full sm:w-auto"
+                return (
+                  <div
+                    key={store.id}
+                    className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col gap-4 transition-all duration-200 hover:shadow-md"
                   >
-                    <Phone className="w-3.5 h-3.5" />
-                    {store.phone}
-                  </a>
-                ) : (
-                  <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-gray-400 bg-gray-50 border border-gray-100 cursor-not-allowed w-full sm:w-auto select-none">
-                    <Store className="w-3.5 h-3.5" /> Walk-In Only
+                    <div className="space-y-1.5 grow">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-50 text-[9px] font-bold uppercase text-gray-500 rounded-md border border-gray-100">
+                          <Building2 className="w-2.5 h-2.5 text-green-700" />
+                          {store.category}
+                        </span>
+                        {getStatusBadge(store.stockStatus)}
+                      </div>
+
+                      <h3 className="font-bold text-base text-gray-900 leading-snug">{store.name}</h3>
+
+                      <p className="text-xs text-gray-500 flex items-start gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-green-700 shrink-0 mt-0.5" />
+                        <span>
+                          {store.address ? (
+                            <>
+                              <span className="text-gray-600 font-semibold">{store.address}</span>
+                              <span className="text-gray-300"> · </span>
+                            </>
+                          ) : null}
+                          <span className="font-medium text-green-700">{store.region}</span>
+                        </span>
+                      </p>
+
+                      <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                        <button
+                          type="button"
+                          onClick={() => openShopGps(store)}
+                          disabled={navigatingId === store.id}
+                          className="inline-flex items-center gap-1 text-[11px] font-bold text-green-700 hover:underline bg-green-50/60 px-2 py-0.5 rounded-lg border border-green-100/50 cursor-pointer disabled:opacity-60"
+                        >
+                          <Navigation size={10} className="fill-current text-green-700" />
+                          {navigatingId === store.id ? 'Opening GPS…' : 'GPS directions'}
+                        </button>
+                        {store.gpsAddress ? (
+                          <a
+                            href={ghanaPostUrl(store.gpsAddress)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[11px] font-bold text-gray-600 hover:underline bg-gray-50 px-2 py-0.5 rounded-lg border border-gray-100"
+                          >
+                            {store.gpsAddress}
+                          </a>
+                        ) : null}
+                      </div>
+                    </div>
+
+                    {callHref ? (
+                      <a
+                        href={callHref}
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm w-full"
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                        {store.phone}
+                      </a>
+                    ) : (
+                      <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-gray-400 bg-gray-50 border border-gray-100 cursor-not-allowed w-full select-none">
+                        <Store className="w-3.5 h-3.5" /> Walk-In Only
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
-      ) : (
-        /* Empty Search Fallback */
-        <div className="bg-white text-center py-16 px-4 rounded-2xl border border-gray-100 shadow-sm max-w-sm sm:max-w-none mx-auto w-full">
-          <p className="text-sm text-gray-500 font-medium">
-            No active stockists found matching your parameters.
-          </p>
-        </div>
-      )}
-    </section>
-  </div>
-);
+
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="inline-flex items-center justify-center w-9 h-9 rounded-xl border border-gray-200 bg-white text-gray-600 disabled:opacity-40 disabled:cursor-not-allowed hover:border-green-700 hover:text-green-700 cursor-pointer"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+                  <button
+                    key={pageNumber}
+                    type="button"
+                    onClick={() => setPage(pageNumber)}
+                    className={`w-9 h-9 rounded-xl text-xs font-bold cursor-pointer ${
+                      pageNumber === currentPage
+                        ? 'bg-green-700 text-white'
+                        : 'bg-white border border-gray-200 text-gray-600 hover:border-green-700 hover:text-green-700'
+                    }`}
+                  >
+                    {pageNumber}
+                  </button>
+                ))}
+
+                <button
+                  type="button"
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="inline-flex items-center justify-center w-9 h-9 rounded-xl border border-gray-200 bg-white text-gray-600 disabled:opacity-40 disabled:cursor-not-allowed hover:border-green-700 hover:text-green-700 cursor-pointer"
+                  aria-label="Next page"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="bg-white text-center py-16 px-4 rounded-2xl border border-gray-100 shadow-sm max-w-sm sm:max-w-none mx-auto w-full">
+            <p className="text-sm text-gray-500 font-medium">
+              No active stockists found matching your parameters.
+            </p>
+          </div>
+        )}
+      </section>
+    </div>
+  );
 }

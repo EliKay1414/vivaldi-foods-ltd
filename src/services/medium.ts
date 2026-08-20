@@ -10,7 +10,7 @@ export interface MediumPost {
 }
 
 export async function getMediumBlogs(): Promise<MediumPost[]> {
-  const rssUrl = 'https://medium.com/feed/@vivaldifoodslimited';
+  const rssUrl = import.meta.env.VITE_MEDIUM_FEED_URL || 'https://medium.com/feed/@vivaldifoodslimited';
   const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
 
   try {

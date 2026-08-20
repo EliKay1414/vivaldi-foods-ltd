@@ -13,8 +13,8 @@ export const Route = createFileRoute('/')({
     <div className="animate-fade-in">
       {/* TYPE-SAFE CLIENT INJECTION: Hydrates homepage document meta configurations safely inside the browser window lifecycle */}
       <Seo
-        title=" Vivaldi Foods Ltd "
-        description="Responsibly packaged food products from Vivaldi Foods Ltd. Serving retail, wholesale, and bulk  customers across Ghana."
+        title="Vivaldi Foods Ltd | Premium Food Manufacturers Ghana"
+        description="Responsibly packaged food products from Vivaldi Foods Ltd. Serving retail, wholesale, and bulk customers across Ghana."
       />
 
       <HeroSection />

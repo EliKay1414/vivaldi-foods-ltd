@@ -13,6 +13,7 @@ jobs:
       VITE_APP_TITLE: ${{ secrets.VITE_APP_TITLE }}
       VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
       VITE_MEDIUM_FEED_URL: ${{ secrets.VITE_MEDIUM_FEED_URL }}
+      VITE_GOOGLE_SITE_VERIFICATION: ${{ secrets.VITE_GOOGLE_SITE_VERIFICATION }}
 
     steps:
       - name: ⬇️ Checkout code
@@ -45,3 +46,15 @@ jobs:
         run: |
           aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET }} \
             --delete
+
+      - name: 🔗 Publish HTML at SPA paths
+        run: |
+          BUCKET="${{ secrets.AWS_S3_BUCKET }}"
+          for route in about products quality factory community-impact team services faq our-partners contact blog gallery; do
+            file="dist/${route}/index.html"
+            if [ -f "$file" ]; then
+              aws s3 cp "$file" "s3://${BUCKET}/${route}" \
+                --content-type "text/html; charset=utf-8" \
+                --cache-control "public, max-age=300"
+            fi
+          done
