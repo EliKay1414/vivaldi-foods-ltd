@@ -1,10 +1,10 @@
 import { Bug, Warehouse, Globe, ShieldCheck } from 'lucide-react';
 
 const coreStrengths = [
-  { icon: Bug, title: "Pure Honey", desc: "Honey sourced from trusted Volta apiaries." },
-  { icon: ShieldCheck, title: "No Adulteration", desc: "No added sugar, syrup, or fake ingredients." },
-  { icon: Warehouse, title: "Clean Packing", desc: "Products are packed in clean, controlled spaces." },
-  { icon: Globe, title: "Reliable Supply", desc: "Supply support for homes, shops, and partners." },
+  { icon: Bug, title: "100% Real Honey", desc: "Honey fresh from healthy Volta beehives." },
+  { icon: ShieldCheck, title: "No Fake Sugar", desc: "Zero added sugar, syrup, or fake water." },
+  { icon: Warehouse, title: "Clean Bottling", desc: "Packed in clean, safe rooms under FDA rules." },
+  { icon: Globe, title: "Fast Delivery", desc: "Fast supply for homes, shops, and wholesale buyers." },
 ];
 
 export const Features = () => {

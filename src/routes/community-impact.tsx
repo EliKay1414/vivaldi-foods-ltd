@@ -61,29 +61,29 @@ const ImageSlider = ({ images }: { images: SliderImage[] }) => {
 
 const initiativeGroups = [
   {
-    title: "Strategic Event Pillars",
+    title: "Key Event Goals",
     images: [
       { webp: Hive1Webp },
       { webp: Hive2Webp },
       { webp: Hive3Webp }
     ],
     items: [
-      { icon: Users, title: 'VOBCU Formation', description: 'Formal introduction of the union to unite local beekeepers.' },
-      { icon: GraduationCap, title: 'Technical Training', description: 'Best beekeeping practices and hive health education led by Dr. Ernest.' },
-      { icon: ShieldCheck, title: 'Quality & Standards', description: 'Certification guidance in collaboration with the FDA.' },
+      { icon: Users, title: 'Uniting Local Beekeepers', description: 'Bringing local beekeepers together into one strong union.' },
+      { icon: GraduationCap, title: 'Beekeeping Training', description: 'Hands-on learning on how to care for bees and keep hives healthy, led by Dr. Ernest.' },
+      { icon: ShieldCheck, title: 'Safe Food Standards', description: 'Clear guidance to meet FDA standards so honey stays pure and clean.' },
     ]
   },
   {
-    title: "Business & Inclusion",
+    title: "Money & Business Skills",
     images: [
       { webp: Hive2Webp },
       { webp: Hive3Webp },
       { webp: Hive4Webp }
     ],
     items: [
-      { icon: HandCoins, title: 'Financial Inclusion', description: 'Integrating insurance and mobile money solutions for growth.' },
-      { icon: ClipboardCheck, title: 'Registration', description: 'Formal onboarding requiring Ghana Card and photos.' },
-      { icon: Leaf, title: 'Commercial Mindset', description: 'Transitioning to professional, commercial-scale honey production.' },
+      { icon: HandCoins, title: 'Easy Payments & Savings', description: 'Using mobile money and simple savings tools to help beekeepers grow.' },
+      { icon: ClipboardCheck, title: 'Member Sign-Up', description: 'Easy sign-up for beekeepers using their Ghana Card.' },
+      { icon: Leaf, title: 'Growing Your Honey Business', description: 'Helping local beekeepers harvest more honey and sell to bigger markets.' },
     ]
   }
 ];
@@ -105,13 +105,13 @@ function CommunityImpactPage() {
       <section className="py-12 md:py-16 max-w-6xl mx-auto px-6">
         <div className="max-w-3xl mx-auto text-center mb-16 space-y-2 flex flex-col items-center">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full inline-block">
-            Empowerment
+            Helping Farmers
           </span>
           <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 tracking-tight pt-1">
-            Empowering Local Beekeepers
+            Helping Local Beekeepers Grow
           </h2>
           <p className="text-gray-500 text-xs md:text-sm leading-relaxed max-w-xl mx-auto pt-1">
-            Our framework for the upcoming event on Friday, 26th June 2026, aims to provide comprehensive training and financial support for beekeepers in Akatsi Abor and surrounding districts.
+            Our upcoming event on Friday, 26th June 2026 gives practical training, tools, and business support to beekeepers in Akatsi Abor and nearby towns.
           </p>
         </div>
 
@@ -150,10 +150,10 @@ function CommunityImpactPage() {
         <div className="bg-white p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8">
           <div className="max-w-xl space-y-1.5">
             <h2 className="text-xl md:text-2xl font-display font-bold text-gray-900 tracking-tight">
-              Join Our Mission
+              Work With Us
             </h2>
             <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
-              We are inviting community leaders, women, and youth groups to participate in this Vivaldi Foods Ltd initiative. Connect with us to learn about sponsorship and partnership opportunities.
+              We invite community leaders, women, and youth groups to join us. Contact us to learn how we can work together and support our beekeepers.
             </p>
           </div>
 

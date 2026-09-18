@@ -19,31 +19,31 @@ const processSteps = [
   {
     image: FromHive,
     title: "Straight from the Hives",
-    desc: "Raw, pure honeycombs are carefully harvested by our cooperative beekeeping networks across our apiaries and transported under hygienic conditions directly to our processing factory.",
+    desc: "Pure honeycomb is carefully collected by our local beekeepers and brought cleanly straight to our factory.",
     icon: <Compass className="w-4 h-4" />,
     detail: "Harvested directly from our apiaries",
     microAnim: "hover:rotate-12 transition-transform duration-500"
   },
   {
     image: PreHeating,
-    title: "Optimal Pre-heating",
-    desc: "We gently warm the raw honey to exactly 45°C. This specific temperature lowers the viscosity for filtration while strictly preserving the active organic enzymes, vitamins, and natural nutritional elements of raw honey.",
+    title: "Gentle Warming",
+    desc: "We gently warm the raw honey to exactly 45°C. This makes it smooth and easy to filter, while protecting all the natural vitamins, good taste, and healthy nutrients inside.",
     icon: <Flame className="w-4 h-4" />,
-    detail: "Maintained at optimal temperature to preserve nutrients",
+    detail: "Warmed gently to keep all healthy nutrients safe",
     microAnim: "group-hover:animate-pulse"
   },
   {
     image: Filtration,
-    title: "Refined Filtration",
-    desc: "The liquified honey is routed through a series of micro-mesh pressure filters. This process cleanly removes organic beeswax residues, stray hive fragments, and pollen clusters, leaving a flawless, crystal-clear golden texture.",
+    title: "Clean Filtration",
+    desc: "We pass the warm honey through fine mesh filters. This removes bits of wax and hive pieces, leaving clean, clear, golden honey.",
     icon: <Filter className="w-4 h-4" />,
     detail: "Zero additives, zero chemical filters",
     microAnim: "group-hover:scale-110 transition-transform duration-500"
   },
   {
     image: Packaging,
-    title: "Sanitary Automatic Packaging",
-    desc: "Our premium gold liquid is directed to sterile bottling lines where it is airtight-sealed in our signature respective packagings, locked in for ultimate freshness and transport safety.",
+    title: "Clean Bottling & Sealing",
+    desc: "The honey is poured into clean bottles and sealed tightly. This keeps it fresh, safe, and ready for your home or shop.",
     icon: <Sparkles className="w-4 h-4" />,
     detail: "Airtight vacuum-sealed, FDA certified",
     microAnim: "group-hover:translate-y-[-4px] transition-transform duration-500"
@@ -125,7 +125,7 @@ function FactoryPage() {
                          - Locked to aspect-[16/10] for a clean, horizontally biased crop.
                          - Object-cover prevents vertical overflow.
                       */
-                      className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-white p-1.5"
+                      className="relative aspect-16/10 overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-white p-1.5"
                     >
                       <img
                         src={step.image}

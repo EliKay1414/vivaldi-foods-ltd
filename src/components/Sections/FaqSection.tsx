@@ -35,7 +35,7 @@ const faqs = [
   },
   {
     q: 'How do I place a bulk or wholesale order?',
-    a: "Just send us an enquiry through the contact page or call us directly. We'll get back to you with pricing, available quantities, and delivery options.",
+    a: "You can buy directly in our online shop or call us on WhatsApp. We will give you wholesale prices, box quantities, and fast delivery options.",
   },
 ];
 
@@ -81,14 +81,14 @@ export default function FaqSection() {
               Frequently Asked Questions
             </h2>
             <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
-              Everything you need to know about Vivaldi Foods Ltd, our premium products, and our quality standards.
+              Everything you need to know about Vivaldi Foods Ltd, our honey, and how we keep it clean and safe.
             </p>
             <div className="pt-1">
               <Link
-                to="/contact"
+                to="/products"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm cursor-pointer"
               >
-                Get a Quote
+                Shop Now
               </Link>
             </div>
 

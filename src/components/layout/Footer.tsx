@@ -24,7 +24,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-white/70 text-xs leading-relaxed antialiased select-none pt-1">
-              We are committed to delivering high-quality, safe, and responsibly packaged food products.
+              We make clean, safe, and 100% pure honey for families and businesses across Ghana.
             </p>
           </div>
 

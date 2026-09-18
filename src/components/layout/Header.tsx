@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useRouter } from '@tanstack/react-router';
 import { Menu, X, Phone, Mail, ChevronDown, ChevronRight } from 'lucide-react';
 import { COMPANY_DETAILS } from '@/lib/constants';
+import CartBadge from '@/components/cart/CartBadge';
 
 // RESOLVED PUBLIC FILE PATH: References the lightweight static image webp module
 const vivaldiLogo = "/Vivaldi-logo.webp";
@@ -146,21 +147,25 @@ export default function Header() {
                   )}
                 </div>
               ))}
-              <Link to="/contact" className="ml-4 bg-green-700 text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-green-800 transition-all shadow-sm active:scale-95">
+              <CartBadge showSubtotal />
+              <Link to="/contact" className="ml-2 bg-green-700 text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-green-800 transition-all shadow-sm active:scale-95">
                 Enquiry
               </Link>
             </div>
 
-            {/* Mobile Menu Toggle Button */}
-            <button
-              type="button"
-              className="lg:hidden text-gray-900 p-1.5 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer select-none"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-expanded={mobileOpen}
-              aria-label={mobileOpen ? "Close main menu" : "Open main menu"}
-            >
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile Actions (Cart + Menu Toggle) */}
+            <div className="flex items-center gap-2 lg:hidden">
+              <CartBadge />
+              <button
+                type="button"
+                className="text-gray-900 p-1.5 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer select-none"
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-expanded={mobileOpen}
+                aria-label={mobileOpen ? "Close main menu" : "Open main menu"}
+              >
+                {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -264,7 +269,7 @@ export default function Header() {
 
           {/* Drawer footer */}
           <div className="px-6 py-5 border-t border-gray-100 bg-gray-50/50 space-y-4">
-            {/* Enquiry Button - Remains untouched to direct visitors to the main Contact form page */}
+            {/* Enquiry Button */}
             <Link
               to="/contact"
               onClick={closeMenu}

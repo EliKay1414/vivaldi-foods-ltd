@@ -44,11 +44,11 @@ function ContactPage() {
     <div className="bg-amber-50/30 min-h-screen">
       {/* TYPE-SAFE CLIENT INJECTION: Updates the document metadata safely within the browser loop */}
       <Seo
-        title="Contact Us & Inquiries | Vivaldi Foods Ltd"
-        description="Get in touch with Vivaldi Foods Ltd. Call or WhatsApp for wholesale inquiries, bulk product distribution, and retail sales. Factory: Community 18 / Sakumono. Office: Spintex, Accra."
+        title="Contact Us & Orders | Vivaldi Foods Ltd"
+        description="Get in touch with Vivaldi Foods Ltd. Call or WhatsApp us to order honey, ask questions, or buy wholesale boxes for your shop or home. Factory: Community 18 / Sakumono. Office: Spintex, Accra."
       />
 
-      <PageBanner title="Contact Us" subtitle="Contact Vivaldi Foods" />
+      <PageBanner title="Contact Us" subtitle="We are here to help. Reach out to order honey or ask questions." />
 
       <section className="relative py-16 z-10 max-w-6xl mx-auto px-6">
         <div className="max-w-5xl mx-auto">

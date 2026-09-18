@@ -41,17 +41,17 @@ export default function StatsSection() {
         {/* HEADER AREA: Symmetrical alignment matching global sections */}
         <div className="max-w-3xl mx-auto text-center mb-12 space-y-2 flex flex-col items-center">
           <p className="reveal text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400 bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-full inline-block">
-            Quality Benchmarks
+            Our Standards
           </p>
           <h2 className="reveal reveal-delay-1 text-2xl md:text-3xl font-display font-bold text-white tracking-tight pt-1">
-            Compliance Metrics
+            Quality You Can Trust
           </h2>
         </div>
 
         {/* Stats Grid Deck */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 max-w-5xl mx-auto">
           {[
-            { value: 100, suffix: '%', label: 'Zero Food Adulteration', desc: 'Ensuring Food Authenticity' },
+            { value: 100, suffix: '%', label: '100% Real Honey', desc: 'No added sugar or fake syrup' },
             { value: 100, suffix: '%', label: 'Clean Packaging', desc: 'Handled and packed with care' },
             { value: 100, suffix: '%', label: 'Quality Checks', desc: 'Checked before supply' },
             { value: 100, suffix: '%', label: 'Hygiene Controls', desc: 'Maintained across all batches' },

@@ -1,140 +1,143 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useState } from 'react';
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { PageBanner } from '@/components/ui/PageBanner';
-import { Star, MessageSquare, Layers, ChevronRight } from 'lucide-react';
-import { productCatalog } from '@/config/commerce';
+import { useState, useRef } from 'react';
+import { createFileRoute } from '@tanstack/react-router';
+import { ShoppingCart, ChevronRight, Sparkles } from 'lucide-react';
 import Seo from '@/components/ui/Seo';
+import StorefrontHero from '@/components/storefront/StorefrontHero';
+import ProductCard from '@/components/storefront/ProductCard';
+import { useProductsQuery } from '@/services/products';
+import { useCart } from '@/context/CartContext';
 
 export const Route = createFileRoute('/products')({
   component: ProductsPage,
 });
 
 function ProductsPage() {
-  // DYNAMIC PORTFOLIO AXIS: Extracts unique category layers automatically for any future food brand expansions
-  const availableCategories = ['All', ...Array.from(new Set(productCatalog.map((p) => p.category)))];
+  const { data: products = [] } = useProductsQuery();
+  const { totalItems, subtotal, openCart } = useCart();
   const [activeCategory, setActiveCategory] = useState('All');
+  const productsSectionRef = useRef<HTMLDivElement>(null);
+
+  const availableCategories = ['All', ...Array.from(new Set(products.map((p) => p.category)))];
 
   const filteredProducts = activeCategory === 'All'
-    ? productCatalog
-    : productCatalog.filter((p) => p.category === activeCategory);
+    ? products
+    : products.filter((p) => p.category === activeCategory);
+
+  const handleScrollToProducts = () => {
+    productsSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
-    <div className="bg-amber-50/20 min-h-screen text-gray-800">
-      {/* TYPE-SAFE CLIENT INJECTION: Hydrates unique metadata context safely inside browser window scopes */}
+    <div className="bg-amber-50/20 min-h-screen text-gray-800 pb-20 sm:pb-16">
+      {/* SEO */}
       <Seo
-        title="Official Products Catalog | Vivaldi Foods Ltd"
-        description="Explore the full food and agricultural brand selection from Vivaldi Foods Ltd. Shop our 100% pure Volta Premium Honey alongside our expanding premium product collections available across Ghana."
+        title="Buy Volta Pure Honey Online | Vivaldi Foods Ltd Store"
+        description="Buy 100% pure real honey in Ghana. No added sugar or fake syrup. Order small bottles, family jars, or wholesale bulk packs with fast delivery in Accra and nationwide."
       />
 
-      <PageBanner
-        title="Our Products"
-        subtitle="Explore our pure, natural flavor selections and premium consumer food brands tailored for your family."
-      />
-
-      {/* 📱 HORIZONTAL FILTER SLIDER DECK: Touch-friendly horizontal swipe rail on phones, centered links on laptop screens */}
-      <div className="max-w-6xl mx-auto px-6 pt-10 relative">
-        <div className="relative max-w-2xl mx-auto">
-          <div className="w-full overflow-x-auto scrollbar-none flex items-center justify-start sm:justify-center gap-1.5 p-1.5 bg-white border border-gray-100 rounded-xl shadow-xs snap-x snap-mandatory">
-            {availableCategories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer select-none snap-center ${
-                  activeCategory === cat
-                    ? 'bg-green-700 text-white shadow-sm'
-                    : 'text-gray-400 hover:text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                {cat === 'All' ? 'All Brands' : cat}
-              </button>
-            ))}
-          </div>
-          {/* Mobile slider swipe hint icon */}
-          <div className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none sm:hidden opacity-30 animate-pulse">
-            <ChevronRight size={14} />
-          </div>
-        </div>
+      {/* Storefront Hero Section - Positioned flush directly below Header */}
+      <div className="mt-16 sm:mt-20 md:mt-24 lg:mt-33.75">
+        <StorefrontHero onScrollToProducts={handleScrollToProducts} />
       </div>
 
-      {/* 📱 GRIDS ENVIRONMENT DECK */}
-      <section className="py-8 md:py-12 max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-sm sm:max-w-none mx-auto items-stretch">
-          {filteredProducts.map((p) => {
-            return (
-              <div
-                key={p.id}
-                className="group bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col justify-between w-full transition-all duration-300 hover:shadow-md hover:-translate-y-1 overflow-hidden"
-              >
-                {/* IMAGE BOUNDS LAYER - Locked to strict square aspect ratio box elements */}
-                <div className="relative overflow-hidden aspect-square w-full bg-gray-50 border-b border-gray-100 flex items-center justify-center">
-                  {p.imageWebp && p.image ? (
-                    <picture className="w-full h-full">
-                      <source srcSet={p.imageWebp} type="image/webp" />
-                      <img
-                        src={p.image}
-                        alt={p.name}
-                        loading="lazy"
-                        decoding="async"
-                        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105 select-none"
-                      />
-                    </picture>
-                  ) : (
-                    /* LIGHTWEIGHT FALLBACK VECTOR CARD: Displays for future product lines with unreleased photography */
-                    <div className="flex flex-col items-center justify-center text-center p-6 space-y-2 select-none">
-                      <div className="w-12 h-12 rounded-xl bg-green-50 text-green-700 flex items-center justify-center">
-                        <Layers size={20} />
-                      </div>
-                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-1">
-                        Image Coming Soon
-                      </span>
-                    </div>
-                  )}
-                </div>
+      {/* Main Store Catalog Anchor */}
+      <div ref={productsSectionRef} className="scroll-mt-32 max-w-6xl mx-auto px-4 sm:px-6 pt-10">
 
-                {/* DETAILS WRAPPER PACK TEXT */}
-                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2 flex-wrap">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-50 text-[9px] font-bold uppercase text-green-700 rounded-md border border-green-100/30">
-                        <Layers size={10} />
-                        {p.category} • {p.size}
-                      </span>
-
-                      <div className="flex text-amber-500">
-                        {[...Array(p.rating || 5)].map((_, i) => (
-                          <Star key={i} size={11} fill="currentColor" className="stroke-none" />
-                        ))}
-                      </div>
-                    </div>
-
-                    <h3 className="text-base font-bold text-gray-900 group-hover:text-green-700 transition-colors tracking-tight leading-snug">
-                      {p.name}
-                    </h3>
-
-                    <p className="text-gray-500 text-xs leading-relaxed line-clamp-3">
-                      {p.description}
-                    </p>
-                  </div>
-
-                  <div className="pt-1">
-                    <Link
-                      to="/contact"
-                      search={{ subject: `Enquiry: ${p.name} (${p.size})` }}
-                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm cursor-pointer"
-                    >
-                      <MessageSquare size={13} />
-                      Make an Enquiry
-                    </Link>
-                  </div>
-                </div>
-
-              </div>
-            );
-          })}
+        {/* Section Heading */}
+        <div className="text-center max-w-2xl mx-auto space-y-2 mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-700 rounded-full text-[11px] font-bold uppercase tracking-wider">
+            <Sparkles size={12} className="text-amber-500" />
+            <span>Our Pure Honey Collection</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-gray-900 tracking-tight">
+            Choose Your Favorite Honey Bottle
+          </h2>
+          <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
+            All bottles contain 100% pure, unheated raw honey with zero added sugar. Fresh, sweet, and safe for everyone.
+          </p>
         </div>
-      </section>
+
+        {/* 📱 Sticky Category Filter Rail (Oraimo Mobile Swipe Style) */}
+        <div className="sticky top-18 z-20 py-2 mb-8 bg-amber-50/90 backdrop-blur-md">
+          <div className="relative max-w-2xl mx-auto">
+            <div className="w-full overflow-x-auto scrollbar-none flex items-center justify-start sm:justify-center gap-2 p-1.5 bg-white border border-gray-100 rounded-2xl shadow-xs snap-x snap-mandatory">
+              {availableCategories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-xl transition-all duration-200 cursor-pointer select-none snap-center whitespace-nowrap ${
+                    activeCategory === cat
+                      ? 'bg-green-700 text-white shadow-xs'
+                      : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+                  }`}
+                >
+                  {cat === 'All' ? 'All Bottles' : cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Mobile swipe indicator hint */}
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none sm:hidden opacity-30 animate-pulse">
+              <ChevronRight size={14} />
+            </div>
+          </div>
+        </div>
+
+        {/* E-Commerce Product Grid (Oraimo Style) - Strict 2-column grid on mobile/tablet, 3-column centered on desktop */}
+        <div className="grid grid-cols-2 lg:flex lg:flex-wrap lg:justify-center gap-2.5 sm:gap-4 lg:gap-6 max-w-6xl mx-auto">
+          {filteredProducts.map((product) => (
+            <div
+              key={product.id}
+              className="w-full lg:w-[calc(33.333%-16px)] lg:max-w-85 flex"
+            >
+              <ProductCard product={product} className="w-full" />
+            </div>
+          ))}
+        </div>
+
+        {/* If no products match filter */}
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-16 bg-white rounded-3xl border border-gray-100 p-8 space-y-3">
+            <p className="text-base font-bold text-gray-800">No items found in this section</p>
+            <button
+              type="button"
+              onClick={() => setActiveCategory('All')}
+              className="px-4 py-2 bg-green-700 text-white text-xs font-bold rounded-xl cursor-pointer"
+            >
+              Show All Bottles
+            </button>
+          </div>
+        )}
+
+      </div>
+
+      {/* 📱 Mobile Floating Cart Bar (Oraimo Style bottom sticky bar when items exist) */}
+      {totalItems > 0 && (
+        <div className="fixed bottom-4 left-4 right-4 z-40 sm:hidden animate-slide-up">
+          <div className="bg-gray-900 text-white p-3 rounded-2xl shadow-xl flex items-center justify-between border border-white/10">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-green-700 flex items-center justify-center font-black text-xs">
+                {totalItems}
+              </div>
+              <div>
+                <p className="text-[11px] text-gray-300">Cart Subtotal</p>
+                <p className="text-sm font-black text-white">GH₵ {subtotal.toFixed(2)}</p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={openCart}
+              className="bg-green-700 hover:bg-green-600 text-white px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
+            >
+              <ShoppingCart size={14} />
+              <span>View Cart</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

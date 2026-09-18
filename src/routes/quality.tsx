@@ -17,18 +17,18 @@ export const Route = createFileRoute('/quality')({
 const qualityGuidelines = [
   {
     icon: <ShieldCheck className="text-green-700 shrink-0" size={18} />,
-    title: "Zero Food Adulteration",
-    desc: "We check every batch to make sure no sugar, syrup, or fake ingredient is added."
+    title: "No Added Sugar or Fake Syrup",
+    desc: "We test every batch to make sure zero sugar, syrup, or fake ingredients are added."
   },
   {
     icon: <ClipboardCheck className="text-green-700 shrink-0" size={18} />,
-    title: "Hygiene Control Consistency",
-    desc: "Our team follows clean handling steps during processing, packing, and storage."
+    title: "Clean & Safe Handling",
+    desc: "Our team follows clean steps during collecting, bottling, and storing."
   },
   {
     icon: <Sparkles className="text-green-700 shrink-0" size={18} />,
-    title: "Sourcing With Integrity",
-    desc: "We source from our trusted apiaries so customers enjoy the best products."
+    title: "Honest Sourcing",
+    desc: "We source from our trusted bee apiaries so you get the freshest honey."
   }
 ];
 
@@ -38,7 +38,7 @@ function QualityPage() {
       {/* TYPE-SAFE CLIENT INJECTION: Hydrates dynamic page meta configuration safely without route config properties */}
       <Seo
         title="Quality Controls & Food Safety Standards | Vivaldi Foods Ltd"
-        description="Learn about our strict quality assurance and safety protocols at Vivaldi Foods Ltd. We enforce a zero food adulteration check across every batch to provide pure honey you can trust."
+        description="Learn how we test and protect our honey at Vivaldi Foods Ltd. We check every batch so you get 100% real pure honey with zero added sugar or fake syrup."
       />
 
       <PageBanner
@@ -89,7 +89,7 @@ function QualityPage() {
                 Before products are supplied, our team checks handling, packaging, and product quality. This helps customers receive clean, pure honey they can trust.
               </p>
               <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
-                We also keep basic batch records so enquiries, supply requests, and partner conversations can be handled quickly.
+                We also keep basic batch records so customer questions, store orders, and shop requests can be handled quickly.
               </p>
             </motion.div>
           </div>

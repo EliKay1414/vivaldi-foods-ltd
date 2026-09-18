@@ -80,7 +80,7 @@ function ServicesPage() {
 
       <PageBanner
         title="Food Production & Agribusiness Services"
-        subtitle="End-to-end food production, manufacturing, processing, and packaging solutions."
+        subtitle="Clean food production, safe honey bottling, and wholesale supply for shops and homes."
       />
 
       <ServicesSection />
@@ -109,7 +109,7 @@ function ServicesSection() {
           to="/products"
           className="mt-4 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm"
         >
-          View Products <ArrowRight size={14} />
+          Shop Now <ArrowRight size={14} />
         </Link>
       </div>
 

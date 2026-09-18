@@ -16,7 +16,7 @@ const steps = [
   },
   {
     num: '03',
-    title: 'Zero Food Adulteration',
+    title: '100% Real Honey Check',
     desc: 'We check for added sugar, syrup, or fake ingredients before products are supplied.',
     icon: SearchCheck,
   },

@@ -4,32 +4,32 @@ const team = [
   {
     name: 'Harrison Kafui Enene',
     role: 'Chief Executive Officer (CEO)',
-    desc: 'Provides overall leadership and direction, guiding the company’s growth and long-term vision.',
+    desc: 'Leads our team, guides company growth, and helps us build a trusted food brand.',
   },
   {
     name: 'Apostle Dr. Peter Yaw Kudiewu',
     role: 'General Manager',
-    desc: 'Manages daily operations to ensure smooth processes, quality products, and efficient service.',
+    desc: 'Oversees daily work to make sure our products and service stay fast and reliable.',
   },
   {
     name: 'Bless Kofi Enene',
     role: 'Customer Relationship Manager',
-    desc: 'Manages client inquiries, wholesale order fulfillment, and customer satisfaction initiatives.',
+    desc: 'Helps our customers, manages shop orders, and makes sure every buyer is happy.',
   },
   {
     name: 'Edith Dede Akornor',
     role: 'Quality Assurance Manager',
-    desc: 'Oversees laboratory testing and strict compliance with overall safety standards.',
+    desc: 'Tests our honey and makes sure every bottle meets safe food standards.',
   },
   {
     name: 'Enoch Kofi Frimpong',
     role: 'Accountant',
-    desc: 'Manages financial records, payments, and reporting to ensure accuracy and proper financial control.',
+    desc: 'Takes care of accounts, payments, and records with care and accuracy.',
   },
   {
     name: 'Philip Teye Tetteh',
     role: 'Production Supervisor',
-    desc: 'Oversees production activities to ensure safe, efficient operations and consistent product quality.',
+    desc: 'Directs factory work to keep our bottling clean, safe, and on time.',
   },
 ];
 

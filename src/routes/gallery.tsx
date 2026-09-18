@@ -22,41 +22,41 @@ const galleryItems = [
   {
     src: apiaryImgWebp,
     webp: apiaryImgWebp,
-    title: "Sustainable Harvesting",
+    title: "Caring for Bees & Hives",
     category: "Production",
-    desc: "Our carefully handled sourcing channels in the Volta Region of Ghana.",
+    desc: "Clean, natural honey gathered with care from the Volta Region.",
     accentColor: "text-amber-400"
   },
   {
     src: fromHiveImgWebp,
     webp: fromHiveImgWebp,
-    title: "From Hive to Handling",
+    title: "From Hive to Bottle",
     category: "Sourcing",
-    desc: "Honey handling begins with careful harvesting practices that protect quality from the first step.",
+    desc: "We gather honey carefully to keep every drop clean and fresh from day one.",
     accentColor: "text-green-400"
   },
   {
     src: filtrationImgWebp,
     webp: filtrationImgWebp,
-    title: "Purity Filtration",
+    title: "Gentle Filtering",
     category: "Quality",
-    desc: "Our filtration process helps preserve natural character while supporting clean, consistent batches.",
+    desc: "We filter our honey gently to keep all the natural nutrients and sweet taste.",
     accentColor: "text-amber-400"
   },
   {
     src: honeyProcessImgWebp,
     webp: honeyProcessImgWebp,
-    title: "Pure Extraction",
+    title: "Pure Honey Extraction",
     category: "Process",
-    desc: "Controlled extraction to preserve natural aromas, flavours, and nutritional values.",
+    desc: "Carefully extracted to protect the rich flavor, sweet aroma, and healthy nutrients.",
     accentColor: "text-amber-400"
   },
   {
     src: packagingImgWebp,
     webp: packagingImgWebp,
-    title: "Sealed Packaging",
+    title: "Sealed & Bottled",
     category: "Packaging",
-    desc: "Finished products are sealed and presented for reliable retail and wholesale distribution.",
+    desc: "Bottled tightly and packaged cleanly for your home, shop, or supermarket.",
     accentColor: "text-green-400"
   },
   {
@@ -104,7 +104,7 @@ function GalleryPage() {
 
       <PageBanner
         title="Visual Journey"
-        subtitle="Explore the pristine environments where our gold is harvested and processed."
+        subtitle="Take a look at how we care for bees, harvest honey, and bottle it clean."
       />
 
       <section className="py-12 md:py-16 max-w-6xl mx-auto px-6">

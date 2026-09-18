@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     q: 'How do I place a bulk or wholesale order?',
-    a: "Just send us an enquiry through the contact page or call us directly. We'll get back to you with pricing, available quantities, and delivery options.",
+    a: "You can buy directly in our online shop or contact us. We will give you wholesale prices, box quantities, and fast delivery options.",
   },
 ];
 
@@ -107,7 +107,7 @@ function FaqSection() {
           Frequently Asked Questions
         </h2>
         <p className="text-gray-600 text-sm md:text-base leading-relaxed font-medium max-w-xl mx-auto pt-1">
-          Everything you need to know about Vivaldi Foods Ltd, our premium products, and our strict quality standards.
+          Everything you need to know about Vivaldi Foods Ltd, our honey, and how we keep it clean and safe.
         </p>
       </div>
 
@@ -120,15 +120,15 @@ function FaqSection() {
             <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">
               <HelpCircle className="w-5 h-5" />
             </div>
-            <h3 className="text-lg font-bold text-gray-900 tracking-tight">Still have queries or need custom adjustments?</h3>
+            <h3 className="text-lg font-bold text-gray-900 tracking-tight">Need help or have questions?</h3>
             <p className="text-xs md:text-sm text-gray-500 leading-relaxed">
-              Get in direct contact with our production support coordinators for rapid assistance on custom accounts.
+              Our team is always here to help you choose the right honey bottle and place your order quickly.
             </p>
             <Link
-              to="/contact"
+              to="/products"
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm"
             >
-              Get a Quote <ArrowRight size={14} />
+              Shop Now <ArrowRight size={14} />
             </Link>
           </div>
 

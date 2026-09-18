@@ -112,7 +112,7 @@ export function OurPartnersPage() {
         description="Find out where to buy Volta Premium Honey across Ghana. Browse our verified list of local retail stockists, supermarkets, gas marts, and pharmacies in Accra, Spintex, Ho, Aflao, and Kpando."
       />
 
-      <PageBanner title="Our Partners" subtitle="Find an official Vivaldi Foods retail stockist near you." />
+      <PageBanner title="Our Partners" subtitle="Find a shop, mart, or supermarket near you that sells Volta Honey." />
 
       <section className="py-12 max-w-6xl mx-auto px-4 lg:px-6 space-y-4">
 
@@ -314,7 +314,7 @@ export function OurPartnersPage() {
         ) : (
           <div className="bg-white text-center py-16 px-4 rounded-2xl border border-gray-100 shadow-sm max-w-sm sm:max-w-none mx-auto w-full">
             <p className="text-sm text-gray-500 font-medium">
-              No active stockists found matching your parameters.
+              No shops found matching your search. Try picking another area or category.
             </p>
           </div>
         )}

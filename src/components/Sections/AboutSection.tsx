@@ -76,19 +76,17 @@ export default function AboutSection() {
 
             {/* Core Mission Copy Description */}
             <motion.p variants={itemVariants} className="text-gray-600 text-sm md:text-base leading-relaxed antialiased">
-              Vivaldi Foods Ltd. is a growing food processing company committed to delivering high
-              quality, safe, and responsibly packaged food products to consumers. The company is
-              focused on building a trusted brand within the food industry through strict quality
-              standards, innovation, and efficient processing practices. Its flagship product,
-              <span className="text-green-700 font-bold"> Volta Premium Honey,</span> is carefully sourced from the Volta Region of Ghana and packaged in accordance with the highest food safety and hygiene standards to ensure purity, consistency, and customer satisfaction.
+              At Vivaldi Foods Ltd, we make clean, healthy, and high-quality food for you and your family.
+              We work hard to bring you products you can trust every day. Our main product,
+              <span className="text-green-700 font-bold"> Volta Premium Honey,</span> comes straight from the green forests of the Volta Region. We bottle every drop in a clean, safe factory so you get sweet, 100% pure honey every single time.
             </motion.p>
 
             {/* Symmetrical Features Sub-Grid Directory */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               {[
-                { title: 'Premium Foods', desc: 'Carefully crafted for quality and taste' },
-                { title: 'Trusted Sourcing', desc: 'Sourced from reliable suppliers' },
-                { title: 'Clean Handling', desc: 'Handled with care from source to bottle' },
+                { title: 'Pure Honey', desc: 'Sweet, natural, and rich in good taste' },
+                { title: 'Trusted Sourcing', desc: 'Direct from hardworking local beekeepers' },
+                { title: 'Clean Handling', desc: 'Bottled with care in a clean factory' },
                 { title: 'Ready Supply', desc: 'Available for homes, shops, and bulk buyers' },
               ].map((item) => (
                 <motion.div
@@ -114,10 +112,10 @@ export default function AboutSection() {
             {/* Call to Action Navigation Trigger Button */}
             <motion.div variants={itemVariants} className="pt-2">
               <Link
-                to="/contact"
+                to="/products"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm group cursor-pointer"
               >
-                Make an Enquiry
+                Shop Now
                 <ArrowRight className="transition-transform group-hover:translate-x-0.5" size={13} />
               </Link>
             </motion.div>

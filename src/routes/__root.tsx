@@ -1,24 +1,42 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { ScrollToTop } from '@/hooks/useScrollToTop';
+import { CartProvider } from '@/context/CartContext';
+import CartDrawer from '@/components/cart/CartDrawer';
+import OrderModal from '@/components/cart/OrderModal';
+import QuickViewModal from '@/components/storefront/QuickViewModal';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 export const Route = createRootRoute({
-  /* TYPE SAFE FIX: Stripped the full-stack server-side 'meta' configuration block.
-     This completely resolves your TypeScript compile errors on client-side SPAs. */
   component: () => (
-    <div className="flex flex-col min-h-screen selection:bg-amber-100 selection:text-amber-900">
-      {/* Scroll reset logic component stays intact */}
-      <ScrollToTop />
+    <QueryClientProvider client={queryClient}>
+      <CartProvider>
+        <div className="flex flex-col min-h-screen selection:bg-amber-100 selection:text-amber-900">
+          <ScrollToTop />
+          <Header />
+          <main className="grow">
+            <Outlet />
+          </main>
+          <Footer />
 
-      <Header />
-      <main className="grow">
-        {/* Dynamic portal slot placeholder where all sub-page route components render */}
-        <Outlet />
-      </main>
-      <Footer />
+          {/* E-Commerce Global Drawers & Modals */}
+          <CartDrawer />
+          <OrderModal />
+          <QuickViewModal />
 
-      {import.meta.env.MODE === 'development' && null}
-    </div>
+          {import.meta.env.MODE === 'development' && null}
+        </div>
+      </CartProvider>
+    </QueryClientProvider>
   ),
 });

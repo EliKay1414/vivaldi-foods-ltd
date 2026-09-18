@@ -10,36 +10,36 @@ const tabs = [
     key: 'about',
     label: 'About Us',
     title: 'About Vivaldi Foods',
-    text: 'Vivaldi Foods Ltd. is a growing food processing company dedicated to delivering 100% pure, natural, and safe food products. We focus on keeping our products free from added sugars or fake ingredients to guarantee complete customer satisfaction.',
+    text: 'Vivaldi Foods Ltd is a food company making 100% pure, natural, and safe food products. We make sure our honey has no added sugar or fake ingredients so you always get the best taste.',
     points: [
-      'Natural ingredients only',
+      'Only natural ingredients',
       'No artificial additives',
-      'Ethical sourcing standards',
-      'Committed to customer trust',
+      'Care for bees and nature',
+      'Food you can always trust',
     ],
   },
   {
     key: 'mission',
     label: 'Our Mission',
     title: 'Our Core Mission',
-    text: 'Our mission is to provide high-quality, safe, and hygienically processed food products to consumers while actively combating food fraud and adulteration through strict quality control and responsible food processing practices.',
+    text: 'Our mission is to give you safe, clean, and 100% real food products. We make sure our honey has zero added sugar or fake syrup by following clean rules and careful testing from hive to bottle.',
     points: [
-      'Strict food safety protocols',
-      'Adulteration prevention',
-      'Transparent sourcing process',
-      'Quality-focused production',
+      'Strict food safety rules',
+      'Zero added fake sugar',
+      'Honest sourcing from bees',
+      'Clean bottling every time',
     ],
   },
   {
     key: 'vision',
     label: 'Our Vision',
     title: 'Our Vision & Future',
-    text: 'To become a leading large-scale food processing company that elevates local Ghanaian food products to international markets, strengthens the national economy, and improves the quality of life of local communities through trusted and globally competitive food solutions.',
+    text: 'To be a trusted food company that shares quality Ghanaian food with the world, supports our local beekeepers, and creates good jobs for our communities.',
     points: [
-      'Expand global market reach',
-      'Support local communities',
-      'Promote Ghanaian food culture',
-      'Deliver consistency and trust',
+      'Share good food worldwide',
+      'Support local beekeepers',
+      'Celebrate Ghanaian foods',
+      'Give you quality you can trust',
     ],
   },
 ];
@@ -136,7 +136,7 @@ export default function MissionSection() {
                 search={{}}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-green-700 hover:bg-green-800 transition-colors shadow-sm group cursor-pointer"
               >
-                Discover More
+                Shop Now
                 <ArrowRight className="transition-transform group-hover:translate-x-0.5" size={13} />
               </Link>
             </div>
@@ -178,7 +178,7 @@ export default function MissionSection() {
                 </div>
                 <div className="h-10 w-px bg-gray-100 shrink-0" />
                 <p className="text-xs text-gray-500 font-medium italic leading-relaxed">
-                  "Delivering carefully processed authentic food products that meet highest hygiene standards."
+                  "Clean, natural food products bottled with care to keep your family healthy and happy."
                 </p>
               </div>
             </motion.div>

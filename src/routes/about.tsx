@@ -49,7 +49,7 @@ function AboutPage() {
       <div id="story" className="scroll-mt-24">
         <PageBanner
           title="About Vivaldi Foods"
-          subtitle="Committed to delivering high-quality, safe, and responsibly packaged food products."
+          subtitle="Making clean, safe, and 100% pure honey for homes and shops across Ghana."
         />
       </div>
 
