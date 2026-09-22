@@ -1,6 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, CheckCircle2, ArrowRight, Loader2, Phone, MapPin, User, FileText, CreditCard, Truck } from 'lucide-react';
+import {
+  X,
+  CheckCircle2,
+  ArrowRight,
+  Loader2,
+  Phone,
+  MapPin,
+  User,
+  FileText,
+  CreditCard,
+  Truck,
+  ShoppingCart,
+} from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useCreateOrderMutation, type CustomerDetails, type OrderPayload } from '@/services/products';
 
@@ -8,10 +20,11 @@ export const OrderModal: React.FC = () => {
   const {
     items,
     subtotal,
+    deliveryFee,
+    total,
     isCheckoutOpen,
     closeCheckout,
     clearCart,
-    isFreeShipping,
   } = useCart();
 
   const [fullName, setFullName] = useState('');
@@ -22,15 +35,59 @@ export const OrderModal: React.FC = () => {
   const [notes, setNotes] = useState('');
   const [completedOrder, setCompletedOrder] = useState<OrderPayload | null>(null);
 
-  const deliveryFee = isFreeShipping ? 0 : 25;
-  const grandTotal = subtotal + deliveryFee;
-
   const createOrderMutation = useCreateOrderMutation();
+
+  // Close modal safely and reset completed order so next checkout is always clean
+  const handleCloseModal = useCallback(() => {
+    setCompletedOrder(null);
+    closeCheckout();
+  }, [closeCheckout]);
+
+  // Reset completed order whenever checkout modal closes
+  useEffect(() => {
+    if (!isCheckoutOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCompletedOrder(null);
+    }
+  }, [isCheckoutOpen]);
+
+  // Prevent background scroll and listen for Escape key when checkout is open
+  useEffect(() => {
+    if (isCheckoutOpen) {
+      document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          handleCloseModal();
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isCheckoutOpen, handleCloseModal]);
 
   const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (items.length === 0) {
+      alert('Your cart is empty. Please choose at least one bottle before checking out.');
+      handleCloseModal();
+      return;
+    }
+
     if (!fullName.trim() || !phone.trim() || !deliveryAddress.trim()) {
       alert('Please fill in your name, phone number, and delivery address.');
+      return;
+    }
+
+    // Validate phone number format (at least 9 digits for Ghana)
+    const digitsOnly = phone.trim().replace(/\D/g, '');
+    if (digitsOnly.length < 9) {
+      alert('Please enter a valid Ghana phone number (e.g. 024 123 4567).');
       return;
     }
 
@@ -52,23 +109,19 @@ export const OrderModal: React.FC = () => {
       items: [...items],
       subtotal,
       deliveryFee,
-      total: grandTotal,
+      total,
       status: 'Pending',
     };
 
     try {
       const result = await createOrderMutation.mutateAsync(orderPayload);
       setCompletedOrder(result.order);
+      setNotes(''); // Clear notes for future orders
       clearCart();
     } catch (err) {
       console.error('Order submission error', err);
       alert('Sorry, there was a problem sending your order. Please call us or try again shortly.');
     }
-  };
-
-  const handleFinish = () => {
-    setCompletedOrder(null);
-    closeCheckout();
   };
 
   return (
@@ -80,7 +133,7 @@ export const OrderModal: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={closeCheckout}
+            onClick={handleCloseModal}
             className="fixed inset-0 bg-black/60 backdrop-blur-xs"
             aria-hidden="true"
           />
@@ -109,7 +162,7 @@ export const OrderModal: React.FC = () => {
 
               <button
                 type="button"
-                onClick={closeCheckout}
+                onClick={handleCloseModal}
                 className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition-colors cursor-pointer"
                 aria-label="Close checkout"
               >
@@ -154,7 +207,7 @@ export const OrderModal: React.FC = () => {
                   <div className="flex justify-between">
                     <span className="text-gray-500">Delivery Fee:</span>
                     <span className="text-gray-900 font-medium">
-                      {completedOrder.deliveryFee === 0 ? 'FREE' : `GH₵ ${completedOrder.deliveryFee.toFixed(2)}`}
+                      GH₵ {completedOrder.deliveryFee.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between border-t border-gray-200 pt-2 font-bold text-sm">
@@ -163,16 +216,36 @@ export const OrderModal: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Action Buttons */}
+                {/* Action Button */}
                 <div className="pt-2">
                   <button
                     type="button"
-                    onClick={handleFinish}
+                    onClick={handleCloseModal}
                     className="w-full bg-green-700 hover:bg-green-800 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
                   >
                     Done & Continue Shopping
                   </button>
                 </div>
+              </div>
+            ) : items.length === 0 ? (
+              /* Empty Cart Guard */
+              <div className="p-8 text-center space-y-4">
+                <div className="w-16 h-16 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center mx-auto">
+                  <ShoppingCart size={32} />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="text-base font-bold text-gray-900">Your shopping cart is empty</h3>
+                  <p className="text-xs text-gray-500 max-w-sm mx-auto">
+                    Please choose at least one honey bottle to proceed with checkout.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleCloseModal}
+                  className="px-6 py-2.5 bg-green-700 hover:bg-green-800 text-white rounded-xl text-xs font-bold transition-all cursor-pointer"
+                >
+                  Browse Honey Bottles
+                </button>
               </div>
             ) : (
               /* Order Details Form */
@@ -180,7 +253,7 @@ export const OrderModal: React.FC = () => {
                 {/* Cart summary bar */}
                 <div className="bg-amber-50/60 p-3 rounded-xl border border-amber-100 flex items-center justify-between text-xs">
                   <span className="text-gray-700 font-medium">
-                    Order items ({items.reduce((s, i) => s + i.quantity, 0)} items)
+                    Order items ({items.reduce((s, i) => s + (Number(i.quantity) || 0), 0)} items)
                   </span>
                   <strong className="text-green-800 text-sm font-black">
                     GH₵ {subtotal.toFixed(2)}
@@ -310,7 +383,7 @@ export const OrderModal: React.FC = () => {
                 {/* Delivery & Total Cost Breakdown Card */}
                 <div className="p-3.5 bg-gray-50 rounded-xl border border-gray-200/80 space-y-2 text-xs">
                   <div className="flex justify-between text-gray-600">
-                    <span>Items Subtotal ({items.reduce((s, i) => s + i.quantity, 0)} items):</span>
+                    <span>Items Subtotal ({items.reduce((s, i) => s + (Number(i.quantity) || 0), 0)} items):</span>
                     <span className="font-bold text-gray-900">GH₵ {subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-gray-600 items-center">
@@ -318,27 +391,12 @@ export const OrderModal: React.FC = () => {
                       <Truck size={13} className="text-green-700" />
                       <span>Doorstep Delivery ({city}):</span>
                     </span>
-                    {isFreeShipping ? (
-                      <span className="font-bold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">
-                        FREE Delivery
-                      </span>
-                    ) : (
-                      <span className="font-bold text-gray-900">GH₵ 25.00</span>
-                    )}
+                    <span className="font-bold text-gray-900">GH₵ {deliveryFee.toFixed(2)}</span>
                   </div>
-                  {isFreeShipping ? (
-                    <p className="text-[11px] text-emerald-700 font-medium pt-0.5">
-                      🎉 Great news! Your order qualifies for free delivery in Accra.
-                    </p>
-                  ) : (
-                    <p className="text-[11px] text-gray-500 pt-0.5">
-                      💡 Tip: Orders GH₵ 350 and above enjoy free delivery.
-                    </p>
-                  )}
                   <div className="border-t border-gray-200 pt-2 flex justify-between text-sm font-black text-gray-900">
                     <span>Total Amount to Pay:</span>
                     <span className="text-base text-green-800">
-                      GH₵ {grandTotal.toFixed(2)}
+                      GH₵ {total.toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -357,7 +415,7 @@ export const OrderModal: React.FC = () => {
                       </>
                     ) : (
                       <>
-                        <span>Complete Order • GH₵ {grandTotal.toFixed(2)}</span>
+                        <span>Complete Order • GH₵ {total.toFixed(2)}</span>
                         <ArrowRight size={14} />
                       </>
                     )}

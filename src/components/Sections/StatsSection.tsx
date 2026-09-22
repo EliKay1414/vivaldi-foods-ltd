@@ -51,7 +51,7 @@ export default function StatsSection() {
         {/* Stats Grid Deck */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 max-w-5xl mx-auto">
           {[
-            { value: 100, suffix: '%', label: '100% Real Honey', desc: 'No added sugar or fake syrup' },
+            { value: 100, suffix: '%', label: 'Premium Honey', desc: 'No added sugar or fake syrup' },
             { value: 100, suffix: '%', label: 'Clean Packaging', desc: 'Handled and packed with care' },
             { value: 100, suffix: '%', label: 'Quality Checks', desc: 'Checked before supply' },
             { value: 100, suffix: '%', label: 'Hygiene Controls', desc: 'Maintained across all batches' },

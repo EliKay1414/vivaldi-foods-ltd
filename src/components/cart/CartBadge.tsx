@@ -7,15 +7,15 @@ interface CartBadgeProps {
   showSubtotal?: boolean;
 }
 
-export const CartBadge: React.FC<CartBadgeProps> = ({ className = '', showSubtotal = false }) => {
-  const { totalItems, subtotal, openCart } = useCart();
+export const CartBadge: React.FC<CartBadgeProps> = ({ className = '' }) => {
+  const { totalItems, openCart } = useCart();
 
   return (
     <button
       type="button"
       onClick={openCart}
-      className={`relative inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-green-700 hover:bg-green-800 text-white transition-all active:scale-95 cursor-pointer shadow-xs ${className}`}
-      aria-label={`Shopping cart with ${totalItems} items`}
+      className={`relative inline-flex items-center justify-center p-2 sm:px-2.5 sm:py-2 rounded-xl bg-green-700 hover:bg-green-800 text-white transition-all active:scale-95 cursor-pointer shadow-xs ${className}`}
+      aria-label={`Shopping cart with ${totalItems} ${totalItems === 1 ? 'order' : 'orders'}`}
     >
       <div className="relative flex items-center justify-center">
         <ShoppingCart size={18} className="text-white" />
@@ -25,12 +25,6 @@ export const CartBadge: React.FC<CartBadgeProps> = ({ className = '', showSubtot
           </span>
         )}
       </div>
-
-      {showSubtotal && totalItems > 0 && (
-        <span className="hidden md:inline-block text-xs font-extrabold text-white">
-          GH₵ {subtotal.toFixed(2)}
-        </span>
-      )}
 
       <span className="sr-only">Cart</span>
     </button>

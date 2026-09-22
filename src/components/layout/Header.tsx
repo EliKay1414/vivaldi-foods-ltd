@@ -147,7 +147,7 @@ export default function Header() {
                   )}
                 </div>
               ))}
-              <CartBadge showSubtotal />
+              <CartBadge />
               <Link to="/contact" className="ml-2 bg-green-700 text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-green-800 transition-all shadow-sm active:scale-95">
                 Enquiry
               </Link>

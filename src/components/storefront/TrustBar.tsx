@@ -15,7 +15,7 @@ const pillars = [
   {
     icon: Truck,
     title: 'Fast Doorstep Delivery',
-    desc: 'Quick delivery to your home or shop in Accra, Tema, and across all towns in Ghana.',
+    desc: 'Quick delivery to your home or shop in Accra, and across all towns in Ghana.',
   },
   {
     icon: Smartphone,

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { ArrowRight, ChevronRight, Sparkles } from 'lucide-react';
+import { ArrowRight, ChevronRight, Droplets } from 'lucide-react';
 import { useProductsQuery } from '@/services/products';
 import ProductCard from '@/components/storefront/ProductCard';
 
@@ -20,14 +20,14 @@ export default function ProductsSection() {
         {/* Header with simple plain English */}
         <div className="max-w-3xl mx-auto text-center mb-8 space-y-2 flex flex-col items-center">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-700 rounded-full text-[11px] font-bold uppercase tracking-wider">
-            <Sparkles size={12} className="text-amber-500" />
-            <span>Pure Volta Honey</span>
+            <Droplets size={13} className="text-green-700 shrink-0" />
+            <span>Premium Honey</span>
           </div>
           <h2 className="text-2xl md:text-3xl font-display font-extrabold text-gray-900 tracking-tight pt-1">
-            Real Honey from the Hive
+            Real Honey
           </h2>
           <p className="text-gray-500 text-xs md:text-sm leading-relaxed max-w-md mx-auto">
-            100% real, natural honey with zero added sugar or fake syrup. Fresh, sweet, and safe for your family.
+            100% pure, natural honey with zero added sugar or fake syrup. Fresh, sweet, and safe for your family.
           </p>
         </div>
 
@@ -73,7 +73,7 @@ export default function ProductsSection() {
             to="/products"
             className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-green-50 text-green-700 font-bold text-xs uppercase tracking-wider rounded-xl border border-green-200 transition-all shadow-2xs hover:shadow-xs"
           >
-            <span>Visit Full Honey Store</span>
+            <span>Visit Our Store</span>
             <ArrowRight size={14} />
           </Link>
         </div>

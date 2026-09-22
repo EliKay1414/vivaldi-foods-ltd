@@ -20,14 +20,26 @@ export interface CatalogProduct {
   description: string;
   highlights: string[];
   bestFor: string;
+  // Real bottle label specifications
+  ingredients: string;
+  origin: string;
+  packagedBy: string;
+  factoryAddress: string;
+  contactTel: string;
+  contactWhatsApp: string;
+  storage: string;
+  batchInfo: string;
+  barcode: string;
+  naturalNote: string;
+  childNotice: string;
 }
 
 export const productCatalog: CatalogProduct[] = [
   {
     id: 1,
     sku: "VF-RET-330G",
-    name: "330g easy to carry Bottle",
-    size: "330g plastic Bottle",
+    name: "330g Easy-to-Carry Bottle",
+    size: "330g Squeeze Bottle",
     image: p330Webp,
     imageWebp: p330Webp,
     category: "Retail",
@@ -37,20 +49,31 @@ export const productCatalog: CatalogProduct[] = [
     badge: "330g Plastic Bottle",
     inStock: true,
     stockLabel: "In Stock • Ships Fast in Accra",
-    description: "Real, sweet honey in a handy size. Easy to carry to work, school, or travel. Perfect for your morning tea, porridge, and bread. Doorstep delivery is GH₵ 25 across Accra (FREE on orders over GH₵ 350).",
+    description: "100% pure Volta honey in a clean squeeze bottle. Easy to carry to work, school, or travel. Perfect for your morning tea, porridge, and bread. Doorstep delivery is GH₵ 25 across Accra.",
     highlights: [
-      "100% real pure honey",
+      "Single ingredient: 100% pure honey",
       "No added sugar or fake syrup",
-      "Fresh from bees in Volta Region",
-      "GH₵ 25 delivery in Accra • FREE over GH₵ 350",
+      "Sourced from the Volta region of Ghana",
+      "Fast GH₵ 25 doorstep delivery across Accra",
     ],
-    bestFor: "Tea, bread, personal use, and gifts",
+    bestFor: "Tea, bread, personal use, breakfast, and gifts",
+    ingredients: "Honey (100% Pure Honey, single ingredient)",
+    origin: "Volta Region, Ghana",
+    packagedBy: "Vivaldi Foods Ltd",
+    factoryAddress: "Community 18/ Sakumono 381 (053-361-8042)",
+    contactTel: "0243264003 / 053-361-8042",
+    contactWhatsApp: "0268114601",
+    storage: "Store in a cool, dry place.",
+    batchInfo: "Batch No., Manufacturing Date, and Best Before printed on the lid.",
+    barcode: "6036000227011",
+    naturalNote: "Crystallization is natural. Place bottle in warm water if it occurs.",
+    childNotice: "Not recommended for children under 12 months.",
   },
   {
     id: 2,
     sku: "VF-RET-500G",
     name: "500g Family Bottle",
-    size: "500g plastic bottle",
+    size: "500g Family Bottle",
     image: p500Webp,
     imageWebp: p500Webp,
     category: "Retail",
@@ -60,20 +83,31 @@ export const productCatalog: CatalogProduct[] = [
     badge: "500g Family Bottle",
     inStock: true,
     stockLabel: "In Stock • Most Popular Choice",
-    description: "Our most popular family bottle! Big enough for the whole family to enjoy every day. Great for drinks, cooking, baking, and staying healthy. Doorstep delivery is GH₵ 25 in Accra (FREE on orders over GH₵ 350).",
+    description: "Our most popular family bottle! Big enough for the whole family to enjoy every day. Great for drinks, cooking, baking, and staying healthy. Doorstep delivery is GH₵ 25 across Accra.",
     highlights: [
       "100% pure honey for the whole home",
       "Zero chemicals, zero added sugar",
-      "FDA Ghana approved for safe eating",
-      "GH₵ 25 delivery in Accra • FREE over GH₵ 350",
+      "Packaged in accordance with highest food safety standards",
+      "Fast GH₵ 25 doorstep delivery across Accra",
     ],
     bestFor: "Family breakfast, cooking, baking, and daily health",
+    ingredients: "Honey (100% Pure Honey, single ingredient)",
+    origin: "Volta Region, Ghana",
+    packagedBy: "Vivaldi Foods Ltd",
+    factoryAddress: "Community 18/ Sakumono 381 (053-361-8042)",
+    contactTel: "0243264003 / 053-361-8042",
+    contactWhatsApp: "0268114601",
+    storage: "Store in a cool, dry place.",
+    batchInfo: "Batch No., Manufacturing Date, and Best Before printed on the lid.",
+    barcode: "6036000227011",
+    naturalNote: "Crystallization is natural. Place bottle in warm water if it occurs.",
+    childNotice: "Not recommended for children under 12 months.",
   },
   {
     id: 3,
     sku: "VF-WHO-330G",
     name: "330g Wholesale Box",
-    size: "330g",
+    size: "330g Carton Box",
     image: wholesaleBox,
     imageWebp: wholesaleBox,
     category: "Wholesale",
@@ -87,16 +121,27 @@ export const productCatalog: CatalogProduct[] = [
     highlights: [
       "Factory-packed wholesale box with protective cells",
       "Great wholesale price for shops and resellers",
-      "FDA certified for retail sale",
-      "GH₵ 25 delivery in Accra • FREE over GH₵ 350",
+      "Highest food safety standards & FDA certified",
+      "Doorstep delivery in Accra and nationwide dispatch",
     ],
-    bestFor: "Shops, supermarkets, marts, and resellers",
+    bestFor: "Shops, supermarkets, grocery marts, and resellers",
+    ingredients: "Honey (100% Pure Honey, single ingredient)",
+    origin: "Volta Region, Ghana",
+    packagedBy: "Vivaldi Foods Ltd",
+    factoryAddress: "Community 18/ Sakumono 381 (053-361-8042)",
+    contactTel: "0243264003 / 053-361-8042",
+    contactWhatsApp: "0268114601",
+    storage: "Store in a cool, dry place.",
+    batchInfo: "Batch No., Manufacturing Date, and Best Before printed on the lid.",
+    barcode: "6036000227011",
+    naturalNote: "Crystallization is natural. Place bottle in warm water if it occurs.",
+    childNotice: "Not recommended for children under 12 months.",
   },
   {
     id: 4,
     sku: "VF-WHO-500G",
     name: "500g Wholesale Box",
-    size: "500g",
+    size: "500g Carton Box",
     image: wholesaleBox,
     imageWebp: wholesaleBox,
     category: "Wholesale",
@@ -111,8 +156,19 @@ export const productCatalog: CatalogProduct[] = [
       "Factory-packed wholesale box of 500g bottles",
       "Guaranteed 100% pure Volta honey",
       "Direct factory dispatch across Ghana",
-      "GH₵ 25 delivery in Accra • FREE over GH₵ 350",
+      "Doorstep delivery in Accra and nationwide dispatch",
     ],
     bestFor: "Distributors, bakeries, supermarkets, and pharmacies",
+    ingredients: "Honey (100% Pure Honey, single ingredient)",
+    origin: "Volta Region, Ghana",
+    packagedBy: "Vivaldi Foods Ltd",
+    factoryAddress: "Community 18/ Sakumono 381 (053-361-8042)",
+    contactTel: "0243264003 / 053-361-8042",
+    contactWhatsApp: "0268114601",
+    storage: "Store in a cool, dry place.",
+    batchInfo: "Batch No., Manufacturing Date, and Best Before printed on the lid.",
+    barcode: "6036000227011",
+    naturalNote: "Crystallization is natural. Place bottle in warm water if it occurs.",
+    childNotice: "Not recommended for children under 12 months.",
   },
 ];

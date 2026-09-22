@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Truck, ShieldCheck, Sparkles } from 'lucide-react';
 
 const messages = [
-  { icon: Truck, text: 'Free doorstep delivery in Accra for orders over GH₵ 350!' },
+  { icon: Truck, text: 'Fast doorstep delivery available across Accra and nationwide' },
   { icon: ShieldCheck, text: '100% Real Pure Honey • No added sugar, syrup, or fake water' },
   { icon: Sparkles, text: 'Fresh harvest from Volta Region bees • Safe & FDA Certified' },
 ];

@@ -1,17 +1,25 @@
-/* eslint-disable react-refresh/only-export-components */
 import { useState, useRef } from 'react';
-import { createFileRoute } from '@tanstack/react-router';
-import { ShoppingCart, ChevronRight, Sparkles } from 'lucide-react';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ShoppingCart, ChevronRight, Droplets } from 'lucide-react';
 import Seo from '@/components/ui/Seo';
 import StorefrontHero from '@/components/storefront/StorefrontHero';
 import ProductCard from '@/components/storefront/ProductCard';
 import { useProductsQuery } from '@/services/products';
 import { useCart } from '@/context/CartContext';
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 
 export const Route = createFileRoute('/products')({
   component: ProductsPage,
 });
 
+// eslint-disable-next-line react-refresh/only-export-components
 function ProductsPage() {
   const { data: products = [] } = useProductsQuery();
   const { totalItems, subtotal, openCart } = useCart();
@@ -32,7 +40,7 @@ function ProductsPage() {
     <div className="bg-amber-50/20 min-h-screen text-gray-800 pb-20 sm:pb-16">
       {/* SEO */}
       <Seo
-        title="Buy Volta Pure Honey Online | Vivaldi Foods Ltd Store"
+        title="Buy Volta Premium Honey Online | Vivaldi Foods Ltd Store"
         description="Buy 100% pure real honey in Ghana. No added sugar or fake syrup. Order small bottles, family jars, or wholesale bulk packs with fast delivery in Accra and nationwide."
       />
 
@@ -44,10 +52,29 @@ function ProductsPage() {
       {/* Main Store Catalog Anchor */}
       <div ref={productsSectionRef} className="scroll-mt-32 max-w-6xl mx-auto px-4 sm:px-6 pt-10">
 
+        {/* 🧭 Shadcn UI Breadcrumb Navigation (Oraimo Collection Style) */}
+        <div className="mb-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/" className="hover:text-green-700 transition-colors">
+                    Home
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Products</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
         {/* Section Heading */}
         <div className="text-center max-w-2xl mx-auto space-y-2 mb-8">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-700 rounded-full text-[11px] font-bold uppercase tracking-wider">
-            <Sparkles size={12} className="text-amber-500" />
+            <Droplets size={13} className="text-green-700 shrink-0" />
             <span>Our Pure Honey Collection</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-gray-900 tracking-tight">

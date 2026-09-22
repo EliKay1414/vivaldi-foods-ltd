@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ShoppingCart, ArrowRight } from 'lucide-react';
 import banner330g from '@/assets/banners/banner-330g.webp';
 import banner500g from '@/assets/banners/banner-500g.webp';
+import banner330gMobile from '@/assets/banners/banner-330g-mobile.webp';
+import banner500gMobile from '@/assets/banners/banner-500g-mobile.webp';
+import bannerQuality from '@/assets/banners/banner-quality.webp';
+import bannerQualityMobile from '@/assets/banners/banner-quality-mobile.webp';
 
 interface StorefrontHeroProps {
   onScrollToProducts: () => void;
@@ -11,18 +14,36 @@ interface StorefrontHeroProps {
 const slides = [
   {
     id: 1,
-    image: banner330g,
+    desktopImage: banner330g,
+    mobileImage: banner330gMobile,
     alt: 'Volta Premium Honey - 330g Bottle',
   },
   {
     id: 2,
-    image: banner500g,
+    desktopImage: banner500g,
+    mobileImage: banner500gMobile,
     alt: 'Volta Premium Honey - 500g Family Size',
+  },
+  {
+    id: 3,
+    desktopImage: bannerQuality,
+    mobileImage: bannerQualityMobile,
+    alt: 'Volta Premium Honey - 100% Pure Honey Tested & Certified',
   },
 ];
 
 export const StorefrontHero: React.FC<StorefrontHeroProps> = ({ onScrollToProducts }) => {
   const [current, setCurrent] = useState(0);
+
+  // Preload all banner images immediately to prevent any lag or stutter
+  useEffect(() => {
+    slides.forEach((s) => {
+      const imgDesktop = new Image();
+      imgDesktop.src = s.desktopImage;
+      const imgMobile = new Image();
+      imgMobile.src = s.mobileImage;
+    });
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -39,34 +60,35 @@ export const StorefrontHero: React.FC<StorefrontHeroProps> = ({ onScrollToProduc
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  const slide = slides[current];
-
   return (
-    <div className="relative w-full overflow-hidden bg-gray-950 select-none">
-      {/* Mobile-to-Desktop Native Aspect Ratio Container: 100% zoomed out so all details, bottles, and texts are crystal clear */}
-      <div className="relative w-full aspect-1902/827 sm:aspect-[2.3/1] md:aspect-[2.3/1] lg:aspect-23/9 md:max-h-145 flex items-center">
+    <div className="relative w-full overflow-hidden bg-amber-50/20 select-none">
+      {/* Mobile-to-Desktop Hero Container: 4:5 portrait on mobile (covers screen edge-to-edge), cinematic widescreen on desktop */}
+      <div className="relative w-full aspect-4/5 sm:aspect-4/3 md:aspect-21/9 lg:aspect-23/9 md:max-h-145 overflow-hidden flex items-center justify-center">
 
-        {/* Background Banner Carousel */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, scale: 1.01 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="absolute inset-0 w-full h-full cursor-pointer"
+        {/* Background Banner Carousel with seamless crossfade (zero black flash, zero lag) */}
+        {slides.map((s, idx) => (
+          <div
+            key={s.id}
             onClick={onScrollToProducts}
+            className={`absolute inset-0 w-full h-full cursor-pointer transition-opacity duration-700 ease-in-out flex items-center justify-center ${
+              idx === current ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+            }`}
           >
-            <img
-              src={slide.image}
-              alt={slide.alt}
-              className="w-full h-full object-cover object-center"
-              loading="eager"
-            />
-            {/* Subtle bottom edge gradient to ensure controls stay distinct without darkening the artwork */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
-          </motion.div>
-        </AnimatePresence>
+            {/* Responsive Art-Directed Banner (Oraimo Pattern):
+                - On mobile (<768px): 4:5 portrait banner where headline, bottle, and honeycomb cover the screen edge-to-edge
+                - On desktop (>=768px): 21:9 cinematic banner spanning full width */}
+            <picture className="w-full h-full block">
+              <source media="(min-width: 768px)" srcSet={s.desktopImage} />
+              <img
+                src={s.mobileImage}
+                alt={s.alt}
+                className="w-full h-full object-cover object-center select-none"
+                loading={idx === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+            </picture>
+          </div>
+        ))}
 
         {/* Banner CTA Button (Oraimo Style - "Shop Now") positioned cleanly on the table area */}
         <div className="absolute inset-0 z-10 max-w-6xl mx-auto px-3 sm:px-8 md:px-12 flex items-end pb-2.5 sm:pb-6 md:pb-10 pointer-events-none">

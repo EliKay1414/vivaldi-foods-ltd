@@ -21,9 +21,33 @@ const routes = [
   },
   {
     path: "/products",
-    title: "Buy Volta Pure Honey Online | Vivaldi Foods Ltd Store",
+    title: "Buy Volta Premium Honey Online | Vivaldi Foods Ltd Store",
     description:
       "Buy 100% pure real honey in Ghana. No added sugar or fake syrup. Order small bottles, family jars, or wholesale bulk packs with fast delivery in Accra and nationwide.",
+  },
+  {
+    path: "/product/1",
+    title: "330g easy to carry Bottle | Volta Premium Honey | Vivaldi Foods Ltd",
+    description:
+      "100% real pure honey in a handy 330g squeeze bottle. Perfect for tea, bread, and travel. Doorstep delivery across Accra and nationwide.",
+  },
+  {
+    path: "/product/2",
+    title: "500g Family Bottle | Volta Premium Honey | Vivaldi Foods Ltd",
+    description:
+      "Our most popular 500g pure Volta honey bottle for home, cooking, and daily health. FDA certified. Doorstep delivery across Accra.",
+  },
+  {
+    path: "/product/3",
+    title: "330g Wholesale Box | Volta Premium Honey | Vivaldi Foods Ltd",
+    description:
+      "Wholesale cartons of 330g bottles with protective cells for marts and retailers. Direct factory pricing and fast delivery across Ghana.",
+  },
+  {
+    path: "/product/4",
+    title: "500g Wholesale Box | Volta Premium Honey | Vivaldi Foods Ltd",
+    description:
+      "Wholesale factory cartons of 500g honey bottles for retailers and corporate buyers across Ghana.",
   },
   {
     path: "/quality",

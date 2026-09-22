@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 import { Star, ShoppingCart, Check, Zap, Truck } from 'lucide-react';
 import type { CatalogProduct } from '@/config/commerce';
 import { useCart } from '@/context/CartContext';
@@ -10,8 +11,16 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) => {
-  const { addItem, openCart, openQuickView } = useCart();
+  const navigate = useNavigate();
+  const { addItem, openCart } = useCart();
   const [isAdded, setIsAdded] = useState(false);
+
+  const handleCardClick = () => {
+    navigate({
+      to: '/product/$productId',
+      params: { productId: String(product.id) },
+    });
+  };
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -28,21 +37,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
 
   return (
     <div
-      onClick={() => openQuickView(product)}
+      onClick={handleCardClick}
       className={`group bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-2xs hover:shadow-md hover:border-gray-200 transition-all duration-300 flex flex-col justify-between overflow-hidden relative cursor-pointer h-full ${className}`}
     >
       {/* Product Image Stage (Aspect Square) */}
       <div className="relative aspect-square w-full bg-gray-50/80 overflow-hidden border-b border-gray-100">
-
-        {/* Top Badges */}
-        {product.badge && (
-          <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
-            <span className="px-1.5 py-0.5 sm:px-2 sm:py-0.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-md bg-green-800 text-white shadow-2xs">
-              {product.badge}
-            </span>
-          </div>
-        )}
-
         {/* Product Photography */}
         <picture className="absolute inset-0 w-full h-full">
           <source srcSet={product.imageWebp} type="image/webp" />
@@ -99,7 +98,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
           {/* Transparent Delivery Note */}
           <div className="flex items-center gap-1 text-[9px] sm:text-[11px] text-gray-500 font-medium">
             <Truck size={11} className="text-green-700 shrink-0" />
-            <span className="truncate">GH₵ 25 delivery • Free over GH₵ 350</span>
+            <span className="truncate">GH₵ 25 doorstep delivery across Accra</span>
           </div>
 
           {/* Action Buttons (Responsive Oraimo Style for 2-column mobile & 3-column desktop) */}

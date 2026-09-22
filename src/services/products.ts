@@ -67,9 +67,13 @@ export async function submitOrder(orderData: OrderPayload): Promise<OrderResult>
     setTimeout(() => {
       try {
         const existing = localStorage.getItem('vivaldi_orders');
-        const orders: OrderPayload[] = existing ? JSON.parse(existing) : [];
+        const parsed = existing ? JSON.parse(existing) : [];
+        const orders: OrderPayload[] = Array.isArray(parsed) ? parsed : [];
         orders.unshift(orderData);
         localStorage.setItem('vivaldi_orders', JSON.stringify(orders));
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('vivaldi-orders-updated'));
+        }
       } catch (err) {
         console.error('Failed to save order to localStorage', err);
       }

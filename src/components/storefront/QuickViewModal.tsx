@@ -96,15 +96,8 @@ const QuickViewModalContent: React.FC<QuickViewModalContentProps> = ({
               {/* Left Column: Product Showcase Stage */}
               <div className="bg-linear-to-br from-amber-50/60 via-amber-50/20 to-white p-3.5 sm:p-6 flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100 relative">
 
-                {/* Product Badge Pill */}
-                <div className="w-full flex items-center justify-between mb-2 sm:mb-4 pr-7 sm:pr-0">
-                  {product.badge ? (
-                    <Badge className="bg-green-800 text-white font-bold text-[10px] sm:text-[11px] uppercase tracking-wider px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-lg shadow-2xs">
-                      {product.badge}
-                    </Badge>
-                  ) : (
-                    <div />
-                  )}
+                {/* In Stock status indicator */}
+                <div className="w-full flex items-center justify-end mb-2 sm:mb-4 pr-7 sm:pr-0">
                   <span className="text-[10px] font-semibold text-emerald-700 flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                     In Stock
@@ -126,7 +119,7 @@ const QuickViewModalContent: React.FC<QuickViewModalContentProps> = ({
                 {/* Verified Origin Guarantee */}
                 <div className="mt-2.5 sm:mt-4 w-full pt-2 sm:pt-3 border-t border-gray-100/80 flex items-center justify-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-gray-500">
                   <ShieldCheck size={13} className="text-green-700 shrink-0" />
-                  <span>100% Pure Volta Honey • Quality Assured</span>
+                  <span>100% Pure Volta Premium Honey • Quality Assured</span>
                 </div>
               </div>
 
@@ -173,7 +166,7 @@ const QuickViewModalContent: React.FC<QuickViewModalContentProps> = ({
                   <div className="flex items-center gap-2 bg-emerald-50/90 border border-emerald-200/70 p-2.5 sm:p-3 rounded-xl text-xs text-emerald-900 font-medium">
                     <Truck size={15} className="text-green-700 shrink-0" />
                     <div className="flex-1 text-[11px] sm:text-xs leading-snug">
-                      <span className="font-bold text-emerald-950">Doorstep Delivery:</span> GH₵ 25 in Accra. <span className="font-bold text-green-700">FREE delivery</span> on orders GH₵ 350 and above!
+                      <span className="font-bold text-emerald-950">Doorstep Delivery:</span> GH₵ 25 across Accra • Fast dispatch to your location
                     </div>
                   </div>
 
