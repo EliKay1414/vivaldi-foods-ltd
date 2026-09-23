@@ -22,8 +22,11 @@ import { Route as CommunityImpactRouteImport } from './routes/community-impact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as ProductProductIdRouteImport } from './routes/product/$productId'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as AccountRegisterRouteImport } from './routes/account/register'
+import { Route as AccountLoginRouteImport } from './routes/account/login'
 
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
@@ -90,6 +93,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountIndexRoute = AccountIndexRouteImport.update({
+  id: '/account/',
+  path: '/account/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductProductIdRoute = ProductProductIdRouteImport.update({
   id: '/product/$productId',
   path: '/product/$productId',
@@ -98,6 +106,16 @@ const ProductProductIdRoute = ProductProductIdRouteImport.update({
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRegisterRoute = AccountRegisterRouteImport.update({
+  id: '/account/register',
+  path: '/account/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountLoginRoute = AccountLoginRouteImport.update({
+  id: '/account/login',
+  path: '/account/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -114,8 +132,11 @@ export interface FileRoutesByFullPath {
   '/quality': typeof QualityRoute
   '/services': typeof ServicesRoute
   '/team': typeof TeamRoute
+  '/account/login': typeof AccountLoginRoute
+  '/account/register': typeof AccountRegisterRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$productId': typeof ProductProductIdRoute
+  '/account/': typeof AccountIndexRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
@@ -131,8 +152,11 @@ export interface FileRoutesByTo {
   '/quality': typeof QualityRoute
   '/services': typeof ServicesRoute
   '/team': typeof TeamRoute
+  '/account/login': typeof AccountLoginRoute
+  '/account/register': typeof AccountRegisterRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$productId': typeof ProductProductIdRoute
+  '/account': typeof AccountIndexRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -149,8 +173,11 @@ export interface FileRoutesById {
   '/quality': typeof QualityRoute
   '/services': typeof ServicesRoute
   '/team': typeof TeamRoute
+  '/account/login': typeof AccountLoginRoute
+  '/account/register': typeof AccountRegisterRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$productId': typeof ProductProductIdRoute
+  '/account/': typeof AccountIndexRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
@@ -168,8 +195,11 @@ export interface FileRouteTypes {
     | '/quality'
     | '/services'
     | '/team'
+    | '/account/login'
+    | '/account/register'
     | '/blog/$slug'
     | '/product/$productId'
+    | '/account/'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -185,8 +215,11 @@ export interface FileRouteTypes {
     | '/quality'
     | '/services'
     | '/team'
+    | '/account/login'
+    | '/account/register'
     | '/blog/$slug'
     | '/product/$productId'
+    | '/account'
     | '/blog'
   id:
     | '__root__'
@@ -202,8 +235,11 @@ export interface FileRouteTypes {
     | '/quality'
     | '/services'
     | '/team'
+    | '/account/login'
+    | '/account/register'
     | '/blog/$slug'
     | '/product/$productId'
+    | '/account/'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -220,8 +256,11 @@ export interface RootRouteChildren {
   QualityRoute: typeof QualityRoute
   ServicesRoute: typeof ServicesRoute
   TeamRoute: typeof TeamRoute
+  AccountLoginRoute: typeof AccountLoginRoute
+  AccountRegisterRoute: typeof AccountRegisterRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProductProductIdRoute: typeof ProductProductIdRoute
+  AccountIndexRoute: typeof AccountIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
@@ -318,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account/': {
+      id: '/account/'
+      path: '/account'
+      fullPath: '/account/'
+      preLoaderRoute: typeof AccountIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product/$productId': {
       id: '/product/$productId'
       path: '/product/$productId'
@@ -330,6 +376,20 @@ declare module '@tanstack/react-router' {
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/register': {
+      id: '/account/register'
+      path: '/account/register'
+      fullPath: '/account/register'
+      preLoaderRoute: typeof AccountRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/login': {
+      id: '/account/login'
+      path: '/account/login'
+      fullPath: '/account/login'
+      preLoaderRoute: typeof AccountLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -348,8 +408,11 @@ const rootRouteChildren: RootRouteChildren = {
   QualityRoute: QualityRoute,
   ServicesRoute: ServicesRoute,
   TeamRoute: TeamRoute,
+  AccountLoginRoute: AccountLoginRoute,
+  AccountRegisterRoute: AccountRegisterRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProductProductIdRoute: ProductProductIdRoute,
+  AccountIndexRoute: AccountIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport

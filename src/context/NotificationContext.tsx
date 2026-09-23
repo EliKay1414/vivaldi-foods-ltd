@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useRef } from 'react';
+import { toast } from 'react-toastify';
+import { CheckCircle2, TrendingUp, MinusCircle, Trash2, ShoppingBag } from 'lucide-react';
 import type { CatalogProduct } from '@/config/commerce';
 
 export type OrderNotificationAction = 'added' | 'increment' | 'decrement' | 'removed';
@@ -62,11 +64,6 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
       customTitle?: string;
       customMessage?: string;
     }) => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-        timerRef.current = null;
-      }
-
       let defaultTitle = 'Order Updated';
       let defaultMessage = `${product.name} quantity in cart: ${quantity}`;
 
@@ -84,24 +81,92 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         defaultMessage = `${product.name} was removed from cart`;
       }
 
+      const finalTitle = customTitle || defaultTitle;
+      const finalMessage = customMessage || defaultMessage;
+      const itemTotal = (product.price * Math.max(1, quantity)).toFixed(2);
+
       const newItem: OrderNotificationItem = {
         id: `${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
         product,
         quantity,
         action,
-        title: customTitle || defaultTitle,
-        message: customMessage || defaultMessage,
+        title: finalTitle,
+        message: finalMessage,
         timestamp: Date.now(),
       };
 
       setActiveNotification(newItem);
       setNotifications((prev) => [newItem, ...prev.slice(0, 19)]); // Keep last 20
 
-      // Auto dismiss active toast after 4.2 seconds
-      timerRef.current = setTimeout(() => {
-        setActiveNotification(null);
-        timerRef.current = null;
-      }, 4200);
+      // Trigger Middle Top-Center React-Toastify
+      toast(
+        ({ closeToast }) => (
+          <div className="flex items-center gap-3 w-full text-left py-0.5">
+            {/* Product Image Thumbnail */}
+            {product.image && (
+              <div className="relative size-11 sm:size-12 rounded-xl bg-amber-50/70 p-0.5 border border-amber-200/60 shrink-0 overflow-hidden shadow-2xs">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover rounded-lg"
+                />
+                {quantity > 0 && action !== 'removed' && (
+                  <span className="absolute bottom-0 right-0 bg-green-700 text-white text-[9px] font-black px-1 rounded-tl-md">
+                    x{quantity}
+                  </span>
+                )}
+              </div>
+            )}
+
+            {/* Notification Text Body */}
+            <div className="flex-1 min-w-0 pr-1">
+              <div className="flex items-center gap-1.5 font-bold text-xs sm:text-[13px] text-gray-900">
+                {action === 'increment' ? (
+                  <TrendingUp size={14} className="text-green-700 shrink-0" />
+                ) : action === 'decrement' ? (
+                  <MinusCircle size={14} className="text-amber-600 shrink-0" />
+                ) : action === 'removed' ? (
+                  <Trash2 size={14} className="text-red-600 shrink-0" />
+                ) : (
+                  <CheckCircle2 size={14} className="text-green-700 shrink-0" />
+                )}
+                <span className="truncate">{finalTitle}</span>
+              </div>
+
+              <p className="text-[11px] text-gray-600 truncate mt-0.5 font-medium">
+                {product.name} ({product.size}) •{' '}
+                <strong className="text-gray-900 font-bold">GH₵ {itemTotal}</strong>
+              </p>
+
+              {action !== 'removed' && (
+                <div className="mt-1 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      closeToast();
+                      window.dispatchEvent(new CustomEvent('open-cart-drawer'));
+                    }}
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-green-700 hover:text-green-800 transition-colors cursor-pointer"
+                  >
+                    <ShoppingBag size={12} />
+                    <span>View Cart</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        ),
+        {
+          toastId: `cart-${product.id}`,
+          position: 'top-center',
+          autoClose: 3200,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        }
+      );
     },
     []
   );

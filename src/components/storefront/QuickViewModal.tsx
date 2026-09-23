@@ -131,11 +131,16 @@ const QuickViewModalContent: React.FC<QuickViewModalContentProps> = ({
                   <div className="flex items-center justify-between gap-2 flex-wrap">
                     <div className="flex items-center gap-1 bg-amber-50/90 border border-amber-200/50 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-amber-800 text-[11px] sm:text-xs font-bold">
                       <div className="flex items-center text-amber-500">
-                        {[...Array(product.rating || 5)].map((_, i) => (
-                          <Star key={i} size={10} fill="currentColor" className="stroke-none" />
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <Star
+                            key={s}
+                            size={10}
+                            fill={s <= Math.round(product.rating) ? 'currentColor' : 'none'}
+                            className={s <= Math.round(product.rating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}
+                          />
                         ))}
                       </div>
-                      <span>{product.rating}.0</span>
+                      <span>{product.rating.toFixed(1)}</span>
                       <span className="text-gray-400 font-normal">({product.reviewCount})</span>
                     </div>
 

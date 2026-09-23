@@ -101,8 +101,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       }
     };
+    const handleOpenCart = () => setIsCartOpen(true);
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    window.addEventListener('open-cart-drawer', handleOpenCart);
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('open-cart-drawer', handleOpenCart);
+    };
   }, []);
 
   const addItem = (product: CatalogProduct, quantity = 1) => {

@@ -13,9 +13,11 @@ import {
   Droplets,
   Minus,
   Plus,
+  Heart,
 } from 'lucide-react';
 import { productCatalog } from '@/config/commerce';
 import { useCart } from '@/context/CartContext';
+import { useWishlist } from '@/hooks/useWishlist';
 import Seo from '@/components/ui/Seo';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -38,12 +40,7 @@ function ProductDetailPage() {
 
   const [qty, setQty] = useState(1);
   const [isAdded, setIsAdded] = useState(false);
-
-  // Reset quantity stepper when moving between products
-  useEffect(() => {
-    setQty(1);
-    setIsAdded(false);
-  }, [productId]);
+  const { isWishlisted, toggleWishlist } = useWishlist();
 
   // Find product by id (or match sku / numeric id)
   const product = useMemo(() => {
@@ -56,6 +53,18 @@ function ProductDetailPage() {
       (p) => p.sku.toLowerCase() === productId.toLowerCase()
     ) || productCatalog[0];
   }, [productId]);
+
+  const wishlisted = isWishlisted(product.id);
+
+  // Reset quantity stepper when moving between products
+  useEffect(() => {
+    setQty(1);
+    setIsAdded(false);
+  }, [productId]);
+
+  const handleToggleWishlist = () => {
+    toggleWishlist(product.id);
+  };
 
   const lineTotal = product.price * qty;
 
@@ -71,7 +80,7 @@ function ProductDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] pt-24 pb-20 selection:bg-amber-100 selection:text-amber-900">
+    <div className="min-h-screen bg-brand-cream pt-24 lg:pt-36 xl:pt-40 pb-20 selection:bg-amber-100 selection:text-amber-900">
       <Seo
         title={`${product.name} (${product.size}) | Vivaldi Foods Ltd`}
         description={product.description}
@@ -187,7 +196,7 @@ function ProductDetailPage() {
                 >
                   <div className="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-md text-amber-700 font-bold text-xs group-hover:bg-amber-100 transition-colors">
                     <Star size={13} className="fill-amber-400 text-amber-400" />
-                    <span>{product.rating}.0</span>
+                    <span>{product.rating.toFixed(1)}</span>
                   </div>
                   <span className="text-xs text-gray-500 font-medium group-hover:text-green-700 group-hover:underline transition-colors">
                     Based on verified customer reviews
@@ -260,38 +269,53 @@ function ProductDetailPage() {
                 </div>
               </div>
 
-              {/* Dual Action Buttons (Oraimo Symmetry) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              {/* Dual Action Buttons (Oraimo Symmetry) + Wishlist */}
+              <div className="flex items-center gap-2.5 pt-2">
                 <button
                   type="button"
-                  onClick={handleAddToCart}
-                  className={`w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs active:scale-95 ${
-                    isAdded
-                      ? 'bg-green-700 text-white'
-                      : 'bg-green-50 hover:bg-green-100 text-green-800 border border-green-200'
-                  }`}
+                  onClick={handleToggleWishlist}
+                  className="p-3.5 rounded-xl border border-gray-200 hover:bg-red-50 transition-colors shadow-2xs cursor-pointer shrink-0"
+                  title={wishlisted ? 'Saved in WishList' : 'Add to WishList'}
+                  aria-label={wishlisted ? 'Remove from WishList' : 'Save to WishList'}
                 >
-                  {isAdded ? (
-                    <>
-                      <Check size={16} />
-                      <span>Added to Cart!</span>
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingCart size={16} />
-                      <span>Add to Cart</span>
-                    </>
-                  )}
+                  <Heart
+                    size={18}
+                    className={wishlisted ? 'text-red-500 fill-red-500' : 'text-gray-400 hover:text-red-500'}
+                  />
                 </button>
 
-                <button
-                  type="button"
-                  onClick={handleBuyNow}
-                  className="w-full py-3.5 px-4 bg-green-700 hover:bg-green-800 text-white rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-green-900/10 transition-all active:scale-95"
-                >
-                  <Zap size={16} className="fill-current" />
-                  <span>Buy Now</span>
-                </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 flex-1">
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className={`w-full py-3.5 px-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xs active:scale-95 ${
+                      isAdded
+                        ? 'bg-green-700 text-white'
+                        : 'bg-green-50 hover:bg-green-100 text-green-800 border border-green-200'
+                    }`}
+                  >
+                    {isAdded ? (
+                      <>
+                        <Check size={16} />
+                        <span>Added to Cart!</span>
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingCart size={16} />
+                        <span>Add to Cart</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleBuyNow}
+                    className="w-full py-3.5 px-4 bg-green-700 hover:bg-green-800 text-white rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-green-900/10 transition-all active:scale-95"
+                  >
+                    <Zap size={16} className="fill-current" />
+                    <span>Buy Now</span>
+                  </button>
+                </div>
               </div>
 
               {/* Feature Highlights */}

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { Star, ShoppingCart, Check, Zap, Truck } from 'lucide-react';
+import { Star, ShoppingCart, Check, Zap, Truck, Heart } from 'lucide-react';
 import type { CatalogProduct } from '@/config/commerce';
 import { useCart } from '@/context/CartContext';
+import { useWishlist } from '@/hooks/useWishlist';
 import { Badge } from '@/components/ui/badge';
 
 interface ProductCardProps {
@@ -13,7 +14,14 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) => {
   const navigate = useNavigate();
   const { addItem, openCart } = useCart();
+  const { isWishlisted, toggleWishlist } = useWishlist();
   const [isAdded, setIsAdded] = useState(false);
+  const wishlisted = isWishlisted(product.id);
+
+  const handleToggleWishlist = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggleWishlist(product.id);
+  };
 
   const handleCardClick = () => {
     navigate({
@@ -42,6 +50,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
     >
       {/* Product Image Stage (Aspect Square) */}
       <div className="relative aspect-square w-full bg-gray-50/80 overflow-hidden border-b border-gray-100">
+        {/* Wishlist Heart Button */}
+        <button
+          type="button"
+          onClick={handleToggleWishlist}
+          className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/90 hover:bg-white text-gray-400 hover:text-red-500 transition-colors shadow-2xs z-10 cursor-pointer"
+          title={wishlisted ? 'Remove from WishList' : 'Add to WishList'}
+          aria-label={wishlisted ? 'Remove from WishList' : 'Add to WishList'}
+        >
+          <Heart
+            size={15}
+            className={wishlisted ? 'text-red-500 fill-red-500' : 'text-gray-400'}
+          />
+        </button>
+
         {/* Product Photography */}
         <picture className="absolute inset-0 w-full h-full">
           <source srcSet={product.imageWebp} type="image/webp" />
@@ -62,7 +84,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className = '
           <div className="flex items-center justify-between gap-1 flex-wrap text-xs">
             <div className="flex items-center gap-1 bg-amber-50/80 px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-md text-amber-700 font-semibold text-[10px] sm:text-[11px]">
               <Star size={11} className="fill-amber-400 text-amber-400" />
-              <span>{product.rating}.0</span>
+              <span>{product.rating.toFixed(1)}</span>
               <span className="text-gray-400">({product.reviewCount})</span>
             </div>
 

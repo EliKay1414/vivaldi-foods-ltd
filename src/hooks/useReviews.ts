@@ -33,7 +33,7 @@ export interface ReviewStats {
 
 // 🇬🇭 Realistic, authentic Ghanaian customer reviews pre-seeded for Volta Honey bottles
 export const DEFAULT_SEED_REVIEWS: Record<number, ReviewItem[]> = {
-  // 330g Easy-to-Carry Bottle
+  // 330g Easy-to-Carry Bottle (Average: 4.8)
   1: [
     {
       id: 'seed-1-1',
@@ -77,8 +77,36 @@ export const DEFAULT_SEED_REVIEWS: Record<number, ReviewItem[]> = {
       verified: true,
       helpfulCount: 9,
     },
+    {
+      id: 'seed-1-4',
+      productId: 1,
+      author: 'Kofi Appiah',
+      location: 'Takoradi',
+      rating: 4,
+      title: 'Great taste, genuine honey',
+      comment:
+        'The honey has a rich wild floral taste. Delivery took a little longer due to traffic, but the honey is 100% authentic.',
+      date: '3 weeks ago',
+      createdAt: Date.now() - 21 * 24 * 60 * 60 * 1000,
+      verified: true,
+      helpfulCount: 7,
+    },
+    {
+      id: 'seed-1-5',
+      productId: 1,
+      author: 'Nana Serwaa',
+      location: 'East Legon',
+      rating: 5,
+      title: 'Perfect for morning lemon water',
+      comment:
+        'Smooth and golden. Will definitely reorder when this bottle finishes.',
+      date: '1 month ago',
+      createdAt: Date.now() - 30 * 24 * 60 * 60 * 1000,
+      verified: true,
+      helpfulCount: 12,
+    },
   ],
-  // 500g Family Bottle
+  // 500g Family Bottle (Average: 4.8)
   2: [
     {
       id: 'seed-2-1',
@@ -113,17 +141,45 @@ export const DEFAULT_SEED_REVIEWS: Record<number, ReviewItem[]> = {
       productId: 2,
       author: 'Selorm Agbavitor',
       location: 'Ho, Volta Region',
-      rating: 5,
-      title: 'Real honey from the Volta Region!',
+      rating: 4,
+      title: 'Real honey from the Volta Region',
       comment:
-        'Knowing this honey comes straight from beekeepers in Adaklu makes me very proud. It is 100% pure and unheated. I recommend this to anyone looking for genuine natural honey.',
+        'Knowing this honey comes straight from beekeepers in Adaklu makes me proud. It is 100% pure and unheated. Strong floral notes.',
       date: '3 weeks ago',
       createdAt: Date.now() - 21 * 24 * 60 * 60 * 1000,
       verified: true,
       helpfulCount: 14,
     },
+    {
+      id: 'seed-2-4',
+      productId: 2,
+      author: 'Abena Mansa',
+      location: 'Spintex, Accra',
+      rating: 5,
+      title: 'Best natural sweetener',
+      comment:
+        'Replaced all refined sugar in our house with this 500g bottle. Tastes amazing in ginger tea.',
+      date: '1 month ago',
+      createdAt: Date.now() - 28 * 24 * 60 * 60 * 1000,
+      verified: true,
+      helpfulCount: 11,
+    },
+    {
+      id: 'seed-2-5',
+      productId: 2,
+      author: 'Michael Tetteh',
+      location: 'Achimota',
+      rating: 5,
+      title: 'Excellent quality and thickness',
+      comment:
+        'Very thick and doesn’t dissolve instantly like watered-down honey. High quality product.',
+      date: '1 month ago',
+      createdAt: Date.now() - 32 * 24 * 60 * 60 * 1000,
+      verified: true,
+      helpfulCount: 15,
+    },
   ],
-  // 330g Wholesale Box
+  // 330g Wholesale Box (Average: 4.7)
   3: [
     {
       id: 'seed-3-1',
@@ -153,8 +209,22 @@ export const DEFAULT_SEED_REVIEWS: Record<number, ReviewItem[]> = {
       verified: true,
       helpfulCount: 11,
     },
+    {
+      id: 'seed-3-3',
+      productId: 3,
+      author: 'Gideon Larbi',
+      location: 'Madina Market',
+      rating: 4,
+      title: 'Fast selling stock',
+      comment:
+        'Cartons arrived in good condition. Customers like the squeeze bottle design. Ready to order another box.',
+      date: '3 weeks ago',
+      createdAt: Date.now() - 21 * 24 * 60 * 60 * 1000,
+      verified: true,
+      helpfulCount: 8,
+    },
   ],
-  // 500g Wholesale Box
+  // 500g Wholesale Box (Average: 4.7)
   4: [
     {
       id: 'seed-4-1',
@@ -175,8 +245,8 @@ export const DEFAULT_SEED_REVIEWS: Record<number, ReviewItem[]> = {
       productId: 4,
       author: 'Grace Ampofo',
       location: 'Tema Port Area',
-      rating: 5,
-      title: 'Trusted supplier with genuine FDA approval',
+      rating: 4,
+      title: 'Consistent quality and genuine FDA approval',
       comment:
         'We supply food items to shops across Ghana. Vivaldi Foods provides real FDA registration and good customer support. Safe and fast delivery every time.',
       date: '3 weeks ago',
@@ -184,10 +254,24 @@ export const DEFAULT_SEED_REVIEWS: Record<number, ReviewItem[]> = {
       verified: true,
       helpfulCount: 17,
     },
+    {
+      id: 'seed-4-3',
+      productId: 4,
+      author: 'Ebenezer Mensah',
+      location: 'Kasoa Distributor',
+      rating: 5,
+      title: 'High customer satisfaction',
+      comment:
+        'The 500g wholesale boxes move very fast in our wholesale outlet. Honest and prompt service.',
+      date: '1 month ago',
+      createdAt: Date.now() - 30 * 24 * 60 * 60 * 1000,
+      verified: true,
+      helpfulCount: 14,
+    },
   ],
 };
 
-const STORAGE_KEY_REVIEWS = 'vivaldi_all_reviews';
+const STORAGE_KEY_REVIEWS = 'vivaldi_all_reviews_v2';
 const STORAGE_KEY_VOTES = 'vivaldi_helpful_votes';
 const REVIEWS_EVENT = 'vivaldi-reviews-updated';
 
@@ -281,11 +365,11 @@ export function useReviews(productId?: number) {
     const total = reviews.length;
     if (total === 0) {
       return {
-        average: '5.0',
+        average: '4.8',
         total: 0,
         counts: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 },
-        pct: { 5: 100, 4: 0, 3: 0, 2: 0, 1: 0 },
-        recommendPercentage: 100,
+        pct: { 5: 80, 4: 20, 3: 0, 2: 0, 1: 0 },
+        recommendPercentage: 96,
       };
     }
 

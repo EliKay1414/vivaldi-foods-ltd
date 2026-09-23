@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useRouter } from '@tanstack/react-router';
-import { Menu, X, Phone, Mail, ChevronDown, ChevronRight } from 'lucide-react';
+import { Menu, X, Phone, Mail, ChevronDown, ChevronRight, User } from 'lucide-react';
 import { COMPANY_DETAILS } from '@/lib/constants';
 import CartBadge from '@/components/cart/CartBadge';
+import AccountBadge from '@/components/auth/AccountBadge';
+import { useAuth } from '@/hooks/useAuth';
 
 // RESOLVED PUBLIC FILE PATH: References the lightweight static image webp module
 const vivaldiLogo = "/Vivaldi-logo.webp";
@@ -27,6 +29,7 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const { isAuthenticated, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
@@ -147,14 +150,16 @@ export default function Header() {
                   )}
                 </div>
               ))}
+              <AccountBadge />
               <CartBadge />
               <Link to="/contact" className="ml-2 bg-green-700 text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-green-800 transition-all shadow-sm active:scale-95">
                 Enquiry
               </Link>
             </div>
 
-            {/* Mobile Actions (Cart + Menu Toggle) */}
+            {/* Mobile Actions (Account + Cart + Menu Toggle) */}
             <div className="flex items-center gap-2 lg:hidden">
+              <AccountBadge onNavigate={closeMenu} />
               <CartBadge />
               <button
                 type="button"
@@ -264,6 +269,108 @@ export default function Header() {
                   )}
                 </li>
               ))}
+              <li className="border-b border-gray-50">
+                <div className="w-full flex items-center justify-between hover:bg-gray-50 transition-colors">
+                  <Link
+                    to="/account"
+                    onClick={closeMenu}
+                    className={`flex-1 flex items-center gap-2.5 px-6 py-4 text-sm font-bold uppercase tracking-wider transition-colors ${location.pathname.startsWith('/account') ? 'text-green-700' : 'text-gray-800'}`}
+                  >
+                    <User size={16} className="text-green-700" />
+                    <span>My Account</span>
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={() => toggleExpanded('My Account')}
+                    className="px-6 py-4 border-l border-gray-100 text-gray-400 hover:text-green-700 transition-colors cursor-pointer"
+                    aria-label="Toggle My Account sub-navigation"
+                  >
+                    <ChevronRight
+                      size={16}
+                      className={`transition-transform duration-200 ${expandedItem === 'My Account' ? 'rotate-90 text-green-700' : ''}`}
+                    />
+                  </button>
+                </div>
+
+                {/* Sub-items accordion matching the About mobile menu */}
+                <div
+                  className={`overflow-hidden transition-all duration-200 bg-gray-50/50 ${expandedItem === 'My Account' ? 'max-h-96' : 'max-h-0'}`}
+                >
+                  <Link
+                    to="/account"
+                    search={{ tab: 'orders' }}
+                    onClick={closeMenu}
+                    className="flex items-center gap-3 px-8 py-3.5 text-xs font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50/50 transition-colors border-b border-gray-100/40"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-green-700 shrink-0" />
+                    <span>My Order</span>
+                  </Link>
+
+                  <Link
+                    to="/account"
+                    search={{ tab: 'profile' }}
+                    onClick={closeMenu}
+                    className="flex items-center gap-3 px-8 py-3.5 text-xs font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50/50 transition-colors border-b border-gray-100/40"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-green-700 shrink-0" />
+                    <span>Personal Information</span>
+                  </Link>
+
+                  <Link
+                    to="/account"
+                    search={{ tab: 'wishlist' }}
+                    onClick={closeMenu}
+                    className="flex items-center gap-3 px-8 py-3.5 text-xs font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50/50 transition-colors border-b border-gray-100/40"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-green-700 shrink-0" />
+                    <span>WishList</span>
+                  </Link>
+
+                  <Link
+                    to="/account"
+                    search={{ tab: 'address' }}
+                    onClick={closeMenu}
+                    className="flex items-center gap-3 px-8 py-3.5 text-xs font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50/50 transition-colors border-b border-gray-100/40"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-green-700 shrink-0" />
+                    <span>Address Management</span>
+                  </Link>
+
+                  <Link
+                    to="/account"
+                    search={{ tab: 'reviews' }}
+                    onClick={closeMenu}
+                    className="flex items-center gap-3 px-8 py-3.5 text-xs font-semibold text-gray-600 hover:text-green-700 hover:bg-green-50/50 transition-colors border-b border-gray-100/40"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-green-700 shrink-0" />
+                    <span>Product Reviews</span>
+                  </Link>
+
+                  {isAuthenticated ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        logout();
+                        closeMenu();
+                      }}
+                      className="w-full flex items-center gap-3 px-8 py-3.5 text-xs font-semibold text-red-600 hover:bg-red-50/50 transition-colors text-left cursor-pointer"
+                    >
+                      <span className="w-1 h-1 rounded-full bg-red-600 shrink-0" />
+                      <span>Sign Out</span>
+                    </button>
+                  ) : (
+                    <Link
+                      to="/account/login"
+                      onClick={closeMenu}
+                      className="flex items-center gap-3 px-8 py-3.5 text-xs font-bold text-green-700 hover:bg-green-50/50 transition-colors"
+                    >
+                      <span className="w-1 h-1 rounded-full bg-green-700 shrink-0" />
+                      <span>Sign In / Register</span>
+                    </Link>
+                  )}
+                </div>
+              </li>
             </ul>
           </nav>
 

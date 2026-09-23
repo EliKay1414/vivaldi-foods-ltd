@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
   CheckCircle2,
-  ArrowRight,
   Loader2,
   Phone,
   MapPin,
@@ -12,11 +11,15 @@ import {
   CreditCard,
   Truck,
   ShoppingCart,
+  PackageCheck,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/hooks/useAuth';
 import { useCreateOrderMutation, type CustomerDetails, type OrderPayload } from '@/services/products';
+import { Link } from '@tanstack/react-router';
 
 export const OrderModal: React.FC = () => {
+  const { currentUser, isAuthenticated } = useAuth();
   const {
     items,
     subtotal,
@@ -50,6 +53,21 @@ export const OrderModal: React.FC = () => {
       setCompletedOrder(null);
     }
   }, [isCheckoutOpen]);
+
+  // Auto pre-fill checkout fields when logged-in customer opens the modal
+  useEffect(() => {
+    if (isCheckoutOpen && currentUser) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setFullName((prev) => prev || currentUser.fullName || '');
+      setPhone((prev) => prev || currentUser.phone || '');
+      if (currentUser.city) {
+        setCity((prev) => (prev === 'Accra' && currentUser.city ? currentUser.city : prev));
+      }
+      if (currentUser.deliveryAddress) {
+        setDeliveryAddress((prev) => prev || currentUser.deliveryAddress || '');
+      }
+    }
+  }, [isCheckoutOpen, currentUser]);
 
   // Prevent background scroll and listen for Escape key when checkout is open
   useEffect(() => {
@@ -95,6 +113,7 @@ export const OrderModal: React.FC = () => {
     const customer: CustomerDetails = {
       fullName: fullName.trim(),
       phone: phone.trim(),
+      email: currentUser?.email || undefined,
       region: 'Greater Accra',
       city: city.trim(),
       deliveryAddress: deliveryAddress.trim(),
@@ -216,15 +235,32 @@ export const OrderModal: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Action Button */}
-                <div className="pt-2">
+                {/* Action Buttons */}
+                <div className="pt-2 flex flex-col sm:flex-row gap-2">
                   <button
                     type="button"
                     onClick={handleCloseModal}
-                    className="w-full bg-green-700 hover:bg-green-800 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+                    className="flex-1 bg-green-700 hover:bg-green-800 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
                   >
                     Done & Continue Shopping
                   </button>
+                  {isAuthenticated ? (
+                    <Link
+                      to="/account"
+                      onClick={handleCloseModal}
+                      className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-center flex items-center justify-center cursor-pointer"
+                    >
+                      View in My Account
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/account/register"
+                      onClick={handleCloseModal}
+                      className="flex-1 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-center flex items-center justify-center cursor-pointer"
+                    >
+                      Create Account
+                    </Link>
+                  )}
                 </div>
               </div>
             ) : items.length === 0 ? (
@@ -250,6 +286,42 @@ export const OrderModal: React.FC = () => {
             ) : (
               /* Order Details Form */
               <form onSubmit={handleSubmitOrder} className="p-4 sm:p-6 space-y-4 max-h-[75vh] overflow-y-auto">
+                {/* Fast Checkout status if logged in, or sign-in prompt if guest */}
+                {isAuthenticated && currentUser ? (
+                  <div className="bg-green-50/80 border border-green-200/80 rounded-xl p-3 flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-full bg-green-700 text-white flex items-center justify-center font-bold text-[11px] shrink-0">
+                        {currentUser.fullName.split(' ').map((n) => n[0]).filter(Boolean).slice(0, 2).join('').toUpperCase()}
+                      </div>
+                      <div>
+                        <p className="font-bold text-green-900 leading-tight">
+                          Fast Checkout Active
+                        </p>
+                        <p className="text-[11px] text-green-700">
+                          Auto-filled for {currentUser.fullName}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-green-800 bg-white border border-green-300/80 px-2 py-0.5 rounded-md">
+                      Verified Customer
+                    </span>
+                  </div>
+                ) : (
+                  <div className="bg-amber-50/80 border border-amber-200/80 rounded-xl p-3 flex items-center justify-between text-xs">
+                    <div>
+                      <p className="font-bold text-amber-900">Have a Vivaldi account?</p>
+                      <p className="text-[11px] text-amber-700">Sign in to auto-fill your saved address</p>
+                    </div>
+                    <Link
+                      to="/account/login"
+                      onClick={handleCloseModal}
+                      className="px-3 py-1.5 bg-white border border-amber-300 text-amber-900 font-bold text-xs rounded-lg hover:bg-amber-100 transition-colors shadow-2xs"
+                    >
+                      Sign In
+                    </Link>
+                  </div>
+                )}
+
                 {/* Cart summary bar */}
                 <div className="bg-amber-50/60 p-3 rounded-xl border border-amber-100 flex items-center justify-between text-xs">
                   <span className="text-gray-700 font-medium">
@@ -411,12 +483,12 @@ export const OrderModal: React.FC = () => {
                     {createOrderMutation.isPending ? (
                       <>
                         <Loader2 size={16} className="animate-spin" />
-                        <span>Sending Your Order...</span>
+                        <span>Submitting Your Order...</span>
                       </>
                     ) : (
                       <>
-                        <span>Complete Order • GH₵ {total.toFixed(2)}</span>
-                        <ArrowRight size={14} />
+                        <PackageCheck size={17} />
+                        <span>Submit Order • GH₵ {total.toFixed(2)}</span>
                       </>
                     )}
                   </button>

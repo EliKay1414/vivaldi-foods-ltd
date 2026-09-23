@@ -177,13 +177,36 @@ export default function ProductReviews({
             {stats.average}
           </span>
           <div className="flex items-center gap-1 my-2">
-            {[1, 2, 3, 4, 5].map((s) => (
-              <Star
-                key={s}
-                size={18}
-                className="fill-amber-400 text-amber-400"
-              />
-            ))}
+            {[1, 2, 3, 4, 5].map((s) => {
+              const avgNum = parseFloat(stats.average) || 4.8;
+              const isFilled = s <= Math.floor(avgNum);
+              const isPartial = !isFilled && s === Math.ceil(avgNum);
+              return (
+                <div key={s} className="relative w-[18px] h-[18px]">
+                  <Star
+                    size={18}
+                    className="text-gray-200 fill-gray-200"
+                  />
+                  {isFilled && (
+                    <Star
+                      size={18}
+                      className="fill-amber-400 text-amber-400 absolute inset-0"
+                    />
+                  )}
+                  {isPartial && (
+                    <div
+                      className="absolute inset-0 overflow-hidden"
+                      style={{ width: `${Math.round((avgNum - Math.floor(avgNum)) * 100)}%` }}
+                    >
+                      <Star
+                        size={18}
+                        className="fill-amber-400 text-amber-400"
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
           <p className="text-xs font-bold text-gray-700">
             Based on verified customer reviews
