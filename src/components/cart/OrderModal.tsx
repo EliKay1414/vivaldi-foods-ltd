@@ -16,9 +16,10 @@ import {
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/hooks/useAuth';
 import { useCreateOrderMutation, type CustomerDetails, type OrderPayload } from '@/services/products';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 
 export const OrderModal: React.FC = () => {
+  const navigate = useNavigate();
   const { currentUser, isAuthenticated } = useAuth();
   const {
     items,
@@ -236,31 +237,14 @@ export const OrderModal: React.FC = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="pt-2 flex flex-col sm:flex-row gap-2">
+                <div className="pt-2">
                   <button
                     type="button"
                     onClick={handleCloseModal}
-                    className="flex-1 bg-green-700 hover:bg-green-800 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+                    className="w-full bg-green-800 hover:bg-green-900 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-sm cursor-pointer"
                   >
-                    Done & Continue Shopping
+                    Done Shopping
                   </button>
-                  {isAuthenticated ? (
-                    <Link
-                      to="/account"
-                      onClick={handleCloseModal}
-                      className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-center flex items-center justify-center cursor-pointer"
-                    >
-                      View in My Account
-                    </Link>
-                  ) : (
-                    <Link
-                      to="/account/register"
-                      onClick={handleCloseModal}
-                      className="flex-1 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-center flex items-center justify-center cursor-pointer"
-                    >
-                      Create Account
-                    </Link>
-                  )}
                 </div>
               </div>
             ) : items.length === 0 ? (
@@ -277,7 +261,10 @@ export const OrderModal: React.FC = () => {
                 </div>
                 <button
                   type="button"
-                  onClick={handleCloseModal}
+                  onClick={() => {
+                    handleCloseModal();
+                    navigate({ to: '/products' });
+                  }}
                   className="px-6 py-2.5 bg-green-700 hover:bg-green-800 text-white rounded-xl text-xs font-bold transition-all cursor-pointer"
                 >
                   Browse Honey Bottles

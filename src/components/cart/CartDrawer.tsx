@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
@@ -9,9 +9,13 @@ import {
   ArrowRight,
   Truck,
 } from 'lucide-react';
+import { useNavigate } from '@tanstack/react-router';
 import { useCart } from '@/context/CartContext';
 
 export const CartDrawer: React.FC = () => {
+  const navigate = useNavigate();
+  const [itemToDelete, setItemToDelete] = useState<{ id: number; name?: string } | null>(null);
+  const [isClearConfirmOpen, setIsClearConfirmOpen] = useState(false);
   const {
     items,
     isCartOpen,
@@ -25,13 +29,18 @@ export const CartDrawer: React.FC = () => {
     total,
   } = useCart();
 
-  // Prevent background scroll and listen for Escape key when cart drawer is open
+  // Prevent background scroll and listen for Escape key when cart drawer or confirm modal is open
   useEffect(() => {
     if (isCartOpen) {
       document.body.style.overflow = 'hidden';
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
-          closeCart();
+          if (itemToDelete !== null || isClearConfirmOpen) {
+            setItemToDelete(null);
+            setIsClearConfirmOpen(false);
+          } else {
+            closeCart();
+          }
         }
       };
       window.addEventListener('keydown', handleKeyDown);
@@ -42,12 +51,13 @@ export const CartDrawer: React.FC = () => {
     } else {
       document.body.style.overflow = '';
     }
-  }, [isCartOpen, closeCart]);
+  }, [isCartOpen, closeCart, itemToDelete, isClearConfirmOpen]);
 
   return (
-    <AnimatePresence>
-      {isCartOpen && (
-        <>
+    <>
+      <AnimatePresence>
+        {isCartOpen && (
+          <>
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -111,7 +121,10 @@ export const CartDrawer: React.FC = () => {
                   </p>
                   <button
                     type="button"
-                    onClick={closeCart}
+                    onClick={() => {
+                      closeCart();
+                      navigate({ to: '/products' });
+                    }}
                     className="mt-2 px-5 py-2.5 bg-green-700 hover:bg-green-800 text-white text-xs font-bold rounded-xl transition-all shadow-sm cursor-pointer"
                   >
                     Browse Products
@@ -144,7 +157,7 @@ export const CartDrawer: React.FC = () => {
                           </h4>
                           <button
                             type="button"
-                            onClick={() => removeItem(item.product.id)}
+                            onClick={() => setItemToDelete({ id: item.product.id, name: item.product.name })}
                             className="text-gray-400 hover:text-red-500 p-0.5 transition-colors cursor-pointer"
                             aria-label={`Remove ${item.product.name} from cart`}
                           >
@@ -161,7 +174,13 @@ export const CartDrawer: React.FC = () => {
                         <div className="flex items-center border border-gray-200 rounded-lg bg-gray-50/50 p-0.5">
                           <button
                             type="button"
-                            onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                            onClick={() => {
+                              if (item.quantity <= 1) {
+                                setItemToDelete({ id: item.product.id, name: item.product.name });
+                              } else {
+                                updateQuantity(item.product.id, item.quantity - 1);
+                              }
+                            }}
                             className="w-6 h-6 rounded flex items-center justify-center text-gray-600 hover:bg-white hover:text-gray-900 transition-colors cursor-pointer"
                             aria-label="Decrease quantity"
                           >
@@ -234,7 +253,7 @@ export const CartDrawer: React.FC = () => {
                 <div className="text-center pt-1">
                   <button
                     type="button"
-                    onClick={clearCart}
+                    onClick={() => setIsClearConfirmOpen(true)}
                     className="text-[11px] text-gray-400 hover:text-red-500 transition-colors font-medium cursor-pointer"
                   >
                     Clear shopping cart
@@ -245,7 +264,95 @@ export const CartDrawer: React.FC = () => {
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+      </AnimatePresence>
+
+      {/* Oraimo-style Delete Confirmation Popover Modal */}
+      <AnimatePresence>
+        {(itemToDelete !== null || isClearConfirmOpen) && (
+          <div className="fixed inset-0 z-70 flex items-center justify-center p-4">
+            {/* Dark Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => {
+                setItemToDelete(null);
+                setIsClearConfirmOpen(false);
+              }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-xs"
+              aria-hidden="true"
+            />
+
+            {/* Modal Dialog Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.93, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.93, y: 8 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              className="relative w-full max-w-sm sm:max-w-md bg-white rounded-2xl shadow-2xl p-6 sm:p-8 text-center z-10"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="confirm-modal-title"
+            >
+              {/* Close 'X' Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  setItemToDelete(null);
+                  setIsClearConfirmOpen(false);
+                }}
+                className="absolute top-5 right-5 sm:top-6 sm:right-6 text-gray-900 hover:text-gray-500 transition-colors p-1 cursor-pointer"
+                aria-label="Close"
+              >
+                <X size={20} strokeWidth={2.2} />
+              </button>
+
+              {/* Title */}
+              <h3 id="confirm-modal-title" className="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">
+                Please Confirm
+              </h3>
+
+              {/* Confirmation Message */}
+              <p className="text-sm sm:text-base text-gray-700 font-normal my-6 sm:my-8 leading-relaxed">
+                {isClearConfirmOpen
+                  ? 'Are you sure removing all items from your shopping cart?'
+                  : 'Are you sure removing this item from your shopping cart?'}
+              </p>
+
+              {/* Action Buttons */}
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setItemToDelete(null);
+                    setIsClearConfirmOpen(false);
+                  }}
+                  className="w-full py-3 sm:py-3.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-900 font-bold text-sm sm:text-base transition-colors cursor-pointer"
+                >
+                  No
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (itemToDelete) {
+                      removeItem(itemToDelete.id);
+                      setItemToDelete(null);
+                    } else if (isClearConfirmOpen) {
+                      clearCart();
+                      setIsClearConfirmOpen(false);
+                    }
+                  }}
+                  className="w-full py-3 sm:py-3.5 rounded-xl bg-green-800 hover:bg-green-900 active:bg-green-950 text-white font-bold text-sm sm:text-base transition-colors shadow-sm cursor-pointer"
+                >
+                  Yes
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

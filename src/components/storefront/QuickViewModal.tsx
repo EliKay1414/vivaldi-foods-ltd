@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Star, ShoppingCart, Plus, Minus, CheckCircle2, Zap, Check, ShieldCheck, Truck } from 'lucide-react';
+import { X, Star, ShoppingCart, Plus, Minus, CheckCircle2, Zap, ShieldCheck, Truck } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { Badge } from '@/components/ui/badge';
 
@@ -10,17 +10,14 @@ interface QuickViewModalContentProps {
   product: QuickViewProduct;
   closeQuickView: () => void;
   addItem: (product: QuickViewProduct, qty: number) => void;
-  openCart: () => void;
 }
 
 const QuickViewModalContent: React.FC<QuickViewModalContentProps> = ({
   product,
   closeQuickView,
   addItem,
-  openCart,
 }) => {
   const [qty, setQty] = useState(1);
-  const [isAdded, setIsAdded] = useState(false);
 
   // Lock body scroll and listen for Escape key
   useEffect(() => {
@@ -40,18 +37,13 @@ const QuickViewModalContent: React.FC<QuickViewModalContentProps> = ({
   }, [closeQuickView]);
 
   const handleAdd = () => {
+    closeQuickView();
     addItem(product, qty);
-    setIsAdded(true);
-    setTimeout(() => {
-      setIsAdded(false);
-      closeQuickView();
-    }, 1200);
   };
 
   const handleBuyNow = () => {
-    addItem(product, qty);
     closeQuickView();
-    openCart();
+    addItem(product, qty);
   };
 
   const lineTotal = product.price * qty;
@@ -234,23 +226,10 @@ const QuickViewModalContent: React.FC<QuickViewModalContentProps> = ({
                     <button
                       type="button"
                       onClick={handleAdd}
-                      className={`py-2.5 sm:py-3 px-3 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs active:scale-95 ${
-                        isAdded
-                          ? 'bg-green-700 text-white'
-                          : 'bg-green-50 hover:bg-green-100 text-green-800 border border-green-200/80'
-                      }`}
+                      className="py-2.5 sm:py-3 px-3 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-2xs active:scale-95 bg-green-50 hover:bg-green-100 text-green-800 border border-green-200/80"
                     >
-                      {isAdded ? (
-                        <>
-                          <Check size={14} />
-                          <span>Added!</span>
-                        </>
-                      ) : (
-                        <>
-                          <ShoppingCart size={14} />
-                          <span>Add to Cart</span>
-                        </>
-                      )}
+                      <ShoppingCart size={14} />
+                      <span>Add to Cart</span>
                     </button>
 
                     <button
@@ -274,7 +253,7 @@ const QuickViewModalContent: React.FC<QuickViewModalContentProps> = ({
 };
 
 export const QuickViewModal: React.FC = () => {
-  const { quickViewProduct, closeQuickView, addItem, openCart } = useCart();
+  const { quickViewProduct, closeQuickView, addItem } = useCart();
 
   if (!quickViewProduct) return null;
 
@@ -284,7 +263,6 @@ export const QuickViewModal: React.FC = () => {
       product={quickViewProduct}
       closeQuickView={closeQuickView}
       addItem={addItem}
-      openCart={openCart}
     />
   );
 };

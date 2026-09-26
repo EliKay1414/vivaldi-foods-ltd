@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import type { CatalogProduct } from '@/config/commerce';
 import type { CartItem, CustomerDetails } from '@/services/products';
-import { useNotification } from '@/context/NotificationContext';
 
 interface CartContextType {
   items: CartItem[];
@@ -66,7 +65,6 @@ function sanitizeCartItems(raw: unknown): CartItem[] {
 }
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { notifyOrder } = useNotification();
   const [items, setItems] = useState<CartItem[]>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -112,27 +110,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const addItem = (product: CatalogProduct, quantity = 1) => {
     const validQty = Math.max(1, Math.floor(Number(quantity) || 1));
-    const existing = items.find((item) => item.product.id === product.id);
-    const newQty = existing ? existing.quantity + validQty : validQty;
-
-    // Trigger notification outside of state setter for pure React updates
-    if (existing) {
-      notifyOrder({
-        product,
-        quantity: newQty,
-        action: 'increment',
-        customTitle: 'Order Quantity Increased',
-        customMessage: `${product.name} quantity updated to ${newQty}`,
-      });
-    } else {
-      notifyOrder({
-        product,
-        quantity: validQty,
-        action: 'added',
-        customTitle: 'Added to Cart',
-        customMessage: `${product.name} (${product.size}) added to your cart`,
-      });
-    }
 
     setItems((prev) => {
       const hasItem = prev.some((item) => item.product.id === product.id);
@@ -145,19 +122,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
       return [...prev, { product, quantity: validQty }];
     });
+
+    // Automatically open the shopping cart sliding drawer whenever a product is added
+    setIsCartOpen(true);
   };
 
   const removeItem = (productId: number) => {
-    const existing = items.find((item) => item.product.id === productId);
-    if (existing) {
-      notifyOrder({
-        product: existing.product,
-        quantity: 0,
-        action: 'removed',
-        customTitle: 'Item Removed',
-        customMessage: `${existing.product.name} was removed from cart`,
-      });
-    }
     setItems((prev) => prev.filter((item) => item.product.id !== productId));
   };
 
@@ -166,19 +136,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (isNaN(validQty) || validQty <= 0) {
       removeItem(productId);
       return;
-    }
-
-    const existing = items.find((item) => item.product.id === productId);
-    if (existing) {
-      const action = validQty > existing.quantity ? 'increment' : 'decrement';
-      const title = validQty > existing.quantity ? 'Order Quantity Increased' : 'Order Quantity Reduced';
-      notifyOrder({
-        product: existing.product,
-        quantity: validQty,
-        action,
-        customTitle: title,
-        customMessage: `${existing.product.name} quantity updated to ${validQty}`,
-      });
     }
 
     setItems((prev) =>
@@ -192,8 +149,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setItems([]);
   };
 
-  // Distinct product order count (badge does NOT increase on quantity + clicks)
-  const totalItems = items.length;
+  // Real-time cart items count reflecting in Header nav cart icon
+  const totalItems = useMemo(() => {
+    return items.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
+  }, [items]);
   const orderCount = items.length;
 
   const totalQuantity = useMemo(() => {
@@ -241,7 +200,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const calcTotal = customTotal !== undefined ? customTotal : itemsSubtotal + calcDelivery;
 
     const lines: string[] = [];
-    lines.push('Hello Vivaldi Foods! 🍯');
+    lines.push('Hello Vivaldi Foods! I would like to place an order via WhatsApp.');
     if (orderId) {
       lines.push(`I have placed order: *#${orderId}*`);
     } else {
